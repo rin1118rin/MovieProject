@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>上映映画変更 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 管理者画面の共通ヘッダー -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="admin-header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main class="container" id="main">
+    <p class="breadcrumb"><a href="admin-index.html">管理者メインメニュー</a> / 上映映画変更</p>
+    <div class="page-title"><div><h1>上映映画変更</h1></div></div>
+    
+    <section class="panel narrow"><h2>M001 / 星降る駅で</h2><!-- name属性を省略し、入力値をURLに含めず遷移します。 -->
+<form action="admin-movies.html" method="get"><label for="title">作品名</label><input id="title" type="text" value="星降る駅で" required maxlength="100"><!-- 映画のポスター画像を選択する欄 -->
+<label for="movie-image">映画の画像</label>
+<input id="movie-image" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="movie-image-help">
+<p id="movie-image-help" class="muted">ポスター画像を選択してください（JPG・PNG・WebP）。</p>
+<label for="duration">上映時間（分）</label><input id="duration" type="number" value="106" required min="1" max="600"><label for="genre">ジャンル</label><select id="genre"><option>ドラマ</option><option>青春</option><option>SF</option><option>アニメ</option><option>その他</option></select><label for="release">公開日</label><input id="release" type="date" value="2026-10-02" required><label for="status">公開状態</label><select id="status"><option>上映中</option><option>公開予定</option><option>上映終了</option></select><label for="description">作品紹介</label><textarea id="description" rows="5" required>小さな駅で再会した幼なじみの二人。届かなかった手紙をきっかけに、それぞれの時間が再び動き出す。</textarea><div class="actions"><button class="button" type="submit">変更</button><a class="button secondary" href="admin-movies.html">戻る</a></div></form></section>
+  </main>
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="admin-footer.html" title="共通フッター"></iframe>
+</body>
+</html>

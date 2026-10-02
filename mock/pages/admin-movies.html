@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>上映映画一覧 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 管理者画面の共通ヘッダー -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="admin-header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main class="container" id="main">
+    <p class="breadcrumb"><a href="admin-index.html">管理者メインメニュー</a> / 上映映画一覧</p>
+    <div class="page-title"><div><h1>上映映画一覧</h1></div></div>
+    
+    <section class="panel"><div class="section-heading"><h2>登録済みの上映映画</h2><a class="button" href="admin-movie-register.html">＋ 上映映画登録</a></div><div class="table-scroll"><table><thead><tr><th scope="col">作品ID</th><th scope="col">作品名</th><th scope="col">上映時間</th><th scope="col">状態</th><th scope="col">操作</th></tr></thead><tbody><tr><td>M001</td><td>星降る駅で</td><td>106分</td><td>上映中</td><td><a href="admin-movie-edit.html">編集 →</a></td></tr><tr><td>M002</td><td>海辺の約束</td><td>112分</td><td>上映中</td><td>—</td></tr><tr><td>M003</td><td>LAST ORBIT</td><td>124分</td><td>上映中</td><td>—</td></tr></tbody></table></div></section>
+  </main>
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="admin-footer.html" title="共通フッター"></iframe>
+</body>
+</html>

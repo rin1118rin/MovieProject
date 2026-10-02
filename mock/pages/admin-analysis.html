@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>分析一覧 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 管理者画面の共通ヘッダー -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="admin-header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main class="container" id="main">
+    <p class="breadcrumb"><a href="admin-index.html">管理者メインメニュー</a> / 分析一覧</p>
+    <div class="page-title"><div><h1>分析一覧</h1></div></div>
+    
+
+    <section class="panel"><h2>座席の予約割合分析</h2><p>2026年10月2日（金）／全作品・3上映回の合計</p>
+      <div class="admin-stats seat-totals"><div><small>全体の予約率</small><strong>52.8<span class="stat-unit">%</span></strong></div><div><small>予約済み／総座席数</small><strong>38<span class="stat-unit">／72席</span></strong></div><div><small>空席数</small><strong>34<span class="stat-unit">席</span></strong></div><div><small>予約率が高いエリア</small><strong>中央<span class="stat-unit">66.7%</span></strong></div></div>
+      <div class="occupancy-meter" role="img" aria-label="全72席のうち38席が予約済み。予約率52.8パーセント。"><span style="width:52.7778%"></span></div><p class="muted">予約済み 38席 ／ 空席 34席</p>
+    </section>
+    <div class="analysis-charts">
+      <section class="panel"><h2>エリア別の空席割合</h2><p class="muted">全空席34席のうち、各エリアが占める割合</p>
+        <!-- 円グラフの角度は空席数（8・12・14席）から算出。 -->
+        <div class="vacancy-pie" role="img" aria-label="空席の内訳：前方8席23.5%、中央12席35.3%、後方14席41.2%。"><span class="pie-front">23.5%</span><span class="pie-middle">35.3%</span><span class="pie-back">41.2%</span></div>
+        <ul class="chart-legend"><li><span class="swatch front"></span>前方（A列）<strong>8席・23.5%</strong></li><li><span class="swatch middle"></span>中央（B・C列）<strong>12席・35.3%</strong></li><li><span class="swatch back"></span>後方（D列）<strong>14席・41.2%</strong></li></ul>
+      </section>
+      <section class="panel"><h2>列ごとの予約率</h2><p class="muted">各列の総座席数に対する予約済み座席の割合</p>
+        <div class="row-chart" role="img" aria-label="A列55.6%、B列77.8%、C列55.6%、D列22.2%。"><div class="chart-scale"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div><div class="bar-plot"><div class="bar-column"><span class="bar-value">55.6%</span><div class="row-bar" style="height:55.55555555555556%"></div><span class="bar-name">A列</span></div><div class="bar-column"><span class="bar-value">77.8%</span><div class="row-bar" style="height:77.77777777777779%"></div><span class="bar-name">B列</span></div><div class="bar-column"><span class="bar-value">55.6%</span><div class="row-bar" style="height:55.55555555555556%"></div><span class="bar-name">C列</span></div><div class="bar-column"><span class="bar-value">22.2%</span><div class="row-bar" style="height:22.22222222222222%"></div><span class="bar-name">D列</span></div></div></div>
+        <p class="analysis-note">B列の予約率が最も高く、77.8%です。</p>
+      </section>
+    </div>
+    <section class="panel"><h2>エリア別の予約状況</h2><div class="table-scroll"><table><thead><tr><th scope="col">エリア</th><th scope="col">対象列</th><th scope="col">総座席数</th><th scope="col">予約済み</th><th scope="col">空席</th><th scope="col">予約率</th></tr></thead><tbody><tr><td>前方</td><td>A列</td><td>18席</td><td>10席</td><td>8席</td><td>55.6%</td></tr><tr><td>中央</td><td>B・C列</td><td>36席</td><td>24席</td><td>12席</td><td>66.7%</td></tr><tr><td>後方</td><td>D列</td><td>18席</td><td>4席</td><td>14席</td><td>22.2%</td></tr><tr><th scope="row">合計</th><td>A〜D列</td><td>72席</td><td>38席</td><td>34席</td><td>52.8%</td></tr></tbody></table></div><p class="muted">予約率＝予約済み座席数÷総座席数×100。各列6席×3上映回で集計しています。</p></section>
+    <details class="panel"><summary>列ごとの座席数を確認</summary><div class="table-scroll"><table><thead><tr><th>列</th><th>エリア</th><th>総座席数</th><th>予約済み</th><th>空席</th><th>予約率</th></tr></thead><tbody><tr><td>A列</td><td>前方</td><td>18席</td><td>10席</td><td>8席</td><td>55.6%</td></tr><tr><td>B列</td><td>中央</td><td>18席</td><td>14席</td><td>4席</td><td>77.8%</td></tr><tr><td>C列</td><td>中央</td><td>18席</td><td>10席</td><td>8席</td><td>55.6%</td></tr><tr><td>D列</td><td>後方</td><td>18席</td><td>4席</td><td>14席</td><td>22.2%</td></tr></tbody></table></div></details>
+    <a class="button secondary" href="admin-index.html">管理メニューへ</a>
+  </main>
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="admin-footer.html" title="共通フッター"></iframe>
+</body>
+</html>

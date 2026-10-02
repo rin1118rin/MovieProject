@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>お問い合わせ回答 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 管理者画面の共通ヘッダー -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="admin-header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main class="container" id="main">
+    <p class="breadcrumb"><a href="admin-index.html">管理者メインメニュー</a> / お問い合わせ回答</p>
+    <div class="page-title"><div><h1>お問い合わせ回答</h1></div></div>
+    
+    <section class="panel narrow"><h2>お問い合わせ内容</h2><dl class="details"><dt>受付番号</dt><dd>C001</dd><dt>お名前</dt><dd>シネマ 太郎</dd><dt>メール</dt><dd>cinema@example.com</dd><dt>お問い合わせ</dt><dd>予約したチケットの受け取り方法を教えてください。</dd></dl><!-- name属性を省略し、入力値をURLに含めず遷移します。 -->
+<form action="admin-contact-confirm.html" method="get"><label for="reply">回答内容</label><textarea id="reply" rows="7" required placeholder="回答を入力してください。"></textarea><div class="actions"><button class="button" type="submit">送信</button><a class="button secondary" href="admin-contacts.html">戻る</a></div></form></section>
+  </main>
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="admin-footer.html" title="共通フッター"></iframe>
+</body>
+</html>

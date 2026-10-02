@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>管理者登録 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 管理者画面の共通ヘッダー -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="admin-header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main class="container" id="main">
+    <p class="breadcrumb"><a href="admin-index.html">管理者メインメニュー</a> / 管理者登録</p>
+    <div class="page-title"><div><h1>管理者登録</h1></div></div>
+    
+    <section class="panel narrow"><h2>管理者情報を入力</h2><!-- name属性を省略し、入力値をURLに含めず遷移します。 -->
+<form action="admin-login.html" method="get"><label for="admin-name">管理者ID</label><input id="admin-name" type="text" required autocomplete="name"><label for="password">パスワード（8文字以上）</label><input id="password" type="password" required minlength="8" autocomplete="new-password"><div class="actions"><button class="button" type="submit">登録</button><a class="button secondary" href="admin-login.html">戻る</a></div></form></section>
+  </main>
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="admin-footer.html" title="共通フッター"></iframe>
+</body>
+</html>

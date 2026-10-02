@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>上映映画一覧 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 全画面共通のヘッダー。リンク先は同じフォルダーのHTMLです。 -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main id="main" class="container">
+    <p class="breadcrumb"><a href="index.html">ホーム</a> / 作品一覧</p>
+    <div class="page-title"><div><h1>作品一覧</h1></div></div>
+    <p>気になる作品を選んで、作品情報や上映時間をご覧ください。</p><div class="movie-grid"><article class="movie-card"><div class="poster blue" aria-label="星降る駅での文字ポスター"><span>CINEMA ORIGINAL</span><strong>星降る駅で</strong><small>夜空の下、もう一度あなたに会いたい。</small></div><div class="card-body"><p class="eyebrow">NOW SHOWING / ドラマ</p><h2>星降る駅で</h2><p>106分・日本語・2D</p><a class="text-link" href="movie-detail.html">作品詳細・チケット予約 →</a></div></article><article class="movie-card"><div class="poster sea" aria-label="海辺の約束の文字ポスター"><span>CINEMA ORIGINAL</span><strong>海辺の約束</strong><small>あの夏の続きを、探しに行こう。</small></div><div class="card-body"><p class="eyebrow">NOW SHOWING / 青春</p><h2>海辺の約束</h2><p>112分・日本語・2D</p><a class="text-link" href="movie-detail.html#film-2">作品詳細・チケット予約 →</a></div></article><article class="movie-card"><div class="poster space" aria-label="LAST ORBITの文字ポスター"><span>CINEMA ORIGINAL</span><strong>LAST ORBIT</strong><small>最後の軌道。その先にある希望。</small></div><div class="card-body"><p class="eyebrow">NOW SHOWING / SF</p><h2>LAST ORBIT</h2><p>124分・日本語・2D</p><a class="text-link" href="movie-detail.html#film-3">作品詳細・チケット予約 →</a></div></article></div>
+  </main>
+  <!-- 共通フッター -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="footer.html" title="共通フッター"></iframe>
+</body>
+</html>

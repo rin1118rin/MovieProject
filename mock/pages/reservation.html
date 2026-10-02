@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>予約登録 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 全画面共通のヘッダー。リンク先は同じフォルダーのHTMLです。 -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main id="main" class="container">
+    <p class="breadcrumb"><a href="index.html">ホーム</a> / 予約登録</p>
+    <div class="page-title"><div><h1>予約登録</h1></div></div>
+    <!-- actionで完了画面へ移動。入力値は送信しないようname属性を省略しています。 -->
+    <form action="reservation-complete.html" method="get">
+      <div class="booking-layout"><div>
+        <section class="panel"><label for="movie">作品</label><select id="movie"><option>星降る駅で</option><option>海辺の約束</option><option>LAST ORBIT</option></select><label for="showtime">① 上映日時</label><select id="showtime" required><option>2026年10月2日（金）10:00</option><option>2026年10月2日（金）14:00</option><option selected>2026年10月2日（金）19:30</option><option>2026年10月3日（土）09:30</option><option>2026年10月3日（土）13:00</option><option>2026年10月3日（土）18:00</option><option>2026年10月4日（日）10:30</option><option>2026年10月4日（日）15:00</option><option>2026年10月4日（日）20:00</option><option>2026年10月5日（月）11:00</option><option>2026年10月5日（月）14:30</option><option>2026年10月5日（月）19:00</option><option>2026年10月6日（火）10:00</option><option>2026年10月6日（火）13:30</option><option>2026年10月6日（火）18:30</option><option>2026年10月7日（水）09:30</option><option>2026年10月7日（水）14:00</option><option>2026年10月7日（水）19:30</option><option>2026年10月8日（木）11:30</option><option>2026年10月8日（木）15:30</option><option>2026年10月8日（木）20:00</option></select></section>
+        <section class="panel"><h2>② 座席を選択</h2><p class="muted">赤：選択中 / 白：選択可能 / 灰：販売済み</p><div class="seats"><label class="seat"><input type="checkbox" aria-label="座席A1"><span>A1</span></label><label class="seat"><input type="checkbox" aria-label="座席A2"><span>A2</span></label><label class="seat"><input type="checkbox" aria-label="座席A3 販売済み" disabled><span>A3</span></label><label class="seat"><input type="checkbox" aria-label="座席A4 販売済み" disabled><span>A4</span></label><label class="seat"><input type="checkbox" aria-label="座席A5"><span>A5</span></label><label class="seat"><input type="checkbox" aria-label="座席A6"><span>A6</span></label>
+            <label class="seat"><input type="checkbox" aria-label="座席B1"><span>B1</span></label><label class="seat"><input type="checkbox" aria-label="座席B2"><span>B2</span></label><label class="seat"><input type="checkbox" aria-label="座席B3" checked><span>B3</span></label><label class="seat"><input type="checkbox" aria-label="座席B4" checked><span>B4</span></label><label class="seat"><input type="checkbox" aria-label="座席B5"><span>B5</span></label><label class="seat"><input type="checkbox" aria-label="座席B6"><span>B6</span></label>
+            <label class="seat"><input type="checkbox" aria-label="座席C1"><span>C1</span></label><label class="seat"><input type="checkbox" aria-label="座席C2"><span>C2</span></label><label class="seat"><input type="checkbox" aria-label="座席C3"><span>C3</span></label><label class="seat"><input type="checkbox" aria-label="座席C4"><span>C4</span></label><label class="seat"><input type="checkbox" aria-label="座席C5 販売済み" disabled><span>C5</span></label><label class="seat"><input type="checkbox" aria-label="座席C6"><span>C6</span></label>
+            <label class="seat"><input type="checkbox" aria-label="座席D1"><span>D1</span></label><label class="seat"><input type="checkbox" aria-label="座席D2"><span>D2</span></label><label class="seat"><input type="checkbox" aria-label="座席D3"><span>D3</span></label><label class="seat"><input type="checkbox" aria-label="座席D4"><span>D4</span></label><label class="seat"><input type="checkbox" aria-label="座席D5"><span>D5</span></label><label class="seat"><input type="checkbox" aria-label="座席D6"><span>D6</span></label></div><p class="muted">クリックで選択・解除できます。</p></section>
+        <section class="panel"><h2>③ 券種・枚数</h2><div class="ticket-row"><label for="adult">一般 <strong>1,900円</strong></label><select id="adult"><option>0枚</option><option>1枚</option><option selected>2枚</option><option>3枚</option><option>4枚</option></select></div><div class="ticket-row"><label for="student">大学生 <strong>1,500円</strong></label><select id="student"><option>0枚</option><option>1枚</option><option>2枚</option><option>3枚</option><option>4枚</option></select></div></section>
+        <section class="panel"><h2>④ 支払い方法</h2><label class="choice"><input type="radio" name="payment" value="counter" checked> 窓口</label><label class="choice"><input type="radio" name="payment" value="card"> クレジットカード</label></section>
+      </div><aside class="panel booking-summary"><h2>⑤ 予約内容確認</h2><dl class="details"><dt>作品</dt><dd>星降る駅で</dd><dt>上映日時</dt><dd>10月2日（金）19:30</dd><dt>座席</dt><dd>B3・B4</dd><dt>券種</dt><dd>一般 × 2枚</dd><dt>支払い</dt><dd>窓口</dd></dl><div class="total"><span>合計</span><strong>3,800<small>円</small></strong></div><label class="choice"><input type="checkbox" required> 内容を確認しました</label><button class="button full" type="submit">予約</button><a href="schedule.html">上映スケジュールに戻る</a></aside></div>
+    </form>
+  </main>
+  <!-- 共通フッター -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="footer.html" title="共通フッター"></iframe>
+</body>
+</html>

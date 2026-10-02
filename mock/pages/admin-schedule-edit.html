@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>上映スケジュール変更 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 管理者画面の共通ヘッダー -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="admin-header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main class="container" id="main">
+    <p class="breadcrumb"><a href="admin-index.html">管理者メインメニュー</a> / 上映スケジュール変更</p>
+    <div class="page-title"><div><h1>上映スケジュール変更</h1></div></div>
+    
+    <section class="panel narrow"><h2>S001 / 上映情報を変更</h2><!-- name属性を省略し、入力値をURLに含めず遷移します。 -->
+<form action="admin-schedules.html" method="get"><label for="movie">上映作品</label><select id="movie"><option>星降る駅で</option><option>海辺の約束</option><option>LAST ORBIT</option></select><label for="date">上映日</label><input id="date" type="date" value="2026-10-02" required><label for="start">上映開始時刻</label><input id="start" type="time" value="19:30" required><label for="sales">販売状態</label><select id="sales"><option>販売中</option><option>販売停止</option><option>販売終了</option></select><div class="actions"><button class="button" type="submit">変更</button><a class="button secondary" href="admin-schedules.html">戻る</a></div></form></section>
+  </main>
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="admin-footer.html" title="共通フッター"></iframe>
+</body>
+</html>

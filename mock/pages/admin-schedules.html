@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>上映スケジュール一覧 | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 管理者画面の共通ヘッダー -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="admin-header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main class="container" id="main">
+    <p class="breadcrumb"><a href="admin-index.html">管理者メインメニュー</a> / 上映スケジュール一覧</p>
+    <div class="page-title"><div><h1>上映スケジュール一覧</h1></div></div>
+    
+    <!-- 日付を選ぶとCSSで対応する一覧だけを表示します。 -->
+<fieldset class="schedule-picker"><legend>上映日を選択</legend>
+<input class="date-choice" type="radio" name="schedule-day" id="day-0" checked><label class="date-label" for="day-0"><strong>10/2</strong><span>（金）</span></label>
+<input class="date-choice" type="radio" name="schedule-day" id="day-1"><label class="date-label" for="day-1"><strong>10/3</strong><span>（土）</span></label>
+<input class="date-choice" type="radio" name="schedule-day" id="day-2"><label class="date-label" for="day-2"><strong>10/4</strong><span>（日）</span></label>
+<input class="date-choice" type="radio" name="schedule-day" id="day-3"><label class="date-label" for="day-3"><strong>10/5</strong><span>（月）</span></label>
+<input class="date-choice" type="radio" name="schedule-day" id="day-4"><label class="date-label" for="day-4"><strong>10/6</strong><span>（火）</span></label>
+<input class="date-choice" type="radio" name="schedule-day" id="day-5"><label class="date-label" for="day-5"><strong>10/7</strong><span>（水）</span></label>
+<input class="date-choice" type="radio" name="schedule-day" id="day-6"><label class="date-label" for="day-6"><strong>10/8</strong><span>（木）</span></label>
+<div class="date-panels">
+<div class="date-panel date-panel-0"><h2 class="selected-date">2026年10月2日（金）</h2>
+<section class="panel"><div class="section-heading"><h2>上映スケジュール</h2><a class="button" href="admin-schedule-register.html">＋ 上映スケジュール登録</a></div><div class="table-scroll"><table><thead><tr><th>上映ID</th><th>作品</th><th>開始時刻</th><th>予約数</th><th>操作</th></tr></thead><tbody><tr><td>S001</td><td>星降る駅で</td><td>10:00</td><td>12 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S002</td><td>海辺の約束</td><td>14:00</td><td>8 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S003</td><td>LAST ORBIT</td><td>19:30</td><td>18 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr></tbody></table></div></section>
+</div>
+<div class="date-panel date-panel-1"><h2 class="selected-date">2026年10月3日（土）</h2>
+<section class="panel"><div class="section-heading"><h2>上映スケジュール</h2><a class="button" href="admin-schedule-register.html">＋ 上映スケジュール登録</a></div><div class="table-scroll"><table><thead><tr><th>上映ID</th><th>作品</th><th>開始時刻</th><th>予約数</th><th>操作</th></tr></thead><tbody><tr><td>S004</td><td>星降る駅で</td><td>09:30</td><td>12 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S005</td><td>海辺の約束</td><td>13:00</td><td>8 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S006</td><td>LAST ORBIT</td><td>18:00</td><td>18 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr></tbody></table></div></section>
+</div>
+<div class="date-panel date-panel-2"><h2 class="selected-date">2026年10月4日（日）</h2>
+<section class="panel"><div class="section-heading"><h2>上映スケジュール</h2><a class="button" href="admin-schedule-register.html">＋ 上映スケジュール登録</a></div><div class="table-scroll"><table><thead><tr><th>上映ID</th><th>作品</th><th>開始時刻</th><th>予約数</th><th>操作</th></tr></thead><tbody><tr><td>S007</td><td>星降る駅で</td><td>10:30</td><td>12 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S008</td><td>海辺の約束</td><td>15:00</td><td>8 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S009</td><td>LAST ORBIT</td><td>20:00</td><td>18 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr></tbody></table></div></section>
+</div>
+<div class="date-panel date-panel-3"><h2 class="selected-date">2026年10月5日（月）</h2>
+<section class="panel"><div class="section-heading"><h2>上映スケジュール</h2><a class="button" href="admin-schedule-register.html">＋ 上映スケジュール登録</a></div><div class="table-scroll"><table><thead><tr><th>上映ID</th><th>作品</th><th>開始時刻</th><th>予約数</th><th>操作</th></tr></thead><tbody><tr><td>S010</td><td>星降る駅で</td><td>11:00</td><td>12 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S011</td><td>海辺の約束</td><td>14:30</td><td>8 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S012</td><td>LAST ORBIT</td><td>19:00</td><td>18 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr></tbody></table></div></section>
+</div>
+<div class="date-panel date-panel-4"><h2 class="selected-date">2026年10月6日（火）</h2>
+<section class="panel"><div class="section-heading"><h2>上映スケジュール</h2><a class="button" href="admin-schedule-register.html">＋ 上映スケジュール登録</a></div><div class="table-scroll"><table><thead><tr><th>上映ID</th><th>作品</th><th>開始時刻</th><th>予約数</th><th>操作</th></tr></thead><tbody><tr><td>S013</td><td>星降る駅で</td><td>10:00</td><td>12 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S014</td><td>海辺の約束</td><td>13:30</td><td>8 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S015</td><td>LAST ORBIT</td><td>18:30</td><td>18 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr></tbody></table></div></section>
+</div>
+<div class="date-panel date-panel-5"><h2 class="selected-date">2026年10月7日（水）</h2>
+<section class="panel"><div class="section-heading"><h2>上映スケジュール</h2><a class="button" href="admin-schedule-register.html">＋ 上映スケジュール登録</a></div><div class="table-scroll"><table><thead><tr><th>上映ID</th><th>作品</th><th>開始時刻</th><th>予約数</th><th>操作</th></tr></thead><tbody><tr><td>S016</td><td>星降る駅で</td><td>09:30</td><td>12 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S017</td><td>海辺の約束</td><td>14:00</td><td>8 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S018</td><td>LAST ORBIT</td><td>19:30</td><td>18 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr></tbody></table></div></section>
+</div>
+<div class="date-panel date-panel-6"><h2 class="selected-date">2026年10月8日（木）</h2>
+<section class="panel"><div class="section-heading"><h2>上映スケジュール</h2><a class="button" href="admin-schedule-register.html">＋ 上映スケジュール登録</a></div><div class="table-scroll"><table><thead><tr><th>上映ID</th><th>作品</th><th>開始時刻</th><th>予約数</th><th>操作</th></tr></thead><tbody><tr><td>S019</td><td>星降る駅で</td><td>11:30</td><td>12 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S020</td><td>海辺の約束</td><td>15:30</td><td>8 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr><tr><td>S021</td><td>LAST ORBIT</td><td>20:00</td><td>18 / 24席</td><td><a href="admin-schedule-edit.html">編集</a> / <a href="admin-reservations.html">予約管理</a></td></tr></tbody></table></div></section>
+</div>
+</div></fieldset>
+  </main>
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="admin-footer.html" title="共通フッター"></iframe>
+</body>
+</html>

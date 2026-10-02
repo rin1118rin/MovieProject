@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>お問い合わせ | O-HARAFILM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <!-- 全画面共通のヘッダー。リンク先は同じフォルダーのHTMLです。 -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame header-frame" src="header.html" title="共通ヘッダー・メニュー"></iframe>
+  <main id="main" class="container">
+    <p class="breadcrumb"><a href="index.html">ホーム</a> / お問い合わせ</p>
+    <div class="page-title"><div><h1>お問い合わせ</h1></div></div>
+    <section class="panel narrow"><form action="contact-confirm.html"><label for="name">お名前</label><input id="name" placeholder="例：シネマ 太郎" required><label for="email">メールアドレス</label><input id="email" type="email" placeholder="例：cinema@example.com" required><label for="category">お問い合わせ種別</label><select id="category"><option>チケット・予約について</option><option>上映作品について</option><option>その他</option></select><label for="message">お問い合わせ内容</label><textarea id="message" rows="6" placeholder="お問い合わせ内容を入力してください。" required></textarea><button class="button full" type="submit">送信</button></form></section>
+  </main>
+  <!-- 共通フッター -->
+  <!-- HTMLだけで共通ファイルを表示します。見た目はstyle.cssで設定。 -->
+  <iframe class="common-frame footer-frame" src="footer.html" title="共通フッター"></iframe>
+</body>
+</html>
