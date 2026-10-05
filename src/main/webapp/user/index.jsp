@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -117,48 +119,72 @@
             </div>
         </section>
 
-        <!-- 上映作品 -->
-        <section>
-            <h2>上映中の作品</h2>
-
-            <div class="movie-list">
-
-                <article class="movie-card">
-                    <h3>星降る駅で</h3>
-                    <p>ドラマ ／ 106分</p>
-                    <a class="button"
-                       href="${pageContext.request.contextPath}/movies/detail?id=1">
-                        作品詳細
-                    </a>
-                </article>
-
-                <article class="movie-card">
-                    <h3>海辺の約束</h3>
-                    <p>青春 ／ 112分</p>
-                    <a class="button"
-                       href="${pageContext.request.contextPath}/movies/detail?id=2">
-                        作品詳細
-                    </a>
-                </article>
-
-                <article class="movie-card">
-                    <h3>LAST ORBIT</h3>
-                    <p>SF ／ 124分</p>
-                    <a class="button"
-                       href="${pageContext.request.contextPath}/movies/detail?id=3">
-                        作品詳細
-                    </a>
-                </article>
-
-            </div>
-
-            <p>
-                <a href="${pageContext.request.contextPath}/movies">
-                    上映映画一覧へ →
-                </a>
-            </p>
+        <!-- 広告バナー -->
+        <section class="ad-banner">
+            <img src="${pageContext.request.contextPath}/images/banners/banner6.png"
+                alt="O-HARAFILM お知らせ">
         </section>
 
+        <!-- 上映中映画ランキング
+        後からc:forEachに変更 -->
+        <section class="ranking-section">
+
+            <h2>上映中映画ランキング</h2>
+
+            <div class="ranking-list">
+
+                <!-- 1位 -->
+                <article class="ranking-card">
+                    <div class="ranking-number">1</div>
+                        <img src="${pageContext.request.contextPath}/images/movies/ますお.png"
+                            alt="ますお">
+
+                        <div class="ranking-info">
+                            <h3>ますお</h3>
+
+                            <a class="ranking-button"
+                            href="${pageContext.request.contextPath}/movies/detail?id=1">
+                                作品詳細
+                            </a>
+                        </div>
+                </article>
+
+
+                <!-- 2位 -->
+                <article class="ranking-card">
+                    <div class="ranking-number">2</div>
+
+                    <img src="${pageContext.request.contextPath}/images/movies/エイリアン.png"
+                        alt="エイリアン">
+                    <div class="ranking-info">
+                        <h3>エイリアン</h3>
+
+                        <a class="ranking-button"
+                            href="${pageContext.request.contextPath}/movies/detail?id=2">
+                                作品詳細
+                        </a>
+                    </div>
+                </article>
+
+
+                <!-- 3位 -->
+                <article class="ranking-card">
+                    <div class="ranking-number">3</div>
+
+                    <img src="${pageContext.request.contextPath}/images/movies/カンガルーマン.png"
+                        alt="カンガルーマン">
+
+                    <div class="ranking-info">
+                        <h3>カンガルーマン</h3>
+
+                        <a class="ranking-button"
+                        href="${pageContext.request.contextPath}/movies/detail?id=3">
+                            作品詳細
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
     </main>
 
     <script src="${pageContext.request.contextPath}/js/slider.js"></script>
