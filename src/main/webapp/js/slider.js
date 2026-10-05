@@ -2,13 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const slider = document.querySelector(".promotion-list");
     const slides = document.querySelectorAll(".promotion-item");
-
     const prevButton = document.querySelector(".slider-prev");
     const nextButton = document.querySelector(".slider-next");
-
     const dotsContainer = document.querySelector(".slider-dots");
 
-    // 必要なHTMLがなかったら終了
     if (
         !slider ||
         slides.length === 0 ||
@@ -16,16 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
         !nextButton ||
         !dotsContainer
     ) {
-        console.error("スライダーに必要な要素が見つかりません。");
         return;
     }
 
     let currentIndex = 0;
+    let autoSlide;
 
 
-    /* =========================
-       ドットを作成
-       ========================= */
+    // =========================
+    // ドット作成
+    // =========================
 
     slides.forEach(function (slide, index) {
 
@@ -34,34 +31,28 @@ document.addEventListener("DOMContentLoaded", function () {
         dot.type = "button";
         dot.classList.add("slider-dot");
 
-        dot.setAttribute(
-            "aria-label",
-            (index + 1) + "枚目のスライドを表示"
-        );
-
         if (index === 0) {
             dot.classList.add("active");
         }
 
         dot.addEventListener("click", function () {
-
             currentIndex = index;
-
             moveSlider();
 
+            // 手動操作したらタイマーをリセット
+            resetAutoSlide();
         });
 
         dotsContainer.appendChild(dot);
-
     });
 
 
     const dots = document.querySelectorAll(".slider-dot");
 
 
-    /* =========================
-       スライド移動
-       ========================= */
+    // =========================
+    // スライド移動
+    // =========================
 
     function moveSlider() {
 
@@ -76,9 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
-       ドット更新
-       ========================= */
+    // =========================
+    // ドット更新
+    // =========================
 
     function updateDots() {
 
@@ -90,11 +81,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
-       次へ
-       ========================= */
+    // =========================
+    // 次へ
+    // =========================
 
-    nextButton.addEventListener("click", function () {
+    function nextSlide() {
 
         currentIndex++;
 
@@ -103,13 +94,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         moveSlider();
+    }
+
+
+    // =========================
+    // 右矢印
+    // =========================
+
+    nextButton.addEventListener("click", function () {
+
+        nextSlide();
+        resetAutoSlide();
 
     });
 
 
-    /* =========================
-       前へ
-       ========================= */
+    // =========================
+    // 左矢印
+    // =========================
 
     prevButton.addEventListener("click", function () {
 
@@ -120,7 +122,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         moveSlider();
+        resetAutoSlide();
 
     });
+
+
+    // =========================
+    // 自動スライド
+    // =========================
+
+    function startAutoSlide() {
+
+        autoSlide = setInterval(function () {
+            nextSlide();
+        }, 4000); // 4秒
+
+    }
+
+
+    // =========================
+    // タイマーをリセット
+    // =========================
+
+    function resetAutoSlide() {
+
+        clearInterval(autoSlide);
+        startAutoSlide();
+
+    }
+
+
+    // 自動スライド開始
+    startAutoSlide();
 
 });
