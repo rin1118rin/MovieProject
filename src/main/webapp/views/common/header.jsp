@@ -1,38 +1,33 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 
 <!-- 共通ヘッダー -->
 <header class="header">
-    <div class="header-inner">
+    <a class="logo"
+       href="${pageContext.request.contextPath}/home">
+        <span class="logo-mark">O</span>
+        <span>-HARAFILM</span>
+    </a>
 
-        <!-- ロゴ -->
-        <a class="logo"
-           href="${pageContext.request.contextPath}/home">
-            <span class="logo-mark">O</span>
-            <span>-HARAFILM</span>
+    <nav aria-label="メインメニュー">
+        <a href="${pageContext.request.contextPath}/schedule">
+            上映スケジュール
         </a>
 
-        <!-- メニュー -->
-        <nav aria-label="メインメニュー">
-            <a href="">
-                上映スケジュール
-            </a>
+        <a href="${pageContext.request.contextPath}/movies">
+            作品一覧
+        </a>
 
-            <a href="">
-                作品一覧
-            </a>
+        <a href="${pageContext.request.contextPath}/reservation">
+            予約
+        </a>
 
-            <a href="">
-                予約
-            </a>
+        <a href="${pageContext.request.contextPath}/reservation/cancel">
+            予約取消
+        </a>
 
-            <a href="">
-                予約取消
-            </a>
-
-            <a href="">
-                お問い合わせ
-            </a>
-        </nav>
-
-    </div>
+        <a href="${pageContext.request.contextPath}/contact">
+            お問い合わせ
+        </a>
+    </nav>
 </header>

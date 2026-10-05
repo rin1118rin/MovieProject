@@ -1,0 +1,437 @@
+.user-main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   スライダー全体
+   ======================================== */
+
+.promotion {
+    position: relative;
+    width: 100%;
+    margin: 30px auto 50px;
+    padding-bottom: 30px;
+}
+
+/* 画像表示エリア */
+.promotion-list {
+    display: flex;
+
+    width: 100%;
+    overflow: hidden;
+
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+
+    /* JSの計算を簡単にするためgapなし */
+    gap: 0;
+}
+
+/* 1画面に画像1枚 */
+.promotion-item {
+    position: relative;
+
+    flex: 0 0 100%;
+    width: 100%;
+    height: 400px;
+
+    overflow: hidden;
+
+    background-color: #111;
+    color: white;
+
+    text-decoration: none;
+
+    scroll-snap-align: start;
+
+    box-sizing: border-box;
+}
+
+/* バナー画像 */
+.promotion-item img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+/* 画像を少し暗くする */
+.promotion-item::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.7),
+        transparent 60%
+    );
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   バナー内の文字
+   ======================================== */
+
+.promotion-text {
+    position: absolute;
+
+    left: 80px;
+    bottom: 35px;
+
+    z-index: 2;
+}
+
+.promotion-text h2 {
+    margin: 0 0 8px;
+
+    font-size: 30px;
+}
+
+.promotion-text p {
+    margin: 0 0 12px;
+
+    font-size: 15px;
+}
+
+.promotion-text span {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   左右の矢印
+   ======================================== */
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    width: 50px;
+    height: 70px;
+
+    padding: 0;
+    border: none;
+
+    /* 半透明 */
+    background-color: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.9);
+
+    font-size: 30px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+/* 左：画像の内側 */
+.slider-prev {
+    left: 0;
+}
+
+/* 右：画像の内側 */
+.slider-next {
+    right: 0;
+}
+
+/* マウスを乗せたとき少し濃く */
+.slider-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+/* ==============================
+   インジケーター
+   ============================== */
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+    margin-top: 12px;
+
+    width: 100%;
+}
+
+/* 通常の点 */
+.slider-dot {
+    display: block;
+
+    width: 10px;
+    height: 10px;
+
+    min-width: 10px;
+    min-height: 10px;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #aaa;
+
+    cursor: pointer;
+}
+
+/* 現在の画像 */
+.slider-dot.active {
+    width: 10px;
+    height: 10px;
+
+    background-color: #b40000;
+
+    transform: none;
+}
+
+/* ========================================
+   映画を楽しむパネル
+   ======================================== */
+
+.panel {
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.panel h1 {
+    margin: 0 0 25px;
+    text-align: center;
+    font-size: 26px;
+    color: #222;
+}
+
+.home-menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.home-menu .button {
+    width: 220px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+
+    text-align: center;
+    text-decoration: none;
+
+    background-color: #b40000;
+    color: #fff;
+
+    border-radius: 4px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.home-menu .button:hover {
+    background-color: #8d0000;
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   上映中の作品 見出し
+   ======================================== */
+
+.user-main > section > h2 {
+    margin: 0 0 25px;
+    padding-left: 15px;
+    border-left: 5px solid #b40000;
+    font-size: 24px;
+    color: #222;
+}
+
+/* ========================================
+   映画一覧
+   ======================================== */
+
+.movie-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* ========================================
+   映画カード
+   ======================================== */
+
+.movie-card {
+    padding: 25px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.movie-card h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #222;
+}
+
+.movie-card p {
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* ========================================
+   映画カードのボタン
+   ======================================== */
+
+.movie-card .button {
+    display: inline-block;
+    padding: 10px 20px;
+
+    background-color: #b40000;
+    color: #fff;
+
+    text-decoration: none;
+    border-radius: 4px;
+
+    font-size: 14px;
+
+    transition: background-color 0.2s ease;
+}
+
+.movie-card .button:hover {
+    background-color: #8d0000;
+}
+
+/* ========================================
+   上映映画一覧リンク
+   ======================================== */
+
+.movie-list + p {
+    margin-top: 25px;
+    text-align: right;
+}
+
+.movie-list + p a {
+    color: #b40000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.movie-list + p a:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   タブレット
+   ======================================== */
+
+@media (max-width: 900px) {
+    .promotion-item {
+        flex: 0 0 calc((100% - 15px) / 2);
+        height: 280px;
+    }
+
+    .slider-arrow {
+        top: 110px;
+    }
+
+    .movie-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home-menu {
+        flex-wrap: wrap;
+    }
+}
+
+/* ========================================
+   スマートフォン
+   ======================================== */
+
+@media (max-width: 600px) {
+    .user-main {
+        padding: 20px 15px 40px;
+    }
+
+    .promotion-list {
+        gap: 10px;
+    }
+
+    .promotion-item {
+        flex: 0 0 100%;
+        height: 240px;
+    }
+
+    .promotion-text {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+    }
+
+    .promotion-text h2 {
+        font-size: 21px;
+    }
+
+    .promotion-text p {
+        font-size: 12px;
+    }
+
+    .slider-arrow {
+        top: 92px;
+        width: 38px;
+        height: 55px;
+        font-size: 24px;
+    }
+
+    .slider-prev {
+        left: 6px;
+    }
+
+    .slider-next {
+        right: 6px;
+    }
+
+    .panel {
+        padding: 25px 15px;
+    }
+
+    .panel h1 {
+        font-size: 23px;
+    }
+
+    .home-menu {
+        flex-direction: column;
+    }
+
+    .home-menu .button {
+        width: 100%;
+    }
+
+    .movie-list {
+        grid-template-columns: 1fr;
+    }
+
+    .user-main > section > h2 {
+        font-size: 21px;
+    }
+}

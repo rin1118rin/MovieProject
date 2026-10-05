@@ -1,0 +1,335 @@
+/* =========================
+   全体の共通設定
+========================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    color: #222;
+    font-family: "Meiryo", sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+main {
+    flex: 1;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.5;
+}
+
+h1 {
+    margin: 0 0 25px;
+    font-size: 28px;
+}
+
+h2 {
+    margin: 0 0 20px;
+    font-size: 22px;
+}
+
+h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+}
+
+p {
+    margin: 0 0 16px;
+}
+
+a {
+    color: inherit;
+    text-underline-offset: 4px;
+}
+
+a:hover {
+    color: #c51837;
+}
+
+img {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+:focus-visible {
+    outline: 3px solid #247ac4;
+    outline-offset: 3px;
+}
+
+/* =========================
+   ヘッダー
+========================= */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 22px 40px;
+    background-color: #121315;
+    border-bottom: 4px solid #c51837;
+    color: white;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+}
+
+.header a:hover {
+    color: #ffafbd;
+}
+
+/* ロゴ */
+.header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.header .logo-mark {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #c51837;
+    color: white;
+    letter-spacing: 0;
+}
+
+/* メニュー */
+.header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 25px;
+}
+
+.header nav a {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* =========================
+   フッター
+========================= */
+.footer {
+    margin-top: 40px;
+    padding: 30px 20px;
+    background-color: #121315;
+    color: white;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 13px;
+}
+
+.footer a {
+    display: inline-block;
+    margin: 5px 12px;
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #ffafbd;
+}
+
+/* =========================
+   共通の白いボックス
+========================= */
+.panel {
+    margin-bottom: 25px;
+    padding: 25px;
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+.muted {
+    color: #666;
+    font-size: 13px;
+}
+
+.breadcrumb {
+    margin-bottom: 25px;
+    color: #666;
+    font-size: 13px;
+}
+
+/* =========================
+   ボタン
+========================= */
+.button {
+    display: inline-block;
+    padding: 11px 25px;
+    border: 1px solid #c51837;
+    background-color: #c51837;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #a5122d;
+    border-color: #a5122d;
+    color: white;
+}
+
+.button.secondary {
+    border-color: #aaa;
+    background-color: white;
+    color: #222;
+}
+
+.button.secondary:hover {
+    background-color: #eee;
+}
+
+.button.full {
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+/* =========================
+   入力フォーム
+========================= */
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="file"],
+select,
+textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    background-color: white;
+    color: #222;
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #c51837;
+    vertical-align: middle;
+}
+
+.choice {
+    display: block;
+    margin: 15px 0;
+    font-weight: normal;
+}
+
+input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 8px 12px;
+    border: 1px solid #aaa;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+/* =========================
+   一覧表
+========================= */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #eee;
+}
+
+/* =========================
+   スマートフォン対応
+========================= */
+@media (max-width: 900px) {
+    .header {
+        flex-wrap: wrap;
+        gap: 18px;
+        padding: 20px;
+    }
+
+    .header nav {
+        gap: 10px 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .header .logo {
+        font-size: 22px;
+    }
+
+    .header nav a {
+        font-size: 12px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+}
