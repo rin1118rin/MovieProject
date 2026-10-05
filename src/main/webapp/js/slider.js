@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         autoSlide = setInterval(function () {
             nextSlide();
-        }, 5000); // 5秒
+        }, 4000); // 4秒
 
     }
 
