@@ -1,0 +1,104 @@
+/* 管理者用の本文 */
+.admin-main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+
+.admin-main h1 {
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+/* 管理メニュー */
+.admin-main .admin-menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.admin-main .admin-menu a {
+    display: block;
+    padding: 25px;
+    background-color: white;
+    border: 1px solid #ddd;
+    color: #222;
+    text-decoration: none;
+}
+
+.admin-main .admin-menu a:hover {
+    border-color: #c51837;
+    color: #c51837;
+}
+
+/* 映画・予約などの一覧表 */
+.admin-main .table-wrap {
+    overflow-x: auto;
+}
+
+.admin-main table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.admin-main th,
+.admin-main td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.admin-main th {
+    background-color: #eeeeee;
+}
+
+/* 登録・変更フォーム */
+.admin-main .admin-form {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.admin-main label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.admin-main input:not([type="checkbox"]):not([type="radio"]),
+.admin-main select,
+.admin-main textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    font: inherit;
+}
+
+/* 登録・変更などのボタン */
+.admin-main .button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #c51837;
+    color: white;
+    border: none;
+    text-decoration: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.admin-main .button:hover {
+    background-color: #a5122d;
+}
+
+@media (max-width: 700px) {
+    .admin-main .admin-menu {
+        grid-template-columns: 1fr;
+    }
+}

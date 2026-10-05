@@ -1,0 +1,80 @@
+/* ユーザー用の本文 */
+.user-main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+
+.user-main h1 {
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+/* 作品一覧 */
+.user-main .movie-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.user-main .movie-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.user-main .movie-card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+/* 予約・お問い合わせの入力欄 */
+.user-main .panel {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.user-main label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.user-main input[type="text"],
+.user-main input[type="email"],
+.user-main select,
+.user-main textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    font: inherit;
+}
+
+/* 予約などのボタン */
+.user-main .button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #c51837;
+    color: white;
+    border: none;
+    text-decoration: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.user-main .button:hover {
+    background-color: #a5122d;
+}
+
+/* スマートフォンでは縦並び */
+@media (max-width: 700px) {
+    .user-main .movie-list {
+        grid-template-columns: 1fr;
+    }
+}
