@@ -7,6 +7,7 @@ public class ReservationSeat implements Serializable {
     private int reservationSeatId;
     private int reservationId;
     private String seatNo;
+    private Schedule schedule;
 
     public int getReservationSeatId(){
         return reservationSeatId;
@@ -25,5 +26,11 @@ public class ReservationSeat implements Serializable {
     }
     public void setSeatNo(String seatNo){
         this.seatNo = seatNo;
+    }
+    public Schedule getSchedule() {
+    	return schedule;
+    }
+    public void setSchedule(Schedule schedule) {
+    	this.schedule = schedule;
     }
 }

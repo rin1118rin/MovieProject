@@ -24,7 +24,7 @@ public class ReservationSeatDao extends Dao {
         try (Connection con = getConnection();
              PreparedStatement st = con.prepareStatement(sql, new String[] {"RESERVATION_SEAT_ID"})) {
             st.setInt(1, seat.getReservationId());
-            st.setInt(2, seat.getScheduleId());
+            st.setInt(2, seat.getSchedule().getScheduleId());
             st.setString(3, seat.getSeatNo());
             int count = st.executeUpdate();
             if (count > 0) {

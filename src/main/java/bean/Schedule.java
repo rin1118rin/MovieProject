@@ -1,7 +1,7 @@
 package bean;
  
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
  
 public class Schedule implements Serializable {
     private int scheduleId;
@@ -26,7 +26,7 @@ public class Schedule implements Serializable {
     public int getScreenNo(){
         return screenNo;
     }
-    public void detScreenNo(int screenNo){
+    public void setScreenNo(int screenNo){
         this.screenNo = screenNo;
     }
     public Date getStartDatetime(){
@@ -38,7 +38,7 @@ public class Schedule implements Serializable {
     public Date getEndDatetime(){
         return endDatetime;
     }
-    public void getEndDatetime(Date endDatetime){
+    public void setEndDatetime(Date endDatetime){
         this.endDatetime = endDatetime;
     }
     public String getScreeningFormat(){

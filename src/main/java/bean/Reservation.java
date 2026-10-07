@@ -1,7 +1,7 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Reservation implements Serializable {
     private int reservationId;
@@ -17,11 +17,11 @@ public class Reservation implements Serializable {
     public void setReservationId(int reservationId){
         this.reservationId = reservationId;
     }
-    public int getSheduleId(){
+    public int getScheduleId(){
         return scheduleId;
     }
-    public void setSheduleId(int sheduleId){
-        this.scheduleId = sheduleId;
+    public void setScheduleId(int scheduleId){
+        this.scheduleId = scheduleId;
     }
     public String getTicketType(){
         return ticketType;
@@ -38,7 +38,7 @@ public class Reservation implements Serializable {
     public Date getReservedAt(){
         return reservedAt;
     }
-    public void serReservedAt(Date reservedAt){
+    public void setReservedAt(Date reservedAt){
         this.reservedAt = reservedAt;
     }
     public String getStatus(){
