@@ -1,7 +1,7 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Movie implements Serializable {
 	
@@ -83,12 +83,12 @@ public class Movie implements Serializable {
 		this.duration = duration;
 	}
 	
-	public void setReleaseStartDate(Date releaseStartDate) {
-		this.releaseStartDate = releaseStartDate;
+	public void setReleaseStartDate(java.util.Date releaseStartDate2) {
+		this.releaseStartDate = (Date) releaseStartDate2;
 	}
 	
-	public void setReleaseEndDate(Date releaseEndDate) {
-		this.releaseEndDate = releaseEndDate;
+	public void setReleaseEndDate(java.util.Date releaseEndDate2) {
+		this.releaseEndDate = (Date) releaseEndDate2;
 	}
 	
 	public void setGenre(String genre) {

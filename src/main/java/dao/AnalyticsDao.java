@@ -27,15 +27,15 @@ public class AnalyticsDao extends Dao {
      */
     public List<Analytics> getOccupancyRate() throws Exception {
         String sql = "SELECT s.SCHEDULE_ID, m.TITLE, COUNT(seat.RESERVATION_SEAT_ID) AS RESERVED_SEATS"
-                   + " FROM SCREENING_SCHEDULES s"
-                   + " JOIN MOVIES m ON m.MOVIE_ID = s.MOVIE_ID"
-                   + " LEFT JOIN RESERVATIONS r ON r.SCHEDULE_ID = s.SCHEDULE_ID AND r.STATUS = ?"
-                   + " LEFT JOIN RESERVATION_SEATS seat ON seat.RESERVATION_ID = r.RESERVATION_ID"
-                   + " GROUP BY s.SCHEDULE_ID, m.TITLE, s.START_DATETIME"
-                   + " ORDER BY s.START_DATETIME, s.SCHEDULE_ID";
+                + " FROM SCREENING_SCHEDULES s"
+                + " JOIN MOVIES m ON m.MOVIE_ID = s.MOVIE_ID"
+                + " LEFT JOIN RESERVATIONS r ON r.SCHEDULE_ID = s.SCHEDULE_ID AND r.STATUS = ?"
+                + " LEFT JOIN RESERVATION_SEATS seat ON seat.RESERVATION_ID = r.RESERVATION_ID"
+                + " GROUP BY s.SCHEDULE_ID, m.TITLE, s.START_DATETIME"
+                + " ORDER BY s.START_DATETIME, s.SCHEDULE_ID";
         List<Analytics> list = new ArrayList<>();
         try (Connection con = getConnection();
-             PreparedStatement st = con.prepareStatement(sql)) {
+                PreparedStatement st = con.prepareStatement(sql)) {
             st.setString(1, ReservationDao.STATUS_RESERVED);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
