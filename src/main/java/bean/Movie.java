@@ -95,7 +95,7 @@ public class Movie implements Serializable {
 		this.genre = genre;
 	}
 	
-	public void setAgeLImit(String ageLimit) {
+	public void setAgeLimit(String ageLimit) {
 		this.ageLimit = ageLimit;
 	}
 	
