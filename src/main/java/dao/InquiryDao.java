@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import bean.Inquiry;
 
@@ -28,6 +30,20 @@ public class InquiryDao extends Dao {
         i.setSentAt(rs.getTimestamp("SENT_AT"));
         i.setStatus(rs.getString("STATUS"));
         return i;
+    }
+
+    /** 全件取得(送信日時が新しい順)。お問い合わせ一覧画面用 */
+    public List<Inquiry> getAll() throws Exception {
+        String sql = "SELECT " + COLUMNS + " FROM INQUIRIES ORDER BY SENT_AT DESC, INQUIRY_ID DESC";
+        List<Inquiry> list = new ArrayList<>();
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(sql);
+             ResultSet rs = st.executeQuery()) {
+            while (rs.next()) {
+                list.add(toBean(rs));
+            }
+        }
+        return list;
     }
 
     /** 1件取得(なければ null) */
@@ -75,9 +91,19 @@ public class InquiryDao extends Dao {
 
     /** 対応状況だけを更新(返信を登録したあとに「対応済み」などへ変えるのに使う) */
     public boolean updateStatus(int inquiryId, String status) throws Exception {
+        try (Connection con = getConnection()) {
+            return updateStatus(con, inquiryId, status);
+        }
+    }
+
+    /**
+     * 渡された接続で対応状況を更新する(接続は閉じない)。
+     * InquiryReplyDao が「返信の登録」と同じ接続・同じまとまりで状況を更新するために使う。
+     * 同じパッケージ(dao)からだけ呼べる。
+     */
+    boolean updateStatus(Connection con, int inquiryId, String status) throws Exception {
         String sql = "UPDATE INQUIRIES SET STATUS = ? WHERE INQUIRY_ID = ?";
-        try (Connection con = getConnection();
-             PreparedStatement st = con.prepareStatement(sql)) {
+        try (PreparedStatement st = con.prepareStatement(sql)) {
             st.setString(1, status);
             st.setInt(2, inquiryId);
             return st.executeUpdate() > 0;
