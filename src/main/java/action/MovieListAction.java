@@ -17,7 +17,7 @@ public class MovieListAction extends Action {
             HttpServletResponse response)
             throws Exception {
 
-        MovieDao dao = new MovieDao();8
+        MovieDao dao = new MovieDao();0
 
         List<Movie> movieList = dao.getAll();
 
