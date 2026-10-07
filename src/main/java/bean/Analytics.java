@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Analytics implements Serializable{
 	
-	private int scheduleld;
+	private int scheduleId;
 	
 	private String movieTitle;
 	
@@ -18,8 +18,8 @@ public class Analytics implements Serializable{
 	
 	private double femaleRatio;
 	
-	public int getScheduleld() {
-		return scheduleld;
+	public int getScheduleId() {
+		return scheduleId;
 	}
 	
 	public String getMovieTitle() {
@@ -46,8 +46,8 @@ public class Analytics implements Serializable{
 		return femaleRatio;
 	}
 	
-	public void setScheduleld(int scheduleld) {
-		this.scheduleld = scheduleld;
+	public void setScheduleId(int scheduleId) {
+		this.scheduleId = scheduleId;
 	}
 	
 	public void setMovieTitle(String movieTitle) {
