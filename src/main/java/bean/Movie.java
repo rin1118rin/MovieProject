@@ -83,19 +83,19 @@ public class Movie implements Serializable {
 		this.duration = duration;
 	}
 	
-	public void setReleaseStartDate(Date releaseStartDate) {
-		this.releaseStartDate = releaseStartDate;
+	public void setReleaseStartDate(java.util.Date releaseStartDate2) {
+		this.releaseStartDate = (Date) releaseStartDate2;
 	}
 	
-	public void setReleaseEndDate(Date releaseEndDate) {
-		this.releaseEndDate = releaseEndDate;
+	public void setReleaseEndDate(java.util.Date releaseEndDate2) {
+		this.releaseEndDate = (Date) releaseEndDate2;
 	}
 	
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 	
-	public void setAgeLImit(String ageLimit) {
+	public void setAgeLimit(String ageLimit) {
 		this.ageLimit = ageLimit;
 	}
 	
