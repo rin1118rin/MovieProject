@@ -24,7 +24,7 @@ public class MovieListAction extends Action {
         request.setAttribute("movieList", movieList);
 
         request.getRequestDispatcher(
-                "/admin/movies/list.jsp")1
+                "/admin/movies/list.jsp")
                 .forward(request, response);
     }
 }
