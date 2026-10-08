@@ -3446,3 +3446,161 @@
         width: 100%;
     }
 }
+
+
+/* ==========================================
+   予約取消完了画面
+========================================== */
+
+.cancel-complete-main {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 45px 30px 80px;
+    box-sizing: border-box;
+}
+
+.cancel-complete-title {
+    max-width: 760px;
+    margin: 0 auto 35px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.cancel-complete-title h1 {
+    margin: 0;
+    color: #111;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.cancel-complete-panel {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 50px 45px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cancel-complete-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    background: #d7193f;
+    color: #fff;
+}
+
+.cancel-complete-icon .material-symbols-outlined {
+    font-size: 40px;
+}
+
+.cancel-complete-panel h2 {
+    margin: 0 0 20px;
+    color: #111;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.cancel-complete-message {
+    margin: 0 0 35px;
+    color: #666;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.cancel-complete-details {
+    max-width: 480px;
+    margin: 0 auto 25px;
+    border-top: 1px solid #ddd;
+}
+
+.cancel-complete-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 17px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.cancel-complete-row span {
+    color: #777;
+    font-size: 14px;
+}
+
+.cancel-complete-row strong {
+    color: #222;
+    font-size: 14px;
+    text-align: right;
+}
+
+.cancel-complete-row .cancel-complete-status {
+    color: #d7193f;
+}
+
+.cancel-complete-note {
+    margin: 0 0 35px;
+    color: #888;
+    font-size: 12px;
+}
+
+.cancel-complete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 230px;
+    padding: 15px 25px;
+    background: #d7193f;
+    border: 2px solid #d7193f;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.cancel-complete-button:hover {
+    background: #b41234;
+    border-color: #b41234;
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .cancel-complete-main {
+        padding: 30px 15px 60px;
+    }
+
+    .cancel-complete-title {
+        padding: 0;
+    }
+
+    .cancel-complete-title h1 {
+        font-size: 26px;
+    }
+
+    .cancel-complete-panel {
+        padding: 40px 20px;
+    }
+
+    .cancel-complete-panel h2 {
+        font-size: 20px;
+    }
+
+    .cancel-complete-row {
+        padding: 15px 5px;
+    }
+
+    .cancel-complete-button {
+        width: 100%;
+    }
+}
