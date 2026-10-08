@@ -27,7 +27,7 @@ public class EncodingFilter implements Filter {
         request.setCharacterEncoding("UTF-8");
         
         // レスポンスの文字コードとコンテンツタイプを設定
-        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         // 次の処理（FrontController、Action、JSP等）へ引き継ぐ
         chain.doFilter(request, response);
