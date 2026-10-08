@@ -88,7 +88,7 @@
         </table>
       </div>
 
-      <a class="button secondary" href="${pageContext.request.contextPath}/admin/schedules">戻る</a>
+      <a class="button secondary" href="${pageContext.request.contextPath}/admin/schedule/list.jsp">戻る</a>
     </section>
   </main>
 
