@@ -1,4 +1,4 @@
-package action;
+package admin;
 
 import java.util.List;
 

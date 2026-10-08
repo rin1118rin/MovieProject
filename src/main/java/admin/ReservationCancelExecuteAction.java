@@ -1,9 +1,8 @@
-package action;
+package admin;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import bean.Reservation;
 import dao.ReservationDao;
 import tool.Action;
 
