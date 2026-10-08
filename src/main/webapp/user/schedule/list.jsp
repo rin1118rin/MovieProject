@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -125,10 +126,10 @@
                             <a href="${pageContext.request.contextPath}/reservation/create?scheduleId=${schedule.scheduleId}""
                                 class="schedule-time">
                                 <span class="schedule-start">
-                                    ${schedule.startDatetime}
+                                    <fmt:formatDate value="${schedule.startDatetime}" pattern="yyyy-MM-dd"/>
                                 </span>
                                 <span class="schdule-end">
-                                    ${schedule.endDatetime}
+                                    <fmt:formatDate value="${schedule.endDatetime}" pattern="yyyy-MM-dd"/>
                                 </span>
                                 <span class="schedule-screen">
                                     ${schedule.screenNo}
