@@ -2964,3 +2964,485 @@
         width: 100%;
     }
 }
+
+/* ========================================
+   お問い合わせページ
+======================================== */
+
+.contact-main {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 30px 80px;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   タイトル
+======================================== */
+
+.contact-title {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto 30px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.contact-title h1 {
+    margin: 0 0 12px;
+
+    color: #111;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.contact-title p {
+    margin: 0;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   フォーム全体
+======================================== */
+
+.contact-panel {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 40px;
+
+    background-color: #fff;
+
+    border: 1px solid #ddd;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+.contact-form-group {
+    margin-bottom: 28px;
+}
+
+
+/* ========================================
+   ラベル
+======================================== */
+
+.contact-form-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #222;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* 必須 */
+
+.contact-required {
+    display: inline-block;
+
+    margin-left: 7px;
+    padding: 2px 6px;
+
+    background-color: #d7193f;
+
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    vertical-align: middle;
+}
+
+
+/* ========================================
+   入力欄
+======================================== */
+
+.contact-form-group input,
+.contact-form-group select,
+.contact-form-group textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    box-sizing: border-box;
+
+    background-color: #fff;
+
+    border: 1px solid #ccc;
+    border-radius: 2px;
+
+    color: #222;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+
+/* フォーカス */
+
+.contact-form-group input:focus,
+.contact-form-group select:focus,
+.contact-form-group textarea:focus {
+    border-color: #d7193f;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(215, 25, 63, 0.1);
+}
+
+
+/* textarea */
+
+.contact-form-group textarea {
+    min-height: 160px;
+
+    resize: vertical;
+
+    line-height: 1.7;
+}
+
+
+/* placeholder */
+
+.contact-form-group input::placeholder,
+.contact-form-group textarea::placeholder {
+    color: #aaa;
+}
+
+
+/* ========================================
+   注意事項
+======================================== */
+
+.contact-notice {
+    margin: 5px 0 30px;
+    padding: 15px 18px;
+
+    background-color: #f7f7f7;
+
+    border-left: 3px solid #999;
+}
+
+.contact-notice p {
+    margin: 4px 0;
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   エラー
+======================================== */
+
+.contact-error {
+    margin-bottom: 25px;
+    padding: 13px 15px;
+
+    background-color: #fff1f3;
+
+    border: 1px solid #d7193f;
+
+    color: #d7193f;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   送信ボタン
+======================================== */
+
+.contact-actions {
+    text-align: center;
+}
+
+
+.contact-submit {
+    width: 100%;
+    max-width: 320px;
+
+    padding: 15px 25px;
+
+    background-color: #d7193f;
+
+    border: 2px solid #d7193f;
+
+    color: #fff;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        transform 0.2s;
+}
+
+
+.contact-submit:hover {
+    background-color: #b41234;
+
+    border-color: #b41234;
+
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media (max-width: 600px) {
+
+    .contact-main {
+        padding: 30px 15px 60px;
+    }
+
+    .contact-title h1 {
+        font-size: 26px;
+    }
+
+    .contact-panel {
+        padding: 25px 20px;
+    }
+
+    .contact-submit {
+        max-width: none;
+    }
+
+}
+
+/* ========================================
+   お問い合わせ完了ページ
+======================================== */
+
+.contact-complete-main {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto;
+    padding: 40px 30px 80px;
+
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   タイトル
+======================================== */
+
+.contact-complete-title {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto 35px;
+    padding: 0 40px;
+
+    box-sizing: border-box;
+}
+
+.contact-complete-title h1 {
+    margin: 0;
+
+    color: #111;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   完了パネル
+======================================== */
+
+.contact-complete-panel {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+    padding: 55px 40px;
+
+    box-sizing: border-box;
+
+    background-color: #fff;
+
+    border: 1px solid #ddd;
+
+    text-align: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ========================================
+   チェックマーク
+======================================== */
+
+.contact-complete-check {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 25px;
+
+    background-color: #d7193f;
+
+    border-radius: 50%;
+
+    color: #fff;
+
+    font-size: 34px;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   完了メッセージ
+======================================== */
+
+.contact-complete-panel h2 {
+    margin: 0 0 25px;
+
+    color: #111;
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+
+.contact-complete-number {
+    margin: 0 0 20px;
+
+    color: #555;
+
+    font-size: 14px;
+}
+
+
+.contact-complete-number strong {
+    color: #d7193f;
+
+    font-size: 16px;
+}
+
+
+.contact-complete-message {
+    margin: 0 0 35px;
+
+    color: #666;
+
+    font-size: 14px;
+
+    line-height: 2;
+}
+
+
+/* ========================================
+   トップページに戻る
+======================================== */
+
+.contact-complete-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 230px;
+
+    padding: 15px 25px;
+
+    box-sizing: border-box;
+
+    background-color: #d7193f;
+
+    border: 2px solid #d7193f;
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        transform 0.2s;
+}
+
+
+.contact-complete-button:hover {
+    background-color: #b41234;
+
+    border-color: #b41234;
+
+    color: #fff;
+
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media (max-width: 600px) {
+
+    .contact-complete-main {
+        padding: 30px 15px 60px;
+    }
+
+    .contact-complete-breadcrumb,
+    .contact-complete-title {
+        padding: 0;
+    }
+
+    .contact-complete-title h1 {
+        font-size: 26px;
+    }
+
+    .contact-complete-panel {
+        padding: 40px 20px;
+    }
+
+    .contact-complete-panel h2 {
+        font-size: 20px;
+    }
+
+    .contact-complete-button {
+        width: 100%;
+    }
+}
