@@ -24,7 +24,7 @@ public class MovieListAction extends Action {
         // リクエストスコープにセット
         request.setAttribute("movieList", movieList);
 
-        // FrontController 側に遷移先JSPのパスを返却
-        return;
+        // 映画一覧JSPへ
+        request.getRequestDispatcher("/movies/list.jsp").forward(request, response);
     }
 }

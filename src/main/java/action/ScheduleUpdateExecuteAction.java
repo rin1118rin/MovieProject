@@ -65,10 +65,10 @@ public class ScheduleUpdateExecuteAction extends Action {
 
         if (isSuccess) {
             request.setAttribute("message", "スケジュールを更新しました。");
-            request.getRequestDispatcher("/admin/schedules/list.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/schedule/list.jsp").forward(request, response);
         } else {
             request.setAttribute("errorMessage", "スケジュールの更新に失敗しました。");
-            request.getRequestDispatcher("/admin/schedules/edit.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/schedule/edit.jsp").forward(request, response);
         }
     }
 }
