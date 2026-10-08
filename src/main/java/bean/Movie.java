@@ -2,6 +2,7 @@ package bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Movie implements Serializable {
 	
@@ -26,6 +27,8 @@ public class Movie implements Serializable {
 	private String cast;
 	
 	private String posterUrl;
+	
+	private List<Schedule> schedules;
 	
 	public int getMovieId() {
 		return movieId;
@@ -71,6 +74,10 @@ public class Movie implements Serializable {
 		return posterUrl;
 	}
 	
+	public List<Schedule> getSchedules() {
+		return schedules;
+	}
+	
 	public void setMovieId(int movieId) {
 		this.movieId = movieId;
 	}
@@ -113,5 +120,9 @@ public class Movie implements Serializable {
 	
 	public void setPosterUrl(String posterUrl) {
 		this.posterUrl = posterUrl;
+	}
+	
+	public void setSchedules(List<Schedule> schedules) {
+		this.schedules = schedules;
 	}
 }

@@ -125,13 +125,13 @@
                             <a href="${pageContext.request.contextPath}/reservation/create?scheduleId=${schedule.scheduleId}""
                                 class="schedule-time">
                                 <span class="schedule-start">
-                                    ${schedule.startTime}
+                                    ${schedule.startDatetime}
                                 </span>
                                 <span class="schdule-end">
-                                    ${schedule.endTime}
+                                    ${schedule.endDatetime}
                                 </span>
                                 <span class="schedule-screen">
-                                    ${schedule.screenName}
+                                    ${schedule.screenNo}
                             </a>
                         </c:forEach>
                     </div>
