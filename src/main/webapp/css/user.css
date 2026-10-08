@@ -3688,3 +3688,118 @@
         gap: 10px;
     }
 }
+
+
+/* ==========================================
+   共通エラー画面
+========================================== */
+
+.error-main {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 65vh;
+    margin: 0 auto;
+    padding: 70px 30px 100px;
+    box-sizing: border-box;
+}
+
+.error-panel {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.error-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    background: #d7193f;
+    color: #fff;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.error-code {
+    margin: 0 0 15px;
+    color: #d7193f;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.error-panel h1 {
+    margin: 0 0 25px;
+    color: #111;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.error-message {
+    max-width: 450px;
+    margin: 0 auto 35px;
+    color: #666;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.error-home-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 240px;
+    padding: 15px 25px;
+    background: #d7193f;
+    border: 2px solid #d7193f;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.error-home-button:hover {
+    background: #b41234;
+    border-color: #b41234;
+    color: #fff;
+    text-decoration: none;
+}
+
+.error-note {
+    margin: 0;
+    color: #999;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .error-main {
+        padding: 40px 15px 60px;
+    }
+
+    .error-panel {
+        padding: 45px 20px;
+    }
+
+    .error-panel h1 {
+        font-size: 23px;
+    }
+
+    .error-home-button {
+        width: 100%;
+    }
+}
