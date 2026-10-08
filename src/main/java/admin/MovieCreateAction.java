@@ -1,4 +1,4 @@
-package action;
+package admin;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,14 +10,11 @@ import bean.Movie;
 import dao.MovieDao;
 import tool.Action;
 
-public class MovieCreateExecuteAction extends Action {
+public class MovieCreateAction extends Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        // 文字コード設定
-        request.setCharacterEncoding("UTF-8");
-
+        
         // フォームからの送信データを取得
         String title = request.getParameter("title");
         String durationStr = request.getParameter("duration");
@@ -30,37 +27,25 @@ public class MovieCreateExecuteAction extends Action {
         String cast = request.getParameter("cast");
         String posterUrl = request.getParameter("posterUrl");
 
-        // 数値・日付データの変換処理
-        int duration = 0;
-        if (durationStr != null && !durationStr.trim().isEmpty()) {
-            try {
-                duration = Integer.parseInt(durationStr.trim());
-            } catch (NumberFormatException e) {
-                duration = 0;
-            }
-        }
-
+        // 日付フォーマットの変換準備
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
         Date releaseStartDate = null;
-        if (releaseStartDateStr != null && !releaseStartDateStr.trim().isEmpty()) {
-            try {
-                releaseStartDate = sdf.parse(releaseStartDateStr.trim());
-            } catch (Exception e) {
-                releaseStartDate = new Date(); // 変換失敗時は現在の日付をセット
-            }
+        if (releaseStartDateStr != null && !releaseStartDateStr.isEmpty()) {
+            releaseStartDate = sdf.parse(releaseStartDateStr);
         }
 
         Date releaseEndDate = null;
-        if (releaseEndDateStr != null && !releaseEndDateStr.trim().isEmpty()) {
-            try {
-                releaseEndDate = sdf.parse(releaseEndDateStr.trim());
-            } catch (Exception e) {
-                releaseEndDate = new Date();
-            }
+        if (releaseEndDateStr != null && !releaseEndDateStr.isEmpty()) {
+            releaseEndDate = sdf.parse(releaseEndDateStr);
         }
 
-        // Movie Bean へ取得値をセット
+        int duration = 0;
+        if (durationStr != null && !durationStr.isEmpty()) {
+            duration = Integer.parseInt(durationStr);
+        }
+
+        // Movie Beanに値をセット
         Movie movie = new Movie();
         movie.setTitle(title);
         movie.setDuration(duration);
@@ -73,18 +58,17 @@ public class MovieCreateExecuteAction extends Action {
         movie.setCast(cast);
         movie.setPosterUrl(posterUrl);
 
-        // MovieDao を使用して DB への保存処理を実行
+        // MovieDaoを使ってDBへ登録処理を実行
         MovieDao dao = new MovieDao();
         boolean isSuccess = dao.save(movie);
 
-        // 実行結果に応じた画面遷移
+        //結果に応じた画面遷移
         if (isSuccess) {
-            // 登録成功時：映画一覧表示へフォワード
+            // 登録成功時：一覧表示画面へ
             request.getRequestDispatcher("/admin/movies/list.jsp").forward(request, response);
         } else {
-            // 登録失敗時：エラーメッセージと入力データを保持して入力画面へ
+            // 登録失敗時：エラーメッセージを渡して登録入力画面へ
             request.setAttribute("errorMessage", "映画情報の登録に失敗しました。");
-            request.setAttribute("movie", movie);
             request.getRequestDispatcher("/admin/movies/create.jsp").forward(request, response);
         }
     }
