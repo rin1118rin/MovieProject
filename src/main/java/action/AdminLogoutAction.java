@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 
 import tool.Action;
 
+
 public class AdminLogoutAction extends Action {
 
     @Override
