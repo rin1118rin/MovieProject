@@ -10,26 +10,20 @@ import tool.Action;
 
 public class AdminLoginExecuteAction extends Action{
 	@Override
-	public void execute(
-			HttpServletRequest request,
-			HttpServletResponse response)
-			throws Exception {
+	public void execute(HttpServletRequest request,HttpServletResponse response)
+		throws Exception {
 		
-		int adminId = Integer.parseInt(
-				request.getParameter("adminId"));
+		int adminId = Integer.parseInt(request.getParameter("adminId"));
 		
-		String password = 
-				request.getParameter("password");
+		String password = request.getParameter("password");
 		
 		AdminDao dao = new AdminDao();
 		
 		Admin admin  = dao.get(adminId);
 		
-		if (admin != null
-				&& password.equals(admin.getPassword())) {
-			
-			HttpSession session = 
-					request.getSession();
+		if (admin != null && password.equals(admin.getPassword())) {
+		
+			HttpSession session =  request.getSession();
 			
 			session.setAttribute("loginAdmin", admin);
 			
@@ -41,7 +35,5 @@ public class AdminLoginExecuteAction extends Action{
 			
 			request.getRequestDispatcher("/admin/login.jsp") .forward(request,response);
 		}
-	}
-	
-    
+	} 
 }

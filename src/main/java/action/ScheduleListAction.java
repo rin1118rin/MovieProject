@@ -40,6 +40,6 @@ public class ScheduleListAction extends Action {
         request.setAttribute("selectedDate", sdf.format(targetDate)); // JSPの日付選択用
 
         // スケジュール一覧JSPへ
-        request.getRequestDispatcher("/admin/schedules/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/schedule/list.jsp").forward(request, response);
     }
 }
