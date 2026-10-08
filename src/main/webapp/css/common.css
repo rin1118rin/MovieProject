@@ -339,3 +339,10 @@ th {
         padding: 18px;
     }
 }
+
+.logo,
+.logo:hover,
+.logo span,
+.logo:hover span {
+    color: #fff;
+}
