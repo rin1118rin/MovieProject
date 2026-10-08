@@ -1,6 +1,14 @@
+/* user.css — 映画予約サイト全ページ用
+ * 元CSSの全ページ・状態・メディアクエリを保持し、既存の *-main で分離。
+ * HTMLには元CSSと同じページ用コンテナが必要です。
+ * トップの .promotion は .user-main の直下に配置してください。
+ */
+
 .user-main {
+    --promotion-height: 400px;
+    --home-gutter: 20px;
     width: 100%;
-    max-width: 1200px;
+    max-width: none;
     margin: 0 auto;
     padding: 0px 20px 60px;
     box-sizing: border-box;
@@ -10,15 +18,15 @@
    スライダー全体
    ======================================== */
 
-.promotion {
+.user-main .promotion {
     position: relative;
-    width: 100%;
-    margin: 20px auto 50px;
+    width: calc(100% + var(--home-gutter) * 2);
+    margin: 20px calc(-1 * var(--home-gutter)) 50px;
     padding-bottom: 30px;
 }
 
 /* 画像表示エリア */
-.promotion-list {
+.user-main .promotion-list {
     display: flex;
 
     width: 100%;
@@ -32,12 +40,12 @@
 }
 
 /* 1画面に画像1枚 */
-.promotion-item {
+.user-main .promotion-item {
     position: relative;
 
     flex: 0 0 100%;
     width: 100%;
-    height: 400px;
+    height: var(--promotion-height);
 
     overflow: hidden;
 
@@ -51,20 +59,20 @@
     box-sizing: border-box;
 }
 
-.promotion-item:hover {
+.user-main .promotion-item:hover {
     color: #fff;
     text-decoration: none;
 }
 
-.promotion-item:hover .promotion-text,
-.promotion-item:hover .promotion-text h2,
-.promotion-item:hover .promotion-text p,
-.promotion-item:hover .promotion-text span {
+.user-main .promotion-item:hover .promotion-text,
+.user-main .promotion-item:hover .promotion-text h2,
+.user-main .promotion-item:hover .promotion-text p,
+.user-main .promotion-item:hover .promotion-text span {
     color: #fff;
 }
 
 /* バナー画像 */
-.promotion-item img {
+.user-main .promotion-item img {
     display: block;
 
     width: 100%;
@@ -74,7 +82,7 @@
 }
 
 /* 画像を少し暗くする */
-.promotion-item::after {
+.user-main .promotion-item::after {
     content: "";
 
     position: absolute;
@@ -94,7 +102,7 @@
    バナー内の文字
    ======================================== */
 
-.promotion-text {
+.user-main .promotion-text {
     position: absolute;
 
     left: 80px;
@@ -103,19 +111,19 @@
     z-index: 2;
 }
 
-.promotion-text h2 {
+.user-main .promotion-text h2 {
     margin: 0 0 8px;
 
     font-size: 30px;
 }
 
-.promotion-text p {
+.user-main .promotion-text p {
     margin: 0 0 12px;
 
     font-size: 15px;
 }
 
-.promotion-text span {
+.user-main .promotion-text span {
     font-size: 14px;
     font-weight: bold;
 }
@@ -125,9 +133,9 @@
    左右の矢印
    ======================================== */
 
-.slider-arrow {
+.user-main .slider-arrow {
     position: absolute;
-    top: 50%;
+    top: calc(var(--promotion-height) / 2);
     transform: translateY(-50%);
 
     z-index: 10;
@@ -151,17 +159,17 @@
 }
 
 /* 左：画像の内側 */
-.slider-prev {
+.user-main .slider-prev {
     left: 0;
 }
 
 /* 右：画像の内側 */
-.slider-next {
+.user-main .slider-next {
     right: 0;
 }
 
 /* マウスを乗せたとき少し濃く */
-.slider-arrow:hover {
+.user-main .slider-arrow:hover {
     background-color: rgba(0, 0, 0, 0.65);
 }
 
@@ -169,7 +177,7 @@
    インジケーター
    ============================== */
 
-.slider-dots {
+.user-main .slider-dots {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,7 +189,7 @@
 }
 
 /* 通常の点 */
-.slider-dot {
+.user-main .slider-dot {
     display: block;
 
     width: 10px;
@@ -202,7 +210,7 @@
 }
 
 /* 現在の画像 */
-.slider-dot.active {
+.user-main .slider-dot.active {
     width: 10px;
     height: 10px;
 
@@ -215,27 +223,27 @@
    映画を楽しむパネル
    ======================================== */
 
-.panel {
+.user-main .panel {
     margin-bottom: 50px;
     padding: 30px;
     background-color: #f5f5f5;
     border-radius: 8px;
 }
 
-.panel h1 {
+.user-main .panel h1 {
     margin: 0 0 25px;
     text-align: center;
     font-size: 26px;
     color: #222;
 }
 
-.home-menu {
+.user-main .home-menu {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
 
-.home-menu .button {
+.user-main .home-menu .button {
     width: 220px;
     padding: 16px 20px;
     box-sizing: border-box;
@@ -254,7 +262,7 @@
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.home-menu .button:hover {
+.user-main .home-menu .button:hover {
     background-color: #8d0000;
     transform: translateY(-2px);
 }
@@ -275,9 +283,9 @@
    映画一覧
    ======================================== */
 
-.movie-list {
+.user-main .movie-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
 }
 
@@ -285,7 +293,7 @@
    映画カード
    ======================================== */
 
-.movie-card {
+.user-main .movie-card {
     padding: 25px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -294,18 +302,18 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.movie-card:hover {
+.user-main .movie-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.movie-card h3 {
+.user-main .movie-card h3 {
     margin: 0 0 10px;
     font-size: 20px;
     color: #222;
 }
 
-.movie-card p {
+.user-main .movie-card p {
     margin: 0 0 20px;
     font-size: 14px;
     color: #777;
@@ -315,7 +323,7 @@
    映画カードのボタン
    ======================================== */
 
-.movie-card .button {
+.user-main .movie-card .button {
     display: inline-block;
     padding: 10px 20px;
 
@@ -330,7 +338,7 @@
     transition: background-color 0.2s ease;
 }
 
-.movie-card .button:hover {
+.user-main .movie-card .button:hover {
     background-color: #8d0000;
 }
 
@@ -338,18 +346,18 @@
    上映映画一覧リンク
    ======================================== */
 
-.movie-list + p {
+.user-main .movie-list + p {
     margin-top: 25px;
     text-align: right;
 }
 
-.movie-list + p a {
+.user-main .movie-list + p a {
     color: #b40000;
     text-decoration: none;
     font-weight: bold;
 }
 
-.movie-list + p a:hover {
+.user-main .movie-list + p a:hover {
     text-decoration: underline;
 }
 
@@ -358,20 +366,20 @@
    ======================================== */
 
 @media (max-width: 900px) {
-    .promotion-item {
-        flex: 0 0 calc((100% - 15px) / 2);
-        height: 280px;
+    .user-main .promotion-item {
+        flex: 0 0 100%;
+        height: var(--promotion-height);
     }
 
-    .slider-arrow {
-        top: 110px;
+    .user-main {
+        --promotion-height: 280px;
     }
 
-    .movie-list {
-        grid-template-columns: repeat(2, 1fr);
+    .user-main .movie-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .home-menu {
+    .user-main .home-menu {
         flex-wrap: wrap;
     }
 }
@@ -382,64 +390,65 @@
 
 @media (max-width: 600px) {
     .user-main {
+        --promotion-height: 240px;
+        --home-gutter: 15px;
         padding: 20px 15px 40px;
     }
 
-    .promotion-list {
-        gap: 10px;
+    .user-main .promotion-list {
+        gap: 0;
     }
 
-    .promotion-item {
+    .user-main .promotion-item {
         flex: 0 0 100%;
-        height: 240px;
+        height: var(--promotion-height);
     }
 
-    .promotion-text {
+    .user-main .promotion-text {
         left: 18px;
         right: 18px;
         bottom: 18px;
     }
 
-    .promotion-text h2 {
+    .user-main .promotion-text h2 {
         font-size: 21px;
     }
 
-    .promotion-text p {
+    .user-main .promotion-text p {
         font-size: 12px;
     }
 
-    .slider-arrow {
-        top: 92px;
+    .user-main .slider-arrow {
         width: 38px;
         height: 55px;
         font-size: 24px;
     }
 
-    .slider-prev {
+    .user-main .slider-prev {
         left: 6px;
     }
 
-    .slider-next {
+    .user-main .slider-next {
         right: 6px;
     }
 
-    .panel {
+    .user-main .panel {
         padding: 25px 15px;
     }
 
-    .panel h1 {
+    .user-main .panel h1 {
         font-size: 23px;
     }
 
-    .home-menu {
+    .user-main .home-menu {
         flex-direction: column;
     }
 
-    .home-menu .button {
+    .user-main .home-menu .button {
         width: 100%;
     }
 
-    .movie-list {
+    .user-main .movie-list {
         grid-template-columns: 1fr;
     }
 
@@ -452,12 +461,12 @@
    上映中映画ランキング
    ======================================== */
 
-.ranking-section {
+.user-main .ranking-section {
     width: 100%;
     margin: 60px 0;
 }
 
-.ranking-section > h2 {
+.user-main .ranking-section > h2 {
     margin: 0 0 30px;
     padding-bottom: 12px;
 
@@ -472,9 +481,9 @@
    ランキング一覧
    ======================================== */
 
-.ranking-list {
+.user-main .ranking-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
 }
 
@@ -483,7 +492,7 @@
    ランキングカード
    ======================================== */
 
-.ranking-card {
+.user-main .ranking-card {
     position: relative;
     overflow: hidden;
 
@@ -499,7 +508,7 @@
         box-shadow 0.25s ease;
 }
 
-.ranking-card:hover {
+.user-main .ranking-card:hover {
     transform: translateY(-5px);
 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
@@ -510,7 +519,7 @@
    ポスター
    ======================================== */
 
-.ranking-card img {
+.user-main .ranking-card img {
     display: block;
 
     width: 100%;
@@ -524,7 +533,7 @@
    順位表示
    ======================================== */
 
-.ranking-number {
+.user-main .ranking-number {
     position: absolute;
     top: 0;
     left: 0;
@@ -547,7 +556,7 @@
 
 
 /* 1位だけ赤 */
-.ranking-card:first-child .ranking-number {
+.user-main .ranking-card:first-child .ranking-number {
     background-color: #d7193f;
 }
 
@@ -556,11 +565,11 @@
    映画情報
    ======================================== */
 
-.ranking-info {
+.user-main .ranking-info {
     padding: 20px;
 }
 
-.ranking-info h3 {
+.user-main .ranking-info h3 {
     margin: 0 0 18px;
 
     color: #222;
@@ -574,7 +583,7 @@
    作品詳細ボタン
    ======================================== */
 
-.ranking-button {
+.user-main .ranking-button {
     display: block;
     width: 100%;
     padding: 12px 0;
@@ -596,7 +605,7 @@
 }
 
 /* カーソルを合わせた時 */
-.ranking-button:hover {
+.user-main .ranking-button:hover {
     background-color: #d7193f;
     border-color: #d7193f;
 
@@ -613,8 +622,8 @@
 
 @media (max-width: 900px) {
 
-    .ranking-list {
-        grid-template-columns: repeat(2, 1fr);
+    .user-main .ranking-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
 }
@@ -626,15 +635,15 @@
 
 @media (max-width: 600px) {
 
-    .ranking-section {
+    .user-main .ranking-section {
         margin: 40px 0;
     }
 
-    .ranking-section > h2 {
+    .user-main .ranking-section > h2 {
         font-size: 22px;
     }
 
-    .ranking-list {
+    .user-main .ranking-list {
         grid-template-columns: 1fr;
     }
 }
@@ -658,11 +667,11 @@
    ページタイトル
    ======================================== */
 
-.reservation-title {
+.reservation-main .reservation-title {
     margin-bottom: 35px;
 }
 
-.reservation-title h1 {
+.reservation-main .reservation-title h1 {
     margin: 0;
 
     color: #111;
@@ -675,7 +684,7 @@
    2カラム
    ======================================== */
 
-.booking-layout {
+.reservation-main .booking-layout {
     display: grid;
 
     grid-template-columns:
@@ -687,7 +696,7 @@
     align-items: start;
 }
 
-.booking-content {
+.reservation-main .booking-content {
     min-width: 0;
 }
 
@@ -696,7 +705,7 @@
    パネル
    ======================================== */
 
-.reservation-panel {
+.reservation-main .reservation-panel {
     margin-bottom: 25px;
     padding: 30px;
 
@@ -713,8 +722,8 @@
    ステップタイトル
    ======================================== */
 
-.step-title,
-.summary-title {
+.reservation-main .step-title,
+.reservation-main .summary-title {
     display: flex;
     align-items: center;
 
@@ -723,8 +732,8 @@
     margin-bottom: 25px;
 }
 
-.step-title span,
-.summary-title span {
+.reservation-main .step-title span,
+.reservation-main .summary-title span {
     display: flex;
 
     align-items: center;
@@ -742,8 +751,8 @@
     font-weight: bold;
 }
 
-.step-title h2,
-.summary-title h2 {
+.reservation-main .step-title h2,
+.reservation-main .summary-title h2 {
     margin: 0;
 
     color: #111;
@@ -756,15 +765,15 @@
    フォーム
    ======================================== */
 
-.form-group {
+.reservation-main .form-group {
     margin-bottom: 20px;
 }
 
-.form-group:last-child {
+.reservation-main .form-group:last-child {
     margin-bottom: 0;
 }
 
-.form-group label {
+.reservation-main .form-group label {
     display: block;
 
     margin-bottom: 8px;
@@ -775,8 +784,8 @@
     font-weight: bold;
 }
 
-.form-group select,
-.ticket-row select {
+.reservation-main .form-group select,
+.reservation-main .ticket-row select {
     width: 100%;
 
     padding: 12px 14px;
@@ -795,8 +804,8 @@
     outline: none;
 }
 
-.form-group select:focus,
-.ticket-row select:focus {
+.reservation-main .form-group select:focus,
+.reservation-main .ticket-row select:focus {
     border-color: #d7193f;
 
     box-shadow:
@@ -808,13 +817,13 @@
    スクリーン
    ======================================== */
 
-.screen-area {
+.reservation-main .screen-area {
     margin: 15px auto 40px;
 
     text-align: center;
 }
 
-.screen {
+.reservation-main .screen {
     width: 75%;
     max-width: 500px;
 
@@ -839,7 +848,7 @@
         0 8px 15px rgba(0, 0, 0, 0.12);
 }
 
-.screen-area p {
+.reservation-main .screen-area p {
     margin: 10px 0 0;
 
     color: #999;
@@ -852,7 +861,7 @@
    座席
    ======================================== */
 
-.seats {
+.reservation-main .seats {
     display: grid;
 
     grid-template-columns:
@@ -865,18 +874,18 @@
     margin: 0 auto 30px;
 }
 
-.seat {
+.reservation-main .seat {
     cursor: pointer;
 }
 
-.seat input {
+.reservation-main .seat input {
     position: absolute;
 
     opacity: 0;
     pointer-events: none;
 }
 
-.seat span {
+.reservation-main .seat span {
     display: flex;
 
     align-items: center;
@@ -906,7 +915,7 @@
 
 /* 選択可能 */
 
-.seat input:not(:disabled) + span:hover {
+.reservation-main .seat input:not(:disabled) + span:hover {
     border-color: #d7193f;
 
     transform: translateY(-2px);
@@ -915,7 +924,7 @@
 
 /* 選択中 */
 
-.seat input:checked + span {
+.reservation-main .seat input:checked + span {
     background: #d7193f;
     color: #fff;
 
@@ -925,7 +934,7 @@
 
 /* 販売済み */
 
-.seat input:disabled + span {
+.reservation-main .seat input:disabled + span {
     background: #ddd;
     color: #999;
 
@@ -939,7 +948,7 @@
    座席の説明
    ======================================== */
 
-.seat-legend {
+.reservation-main .seat-legend {
     display: flex;
 
     justify-content: center;
@@ -955,7 +964,7 @@
     font-size: 12px;
 }
 
-.seat-legend div {
+.reservation-main .seat-legend div {
     display: flex;
 
     align-items: center;
@@ -963,7 +972,7 @@
     gap: 7px;
 }
 
-.legend-seat {
+.reservation-main .legend-seat {
     display: inline-block;
 
     width: 18px;
@@ -972,19 +981,19 @@
     border-radius: 3px;
 }
 
-.legend-seat.available {
+.reservation-main .legend-seat.available {
     background: #fff;
 
     border: 1px solid #aaa;
 }
 
-.legend-seat.selected {
+.reservation-main .legend-seat.selected {
     background: #d7193f;
 
     border: 1px solid #d7193f;
 }
 
-.legend-seat.sold {
+.reservation-main .legend-seat.sold {
     background: #ddd;
 
     border: 1px solid #ccc;
@@ -995,7 +1004,7 @@
    券種
    ======================================== */
 
-.ticket-row {
+.reservation-main .ticket-row {
     display: grid;
 
     grid-template-columns:
@@ -1010,11 +1019,11 @@
     border-bottom: 1px solid #eee;
 }
 
-.ticket-row:last-child {
+.reservation-main .ticket-row:last-child {
     border-bottom: none;
 }
 
-.ticket-row strong {
+.reservation-main .ticket-row strong {
     display: block;
 
     color: #222;
@@ -1022,7 +1031,7 @@
     font-size: 16px;
 }
 
-.ticket-row p {
+.reservation-main .ticket-row p {
     margin: 4px 0 0;
 
     color: #d7193f;
@@ -1036,16 +1045,16 @@
    支払い方法
    ======================================== */
 
-.payment-list {
+.reservation-main .payment-list {
     display: grid;
 
     grid-template-columns:
-        repeat(2, 1fr);
+        repeat(2, minmax(0, 1fr));
 
     gap: 15px;
 }
 
-.payment-option {
+.reservation-main .payment-option {
     display: flex;
 
     align-items: center;
@@ -1063,23 +1072,23 @@
         background 0.2s;
 }
 
-.payment-option:hover {
+.reservation-main .payment-option:hover {
     border-color: #d7193f;
 
     background: #fff8f9;
 }
 
-.payment-option input {
+.reservation-main .payment-option input {
     accent-color: #d7193f;
 }
 
-.payment-option strong {
+.reservation-main .payment-option strong {
     display: block;
 
     color: #222;
 }
 
-.payment-option small {
+.reservation-main .payment-option small {
     display: block;
 
     margin-top: 3px;
@@ -1092,7 +1101,7 @@
    予約内容
    ======================================== */
 
-.booking-summary {
+.reservation-main .booking-summary {
     position: sticky;
     top: 110px;
 
@@ -1106,7 +1115,7 @@
     border-top: 4px solid #d7193f;
 }
 
-.summary-title h2 {
+.reservation-main .summary-title h2 {
     color: #fff;
 }
 
@@ -1115,11 +1124,11 @@
    予約詳細
    ======================================== */
 
-.details {
+.reservation-main .details {
     margin: 0;
 }
 
-.details dt {
+.reservation-main .details dt {
     margin-top: 17px;
 
     color: #999;
@@ -1127,7 +1136,7 @@
     font-size: 12px;
 }
 
-.details dd {
+.reservation-main .details dd {
     margin: 5px 0 0;
 
     padding-bottom: 15px;
@@ -1145,7 +1154,7 @@
    合計
    ======================================== */
 
-.total {
+.reservation-main .total {
     display: flex;
 
     align-items: flex-end;
@@ -1159,17 +1168,17 @@
     border-bottom: 1px solid #444;
 }
 
-.total span {
+.reservation-main .total span {
     font-size: 14px;
 }
 
-.total strong {
+.reservation-main .total strong {
     color: #fff;
 
     font-size: 30px;
 }
 
-.total small {
+.reservation-main .total small {
     margin-left: 3px;
 
     font-size: 14px;
@@ -1180,7 +1189,7 @@
    確認
    ======================================== */
 
-.confirm-check {
+.reservation-main .confirm-check {
     display: flex;
 
     align-items: center;
@@ -1196,7 +1205,7 @@
     cursor: pointer;
 }
 
-.confirm-check input {
+.reservation-main .confirm-check input {
     accent-color: #d7193f;
 }
 
@@ -1205,7 +1214,7 @@
    予約ボタン
    ======================================== */
 
-.reservation-button {
+.reservation-main .reservation-button {
     width: 100%;
 
     padding: 15px;
@@ -1225,7 +1234,7 @@
         transform 0.15s;
 }
 
-.reservation-button:hover {
+.reservation-main .reservation-button:hover {
     background: #b91434;
 
     transform: translateY(-1px);
@@ -1236,7 +1245,7 @@
    戻るリンク
    ======================================== */
 
-.back-link {
+.reservation-main .back-link {
     display: block;
 
     margin-top: 18px;
@@ -1249,7 +1258,7 @@
     font-size: 12px;
 }
 
-.back-link:hover {
+.reservation-main .back-link:hover {
     color: #fff;
 }
 
@@ -1260,11 +1269,11 @@
 
 @media (max-width: 900px) {
 
-    .booking-layout {
+    .reservation-main .booking-layout {
         grid-template-columns: 1fr;
     }
 
-    .booking-summary {
+    .reservation-main .booking-summary {
         position: static;
     }
 
@@ -1277,31 +1286,31 @@
         padding: 30px 15px 60px;
     }
 
-    .reservation-panel {
+    .reservation-main .reservation-panel {
         padding: 20px 15px;
     }
 
-    .seats {
+    .reservation-main .seats {
         grid-template-columns:
-            repeat(6, 42px);
+            repeat(6, minmax(0, 42px));
 
         gap: 10px 6px;
     }
 
-    .seat span {
-        width: 42px;
+    .reservation-main .seat span {
+        width: 100%;
         height: 38px;
 
         font-size: 11px;
     }
 
-    .seat-legend {
+    .reservation-main .seat-legend {
         gap: 12px;
 
         flex-wrap: wrap;
     }
 
-    .payment-list {
+    .reservation-main .payment-list {
         grid-template-columns: 1fr;
     }
 
@@ -1311,9 +1320,9 @@
    お客様情報
    ======================================== */
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"] {
+.reservation-main .form-group input[type="text"],
+.reservation-main .form-group input[type="email"],
+.reservation-main .form-group input[type="tel"] {
     width: 100%;
 
     padding: 13px 14px;
@@ -1338,9 +1347,9 @@
 
 /* 入力中 */
 
-.form-group input[type="text"]:focus,
-.form-group input[type="email"]:focus,
-.form-group input[type="tel"]:focus {
+.reservation-main .form-group input[type="text"]:focus,
+.reservation-main .form-group input[type="email"]:focus,
+.reservation-main .form-group input[type="tel"]:focus {
     border-color: #d7193f;
 
     box-shadow:
@@ -1350,14 +1359,14 @@
 
 /* プレースホルダー */
 
-.form-group input::placeholder {
+.reservation-main .form-group input::placeholder {
     color: #aaa;
 }
 
 
 /* 必須 */
 
-.required {
+.reservation-main .required {
     display: inline-block;
 
     margin-left: 7px;
@@ -1375,7 +1384,7 @@
 
 /* お客様情報の説明 */
 
-.customer-note {
+.reservation-main .customer-note {
     margin: -5px 0 25px;
 
     color: #777;
@@ -1386,7 +1395,7 @@
 
 /* 入力欄下の説明 */
 
-.input-note {
+.reservation-main .input-note {
     margin: 7px 0 0;
 
     color: #888;
@@ -1409,7 +1418,7 @@
 
 /* カード */
 
-.reservation-complete-card {
+.reservation-complete-main .reservation-complete-card {
     width: 100%;
     overflow: hidden;
 
@@ -1428,7 +1437,7 @@
    完了メッセージ
    ================================================== */
 
-.reservation-complete-header {
+.reservation-complete-main .reservation-complete-header {
     padding: 45px 30px 40px;
 
     text-align: center;
@@ -1439,7 +1448,7 @@
 
 /* チェックマーク */
 
-.reservation-complete-check {
+.reservation-complete-main .reservation-complete-check {
     display: flex;
 
     align-items: center;
@@ -1464,7 +1473,7 @@
 
 /* タイトル */
 
-.reservation-complete-header h1 {
+.reservation-complete-main .reservation-complete-header h1 {
     margin: 0 0 15px;
 
     color: #111;
@@ -1476,7 +1485,7 @@
 
 /* メッセージ */
 
-.reservation-complete-message {
+.reservation-complete-main .reservation-complete-message {
     margin: 0 0 25px;
 
     color: #666;
@@ -1490,7 +1499,7 @@
    予約番号
    ================================================== */
 
-.reservation-number {
+.reservation-complete-main .reservation-number {
     display: inline-flex;
 
     align-items: center;
@@ -1505,7 +1514,7 @@
 }
 
 
-.reservation-number span {
+.reservation-complete-main .reservation-number span {
     color: #666;
 
     font-size: 13px;
@@ -1513,7 +1522,7 @@
 }
 
 
-.reservation-number strong {
+.reservation-complete-main .reservation-number strong {
     color: #d7193f;
 
     font-size: 21px;
@@ -1525,12 +1534,12 @@
    予約内容
    ================================================== */
 
-.reservation-complete-body {
+.reservation-complete-main .reservation-complete-body {
     padding: 35px 40px 10px;
 }
 
 
-.reservation-complete-body h2 {
+.reservation-complete-main .reservation-complete-body h2 {
     margin: 0 0 20px;
 
     padding-left: 12px;
@@ -1545,7 +1554,7 @@
 
 /* dl */
 
-.reservation-complete-details {
+.reservation-complete-main .reservation-complete-details {
     width: 100%;
 
     margin: 0;
@@ -1555,7 +1564,7 @@
 
 /* 1行 */
 
-.reservation-complete-row {
+.reservation-complete-main .reservation-complete-row {
     display: grid;
 
     grid-template-columns: 160px 1fr;
@@ -1566,7 +1575,7 @@
 
 /* 項目名 */
 
-.reservation-complete-row dt {
+.reservation-complete-main .reservation-complete-row dt {
     margin: 0;
 
     padding: 18px 15px;
@@ -1584,7 +1593,7 @@
 
 /* 内容 */
 
-.reservation-complete-row dd {
+.reservation-complete-main .reservation-complete-row dd {
     margin: 0;
 
     padding: 18px 20px;
@@ -1601,24 +1610,24 @@
    合計金額
    ================================================== */
 
-.reservation-complete-total {
+.reservation-complete-main .reservation-complete-total {
     border-bottom: none;
 }
 
 
-.reservation-complete-total dt {
+.reservation-complete-main .reservation-complete-total dt {
     color: #111;
 }
 
 
-.reservation-complete-total dd strong {
+.reservation-complete-main .reservation-complete-total dd strong {
     color: #d7193f;
 
     font-size: 24px;
 }
 
 
-.reservation-complete-total dd span {
+.reservation-complete-main .reservation-complete-total dd span {
     margin-left: 3px;
 
     font-size: 14px;
@@ -1629,7 +1638,7 @@
    注意書き
    ================================================== */
 
-.reservation-complete-notice {
+.reservation-complete-main .reservation-complete-notice {
     margin: 20px 40px 0;
 
     padding: 15px 20px;
@@ -1640,7 +1649,7 @@
 }
 
 
-.reservation-complete-notice p {
+.reservation-complete-main .reservation-complete-notice p {
     margin: 3px 0;
 
     color: #777;
@@ -1653,14 +1662,14 @@
    ボタン
    ================================================== */
 
-.reservation-complete-actions {
+.reservation-complete-main .reservation-complete-actions {
     padding: 35px 40px 40px;
 
     text-align: center;
 }
 
 
-.reservation-complete-button {
+.reservation-complete-main .reservation-complete-button {
     display: inline-block;
 
     min-width: 260px;
@@ -1688,7 +1697,7 @@
 }
 
 
-.reservation-complete-button:hover {
+.reservation-complete-main .reservation-complete-button:hover {
     background-color: #d7193f;
 
     border-color: #d7193f;
@@ -1710,12 +1719,12 @@
     }
 
 
-    .reservation-complete-header {
+    .reservation-complete-main .reservation-complete-header {
         padding: 35px 20px 30px;
     }
 
 
-    .reservation-complete-check {
+    .reservation-complete-main .reservation-complete-check {
         width: 60px;
         height: 60px;
 
@@ -1723,12 +1732,12 @@
     }
 
 
-    .reservation-complete-header h1 {
+    .reservation-complete-main .reservation-complete-header h1 {
         font-size: 23px;
     }
 
 
-    .reservation-number {
+    .reservation-complete-main .reservation-number {
         display: flex;
 
         justify-content: center;
@@ -1739,39 +1748,39 @@
     }
 
 
-    .reservation-complete-body {
+    .reservation-complete-main .reservation-complete-body {
         padding: 25px 20px 5px;
     }
 
 
-    .reservation-complete-row {
+    .reservation-complete-main .reservation-complete-row {
         display: block;
     }
 
 
-    .reservation-complete-row dt {
+    .reservation-complete-main .reservation-complete-row dt {
         padding: 13px 10px 4px;
 
         background-color: transparent;
     }
 
 
-    .reservation-complete-row dd {
+    .reservation-complete-main .reservation-complete-row dd {
         padding: 4px 10px 15px;
     }
 
 
-    .reservation-complete-notice {
+    .reservation-complete-main .reservation-complete-notice {
         margin: 20px 20px 0;
     }
 
 
-    .reservation-complete-actions {
+    .reservation-complete-main .reservation-complete-actions {
         padding: 30px 20px;
     }
 
 
-    .reservation-complete-button {
+    .reservation-complete-main .reservation-complete-button {
         width: 100%;
         min-width: 0;
     }
@@ -1790,7 +1799,7 @@
     box-sizing: border-box;
 }
 
-.cancel-card {
+.cancel-main .cancel-card {
     width: 100%;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -1802,19 +1811,19 @@
 
 /* タイトル */
 
-.cancel-header {
+.cancel-main .cancel-header {
     padding: 40px 30px 30px;
     text-align: center;
     border-bottom: 1px solid #eee;
 }
 
-.cancel-header h1 {
+.cancel-main .cancel-header h1 {
     margin: 0 0 15px;
     color: #111;
     font-size: 28px;
 }
 
-.cancel-header p {
+.cancel-main .cancel-header p {
     margin: 0;
     color: #666;
     font-size: 14px;
@@ -1824,15 +1833,15 @@
 
 /* フォーム */
 
-.cancel-form {
+.cancel-main .cancel-form {
     padding: 35px 40px 40px;
 }
 
-.cancel-form-group {
+.cancel-main .cancel-form-group {
     margin-bottom: 25px;
 }
 
-.cancel-form-group label {
+.cancel-main .cancel-form-group label {
     display: block;
     margin-bottom: 8px;
     color: #222;
@@ -1840,7 +1849,7 @@
     font-weight: bold;
 }
 
-.cancel-form-group input {
+.cancel-main .cancel-form-group input {
     width: 100%;
     padding: 13px 14px;
     box-sizing: border-box;
@@ -1856,7 +1865,7 @@
     outline: none;
 }
 
-.cancel-form-group input:focus {
+.cancel-main .cancel-form-group input:focus {
     border-color: #d7193f;
     box-shadow: 0 0 0 2px rgba(215, 25, 63, .12);
 }
@@ -1864,7 +1873,7 @@
 
 /* 必須 */
 
-.cancel-form .required {
+.cancel-main .cancel-form .required {
     display: inline-block;
     margin-left: 6px;
     padding: 2px 6px;
@@ -1878,7 +1887,7 @@
 
 /* エラー */
 
-.cancel-error {
+.cancel-main .cancel-error {
     margin: 25px 40px 0;
     padding: 13px 15px;
 
@@ -1892,7 +1901,7 @@
 
 /* 注意 */
 
-.cancel-notice {
+.cancel-main .cancel-notice {
     margin: 10px 0 30px;
     padding: 15px 18px;
 
@@ -1900,7 +1909,7 @@
     border-left: 3px solid #999;
 }
 
-.cancel-notice p {
+.cancel-main .cancel-notice p {
     margin: 4px 0;
     color: #777;
     font-size: 12px;
@@ -1910,7 +1919,7 @@
 
 /* 取消ボタン */
 
-.cancel-button {
+.cancel-main .cancel-button {
     display: block;
     width: 100%;
 
@@ -1929,7 +1938,7 @@
     transition: .2s;
 }
 
-.cancel-button:hover {
+.cancel-main .cancel-button:hover {
     background-color: #b91435;
     border-color: #b91435;
 }
@@ -1937,7 +1946,7 @@
 
 /* 戻る */
 
-.cancel-back {
+.cancel-main .cancel-back {
     display: block;
     margin-top: 20px;
 
@@ -1948,7 +1957,7 @@
     text-decoration: none;
 }
 
-.cancel-back:hover {
+.cancel-main .cancel-back:hover {
     color: #d7193f;
 }
 
@@ -1961,19 +1970,19 @@
         padding: 30px 15px 60px;
     }
 
-    .cancel-header {
+    .cancel-main .cancel-header {
         padding: 30px 20px 25px;
     }
 
-    .cancel-header h1 {
+    .cancel-main .cancel-header h1 {
         font-size: 24px;
     }
 
-    .cancel-form {
+    .cancel-main .cancel-form {
         padding: 25px 20px 30px;
     }
 
-    .cancel-error {
+    .cancel-main .cancel-error {
         margin: 20px 20px 0;
     }
 }
@@ -1993,7 +2002,7 @@
 
 /* タイトル */
 
-.schedule-title {
+.schedule-main .schedule-title {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -2001,7 +2010,7 @@
     margin-bottom: 30px;
 }
 
-.schedule-title h1 {
+.schedule-main .schedule-title h1 {
     margin: 0;
 
     color: #111;
@@ -2009,7 +2018,7 @@
     font-size: 28px;
 }
 
-.schedule-title .material-symbols-outlined {
+.schedule-main .schedule-title .material-symbols-outlined {
     color: #d7193f;
 
     font-size: 32px;
@@ -2020,11 +2029,11 @@
    日付選択
 ======================================== */
 
-.schedule-date-list {
+.schedule-main .schedule-date-list {
     display: grid;
 
     grid-template-columns:
-        repeat(7, 1fr);
+        repeat(7, minmax(0, 1fr));
 
     margin-bottom: 40px;
 
@@ -2033,7 +2042,7 @@
 }
 
 
-.schedule-date {
+.schedule-main .schedule-date {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2050,26 +2059,26 @@
 }
 
 
-.schedule-date:first-child {
+.schedule-main .schedule-date:first-child {
     border-left: 1px solid #ddd;
 }
 
 
-.schedule-date:hover {
+.schedule-main .schedule-date:hover {
     background-color: #f5f5f5;
 
     color: #d7193f;
 }
 
 
-.schedule-month-day {
+.schedule-main .schedule-month-day {
     font-size: 18px;
 
     font-weight: bold;
 }
 
 
-.schedule-week {
+.schedule-main .schedule-week {
     margin-top: 5px;
 
     color: #777;
@@ -2080,14 +2089,14 @@
 
 /* 選択中の日付 */
 
-.schedule-date.active {
+.schedule-main .schedule-date.active {
     background-color: #d7193f;
 
     color: #fff;
 }
 
 
-.schedule-date.active .schedule-week {
+.schedule-main .schedule-date.active .schedule-week {
     color: #fff;
 }
 
@@ -2096,12 +2105,12 @@
    上映作品
 ======================================== */
 
-.schedule-content {
+.schedule-main .schedule-content {
     margin-top: 40px;
 }
 
 
-.schedule-section-title {
+.schedule-main .schedule-section-title {
     margin: 0 0 25px;
 
     padding-left: 12px;
@@ -2116,7 +2125,7 @@
 
 /* 映画カード */
 
-.schedule-movie {
+.schedule-main .schedule-movie {
     display: flex;
 
     gap: 30px;
@@ -2137,14 +2146,14 @@
 
 /* ポスター */
 
-.schedule-poster {
+.schedule-main .schedule-poster {
     width: 150px;
 
     flex-shrink: 0;
 }
 
 
-.schedule-poster img {
+.schedule-main .schedule-poster img {
     display: block;
 
     width: 100%;
@@ -2157,12 +2166,12 @@
 
 /* 映画情報 */
 
-.schedule-movie-info {
+.schedule-main .schedule-movie-info {
     flex: 1;
 }
 
 
-.schedule-movie-title {
+.schedule-main .schedule-movie-title {
     margin: 0 0 10px;
 
     color: #111;
@@ -2173,7 +2182,7 @@
 
 /* 上映時間・ジャンル */
 
-.schedule-movie-meta {
+.schedule-main .schedule-movie-meta {
     display: flex;
 
     gap: 20px;
@@ -2186,7 +2195,7 @@
 }
 
 
-.schedule-movie-meta span {
+.schedule-main .schedule-movie-meta span {
     display: flex;
 
     align-items: center;
@@ -2195,14 +2204,14 @@
 }
 
 
-.schedule-movie-meta
+.schedule-main .schedule-movie-meta
 .material-symbols-outlined {
 
     font-size: 18px;
 }
 
 
-.schedule-movie-info h4 {
+.schedule-main .schedule-movie-info h4 {
     margin: 0 0 12px;
 
     color: #333;
@@ -2215,7 +2224,7 @@
    上映時間ボタン
 ======================================== */
 
-.schedule-times {
+.schedule-main .schedule-times {
     display: flex;
 
     flex-wrap: wrap;
@@ -2224,7 +2233,7 @@
 }
 
 
-.schedule-time {
+.schedule-main .schedule-time {
     display: flex;
 
     flex-direction: column;
@@ -2247,7 +2256,7 @@
 }
 
 
-.schedule-time:hover {
+.schedule-main .schedule-time:hover {
     background-color: #d7193f;
 
     border-color: #d7193f;
@@ -2256,14 +2265,14 @@
 }
 
 
-.schedule-start {
+.schedule-main .schedule-start {
     font-size: 18px;
 
     font-weight: bold;
 }
 
 
-.schedule-end {
+.schedule-main .schedule-end {
     margin-top: 3px;
 
     color: #888;
@@ -2272,7 +2281,7 @@
 }
 
 
-.schedule-screen {
+.schedule-main .schedule-screen {
     margin-top: 7px;
 
     color: #777;
@@ -2281,10 +2290,9 @@
 }
 
 
-.schedule-time:hover
+.schedule-main .schedule-time:hover
 .schedule-end,
-
-.schedule-time:hover
+.schedule-main .schedule-time:hover
 .schedule-screen {
 
     color: #fff;
@@ -2295,7 +2303,7 @@
    上映なし
 ======================================== */
 
-.schedule-empty {
+.schedule-main .schedule-empty {
     padding: 60px 20px;
 
     background-color: #f7f7f7;
@@ -2308,7 +2316,7 @@
 }
 
 
-.schedule-empty
+.schedule-main .schedule-empty
 .material-symbols-outlined {
 
     margin-bottom: 10px;
@@ -2319,7 +2327,7 @@
 }
 
 
-.schedule-empty p {
+.schedule-main .schedule-empty p {
     margin: 0;
 }
 
@@ -2335,51 +2343,51 @@
     }
 
 
-    .schedule-date {
+    .schedule-main .schedule-date {
         padding: 13px 2px;
     }
 
 
-    .schedule-month-day {
+    .schedule-main .schedule-month-day {
         font-size: 14px;
     }
 
 
-    .schedule-movie {
+    .schedule-main .schedule-movie {
         gap: 15px;
 
         padding: 15px;
     }
 
 
-    .schedule-poster {
+    .schedule-main .schedule-poster {
         width: 95px;
     }
 
 
-    .schedule-movie-title {
+    .schedule-main .schedule-movie-title {
         font-size: 18px;
     }
 
 
-    .schedule-movie-meta {
+    .schedule-main .schedule-movie-meta {
         display: block;
     }
 
 
-    .schedule-movie-meta span {
+    .schedule-main .schedule-movie-meta span {
         margin-bottom: 5px;
     }
 
 
-    .schedule-time {
+    .schedule-main .schedule-time {
         min-width: 75px;
 
         padding: 9px;
     }
 
 
-    .schedule-start {
+    .schedule-main .schedule-start {
         font-size: 15px;
     }
 }
@@ -2401,11 +2409,11 @@
    ページタイトル
 ======================================== */
 
-.movies-title {
+.movies-main .movies-title {
     margin-bottom: 35px;
 }
 
-.movies-title h1 {
+.movies-main .movies-title h1 {
     margin: 0 0 12px;
     color: #111;
     font-size: 32px;
@@ -2417,9 +2425,9 @@
    作品一覧
 ======================================== */
 
-.movies-list {
+.movies-main .movies-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
 }
 
@@ -2428,7 +2436,7 @@
    映画カード
 ======================================== */
 
-.movie-card {
+.movies-main .movie-card {
     overflow: hidden;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -2438,7 +2446,7 @@
         box-shadow 0.2s ease;
 }
 
-.movie-card:hover {
+.movies-main .movie-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
@@ -2448,7 +2456,7 @@
    ポスターの代わりになる映画エリア
 ======================================== */
 
-.movie-poster {
+.movies-main .movie-poster {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2471,7 +2479,7 @@
 
 /* ジャンル */
 
-.movie-poster span {
+.movies-main .movie-poster span {
     margin-bottom: 60px;
 
     color: rgba(255, 255, 255, 0.8);
@@ -2484,7 +2492,7 @@
 
 /* 映画タイトル */
 
-.movie-poster strong {
+.movies-main .movie-poster strong {
     margin-bottom: 40px;
 
     color: #fff;
@@ -2497,7 +2505,7 @@
 
 /* キャッチコピー */
 
-.movie-poster small {
+.movies-main .movie-poster small {
     color: rgba(255, 255, 255, 0.9);
 
     font-size: 12px;
@@ -2509,14 +2517,14 @@
    カード下部分
 ======================================== */
 
-.card-body {
+.movies-main .card-body {
     padding: 25px 24px 28px;
 }
 
 
 /* 上映状況 / ジャンル */
 
-.card-body .eyebrow {
+.movies-main .card-body .eyebrow {
     margin: 0 0 15px;
 
     color: #d7193f;
@@ -2529,7 +2537,7 @@
 
 /* 映画タイトル */
 
-.card-body h2 {
+.movies-main .card-body h2 {
     margin: 0 0 12px;
 
     color: #111;
@@ -2541,7 +2549,7 @@
 
 /* 上映時間・言語など */
 
-.card-body p:not(.eyebrow) {
+.movies-main .card-body p:not(.eyebrow) {
     margin: 0 0 28px;
 
     color: #555;
@@ -2554,7 +2562,7 @@
    作品詳細・予約リンク
 ======================================== */
 
-.text-link {
+.movies-main .text-link {
     display: inline-block;
 
     color: #d7193f;
@@ -2569,7 +2577,7 @@
     transition: 0.2s;
 }
 
-.text-link:hover {
+.movies-main .text-link:hover {
     color: #a80f2e;
     transform: translateX(3px);
 }
@@ -2581,8 +2589,8 @@
 
 @media (max-width: 1000px) {
 
-    .movies-list {
-        grid-template-columns: repeat(2, 1fr);
+    .movies-main .movies-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
 }
@@ -2598,26 +2606,26 @@
         padding: 30px 15px 60px;
     }
 
-    .movies-title h1 {
+    .movies-main .movies-title h1 {
         font-size: 26px;
     }
 
-    .movies-list {
+    .movies-main .movies-list {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
-    .movie-poster {
+    .movies-main .movie-poster {
         height: 280px;
     }
 
-    .movie-poster strong {
+    .movies-main .movie-poster strong {
         font-size: 25px;
     }
 
 }
 
-.movies-description {
+.movies-main .movies-description {
     margin: 15px 0 0;
 
     color: #666;
@@ -2629,7 +2637,7 @@
 
 /* 作品が存在しない場合 */
 
-.movies-empty {
+.movies-main .movies-empty {
     grid-column: 1 / -1;
 
     padding: 60px 20px;
@@ -2643,7 +2651,7 @@
     text-align: center;
 }
 
-.movies-empty p {
+.movies-main .movies-empty p {
     margin: 0;
 }
 
@@ -2666,11 +2674,11 @@
    ページタイトル
 ======================================== */
 
-.movie-detail-page-title {
+.movie-detail-main .movie-detail-page-title {
     margin-bottom: 35px;
 }
 
-.movie-detail-page-title h1 {
+.movie-detail-main .movie-detail-page-title h1 {
     margin: 0;
 
     color: #111;
@@ -2684,10 +2692,10 @@
    詳細カード
 ======================================== */
 
-.movie-detail-card {
+.movie-detail-main .movie-detail-card {
     display: grid;
 
-    grid-template-columns: 360px 1fr;
+    grid-template-columns: 360px minmax(0, 1fr);
 
     gap: 42px;
 
@@ -2705,11 +2713,11 @@
    ポスター
 ======================================== */
 
-.movie-detail-poster {
+.movie-detail-main .movie-detail-poster {
     width: 100%;
 }
 
-.movie-detail-poster img {
+.movie-detail-main .movie-detail-poster img {
     display: block;
 
     width: 100%;
@@ -2728,14 +2736,14 @@
    右側
 ======================================== */
 
-.movie-detail-content {
+.movie-detail-main .movie-detail-content {
     padding: 5px 0;
 }
 
 
 /* MOVIE / ジャンル */
 
-.movie-detail-status {
+.movie-detail-main .movie-detail-status {
     margin: 0 0 18px;
 
     color: #d7193f;
@@ -2749,7 +2757,7 @@
 
 /* 映画タイトル */
 
-.movie-detail-title {
+.movie-detail-main .movie-detail-title {
     margin: 0 0 28px;
 
     color: #111;
@@ -2761,7 +2769,7 @@
 
 /* あらすじ */
 
-.movie-detail-description {
+.movie-detail-main .movie-detail-description {
     margin: 0 0 35px;
 
     color: #555;
@@ -2776,7 +2784,7 @@
    詳細情報
 ======================================== */
 
-.movie-detail-info {
+.movie-detail-main .movie-detail-info {
     width: 100%;
 
     margin: 0;
@@ -2785,16 +2793,16 @@
 }
 
 
-.movie-detail-info-row {
+.movie-detail-main .movie-detail-info-row {
     display: grid;
 
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: 140px minmax(0, 1fr);
 
     border-bottom: 1px solid #eee;
 }
 
 
-.movie-detail-info-row dt {
+.movie-detail-main .movie-detail-info-row dt {
     margin: 0;
 
     padding: 18px 0;
@@ -2806,7 +2814,7 @@
 }
 
 
-.movie-detail-info-row dd {
+.movie-detail-main .movie-detail-info-row dd {
     margin: 0;
 
     padding: 18px 0;
@@ -2821,7 +2829,7 @@
    ボタン
 ======================================== */
 
-.movie-detail-actions {
+.movie-detail-main .movie-detail-actions {
     display: flex;
 
     gap: 12px;
@@ -2832,7 +2840,7 @@
 
 /* 上映時間を選ぶ */
 
-.movie-detail-schedule-button {
+.movie-detail-main .movie-detail-schedule-button {
     display: inline-flex;
 
     align-items: center;
@@ -2859,7 +2867,7 @@
 }
 
 
-.movie-detail-schedule-button:hover {
+.movie-detail-main .movie-detail-schedule-button:hover {
     background-color: #b41234;
 
     border-color: #b41234;
@@ -2870,7 +2878,7 @@
 
 /* 作品一覧へ */
 
-.movie-detail-back-button {
+.movie-detail-main .movie-detail-back-button {
     display: inline-flex;
 
     align-items: center;
@@ -2897,7 +2905,7 @@
 }
 
 
-.movie-detail-back-button:hover {
+.movie-detail-main .movie-detail-back-button:hover {
     background-color: #111;
 
     border-color: #111;
@@ -2912,8 +2920,8 @@
 
 @media (max-width: 900px) {
 
-    .movie-detail-card {
-        grid-template-columns: 280px 1fr;
+    .movie-detail-main .movie-detail-card {
+        grid-template-columns: 240px minmax(0, 1fr);
 
         gap: 30px;
     }
@@ -2925,42 +2933,42 @@
    スマホ
 ======================================== */
 
-@media (max-width: 650px) {
+@media (max-width: 750px) {
 
     .movie-detail-main {
         padding: 30px 15px 60px;
     }
 
-    .movie-detail-page-title h1 {
+    .movie-detail-main .movie-detail-page-title h1 {
         font-size: 26px;
     }
 
-    .movie-detail-card {
+    .movie-detail-main .movie-detail-card {
         display: block;
 
         padding: 20px;
     }
 
-    .movie-detail-poster {
+    .movie-detail-main .movie-detail-poster {
         max-width: 300px;
 
         margin: 0 auto 30px;
     }
 
-    .movie-detail-title {
+    .movie-detail-main .movie-detail-title {
         font-size: 22px;
     }
 
-    .movie-detail-info-row {
-        grid-template-columns: 100px 1fr;
+    .movie-detail-main .movie-detail-info-row {
+        grid-template-columns: 100px minmax(0, 1fr);
     }
 
-    .movie-detail-actions {
+    .movie-detail-main .movie-detail-actions {
         flex-direction: column;
     }
 
-    .movie-detail-schedule-button,
-    .movie-detail-back-button {
+    .movie-detail-main .movie-detail-schedule-button,
+    .movie-detail-main .movie-detail-back-button {
         width: 100%;
     }
 }
@@ -2981,7 +2989,7 @@
    タイトル
 ======================================== */
 
-.contact-title {
+.contact-main .contact-title {
     width: 100%;
     max-width: 760px;
     margin: 0 auto 30px;
@@ -2989,7 +2997,7 @@
     box-sizing: border-box;
 }
 
-.contact-title h1 {
+.contact-main .contact-title h1 {
     margin: 0 0 12px;
 
     color: #111;
@@ -2998,7 +3006,7 @@
     font-weight: 700;
 }
 
-.contact-title p {
+.contact-main .contact-title p {
     margin: 0;
 
     color: #666;
@@ -3012,7 +3020,7 @@
    フォーム全体
 ======================================== */
 
-.contact-panel {
+.contact-main .contact-panel {
     width: 100%;
     max-width: 760px;
 
@@ -3030,7 +3038,7 @@
 }
 
 
-.contact-form-group {
+.contact-main .contact-form-group {
     margin-bottom: 28px;
 }
 
@@ -3039,7 +3047,7 @@
    ラベル
 ======================================== */
 
-.contact-form-group label {
+.contact-main .contact-form-group label {
     display: block;
 
     margin-bottom: 9px;
@@ -3053,7 +3061,7 @@
 
 /* 必須 */
 
-.contact-required {
+.contact-main .contact-required {
     display: inline-block;
 
     margin-left: 7px;
@@ -3074,9 +3082,9 @@
    入力欄
 ======================================== */
 
-.contact-form-group input,
-.contact-form-group select,
-.contact-form-group textarea {
+.contact-main .contact-form-group input,
+.contact-main .contact-form-group select,
+.contact-main .contact-form-group textarea {
     width: 100%;
 
     padding: 13px 14px;
@@ -3103,9 +3111,9 @@
 
 /* フォーカス */
 
-.contact-form-group input:focus,
-.contact-form-group select:focus,
-.contact-form-group textarea:focus {
+.contact-main .contact-form-group input:focus,
+.contact-main .contact-form-group select:focus,
+.contact-main .contact-form-group textarea:focus {
     border-color: #d7193f;
 
     box-shadow:
@@ -3116,7 +3124,7 @@
 
 /* textarea */
 
-.contact-form-group textarea {
+.contact-main .contact-form-group textarea {
     min-height: 160px;
 
     resize: vertical;
@@ -3127,8 +3135,8 @@
 
 /* placeholder */
 
-.contact-form-group input::placeholder,
-.contact-form-group textarea::placeholder {
+.contact-main .contact-form-group input::placeholder,
+.contact-main .contact-form-group textarea::placeholder {
     color: #aaa;
 }
 
@@ -3137,7 +3145,7 @@
    注意事項
 ======================================== */
 
-.contact-notice {
+.contact-main .contact-notice {
     margin: 5px 0 30px;
     padding: 15px 18px;
 
@@ -3146,7 +3154,7 @@
     border-left: 3px solid #999;
 }
 
-.contact-notice p {
+.contact-main .contact-notice p {
     margin: 4px 0;
 
     color: #777;
@@ -3161,7 +3169,7 @@
    エラー
 ======================================== */
 
-.contact-error {
+.contact-main .contact-error {
     margin-bottom: 25px;
     padding: 13px 15px;
 
@@ -3179,12 +3187,12 @@
    送信ボタン
 ======================================== */
 
-.contact-actions {
+.contact-main .contact-actions {
     text-align: center;
 }
 
 
-.contact-submit {
+.contact-main .contact-submit {
     width: 100%;
     max-width: 320px;
 
@@ -3208,7 +3216,7 @@
 }
 
 
-.contact-submit:hover {
+.contact-main .contact-submit:hover {
     background-color: #b41234;
 
     border-color: #b41234;
@@ -3227,15 +3235,15 @@
         padding: 30px 15px 60px;
     }
 
-    .contact-title h1 {
+    .contact-main .contact-title h1 {
         font-size: 26px;
     }
 
-    .contact-panel {
+    .contact-main .contact-panel {
         padding: 25px 20px;
     }
 
-    .contact-submit {
+    .contact-main .contact-submit {
         max-width: none;
     }
 
@@ -3260,7 +3268,7 @@
    タイトル
 ======================================== */
 
-.contact-complete-title {
+.contact-complete-main .contact-complete-title {
     width: 100%;
     max-width: 760px;
 
@@ -3270,7 +3278,7 @@
     box-sizing: border-box;
 }
 
-.contact-complete-title h1 {
+.contact-complete-main .contact-complete-title h1 {
     margin: 0;
 
     color: #111;
@@ -3284,7 +3292,7 @@
    完了パネル
 ======================================== */
 
-.contact-complete-panel {
+.contact-complete-main .contact-complete-panel {
     width: 100%;
     max-width: 760px;
 
@@ -3307,7 +3315,7 @@
    チェックマーク
 ======================================== */
 
-.contact-complete-check {
+.contact-complete-main .contact-complete-check {
     display: flex;
 
     align-items: center;
@@ -3333,7 +3341,7 @@
    完了メッセージ
 ======================================== */
 
-.contact-complete-panel h2 {
+.contact-complete-main .contact-complete-panel h2 {
     margin: 0 0 25px;
 
     color: #111;
@@ -3343,7 +3351,7 @@
 }
 
 
-.contact-complete-number {
+.contact-complete-main .contact-complete-number {
     margin: 0 0 20px;
 
     color: #555;
@@ -3352,14 +3360,14 @@
 }
 
 
-.contact-complete-number strong {
+.contact-complete-main .contact-complete-number strong {
     color: #d7193f;
 
     font-size: 16px;
 }
 
 
-.contact-complete-message {
+.contact-complete-main .contact-complete-message {
     margin: 0 0 35px;
 
     color: #666;
@@ -3374,7 +3382,7 @@
    トップページに戻る
 ======================================== */
 
-.contact-complete-button {
+.contact-complete-main .contact-complete-button {
     display: inline-flex;
 
     align-items: center;
@@ -3404,7 +3412,7 @@
 }
 
 
-.contact-complete-button:hover {
+.contact-complete-main .contact-complete-button:hover {
     background-color: #b41234;
 
     border-color: #b41234;
@@ -3425,24 +3433,24 @@
         padding: 30px 15px 60px;
     }
 
-    .contact-complete-breadcrumb,
-    .contact-complete-title {
+    .contact-complete-main .contact-complete-breadcrumb,
+    .contact-complete-main .contact-complete-title {
         padding: 0;
     }
 
-    .contact-complete-title h1 {
+    .contact-complete-main .contact-complete-title h1 {
         font-size: 26px;
     }
 
-    .contact-complete-panel {
+    .contact-complete-main .contact-complete-panel {
         padding: 40px 20px;
     }
 
-    .contact-complete-panel h2 {
+    .contact-complete-main .contact-complete-panel h2 {
         font-size: 20px;
     }
 
-    .contact-complete-button {
+    .contact-complete-main .contact-complete-button {
         width: 100%;
     }
 }
@@ -3460,21 +3468,21 @@
     box-sizing: border-box;
 }
 
-.cancel-complete-title {
+.cancel-complete-main .cancel-complete-title {
     max-width: 760px;
     margin: 0 auto 35px;
     padding: 0 40px;
     box-sizing: border-box;
 }
 
-.cancel-complete-title h1 {
+.cancel-complete-main .cancel-complete-title h1 {
     margin: 0;
     color: #111;
     font-size: 32px;
     font-weight: 700;
 }
 
-.cancel-complete-panel {
+.cancel-complete-main .cancel-complete-panel {
     max-width: 760px;
     margin: 0 auto;
     padding: 50px 45px;
@@ -3485,7 +3493,7 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-.cancel-complete-icon {
+.cancel-complete-main .cancel-complete-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3497,31 +3505,31 @@
     color: #fff;
 }
 
-.cancel-complete-icon .material-symbols-outlined {
+.cancel-complete-main .cancel-complete-icon .material-symbols-outlined {
     font-size: 40px;
 }
 
-.cancel-complete-panel h2 {
+.cancel-complete-main .cancel-complete-panel h2 {
     margin: 0 0 20px;
     color: #111;
     font-size: 24px;
     font-weight: 700;
 }
 
-.cancel-complete-message {
+.cancel-complete-main .cancel-complete-message {
     margin: 0 0 35px;
     color: #666;
     font-size: 14px;
     line-height: 2;
 }
 
-.cancel-complete-details {
+.cancel-complete-main .cancel-complete-details {
     max-width: 480px;
     margin: 0 auto 25px;
     border-top: 1px solid #ddd;
 }
 
-.cancel-complete-row {
+.cancel-complete-main .cancel-complete-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -3531,28 +3539,28 @@
     text-align: left;
 }
 
-.cancel-complete-row span {
+.cancel-complete-main .cancel-complete-row span {
     color: #777;
     font-size: 14px;
 }
 
-.cancel-complete-row strong {
+.cancel-complete-main .cancel-complete-row strong {
     color: #222;
     font-size: 14px;
     text-align: right;
 }
 
-.cancel-complete-row .cancel-complete-status {
+.cancel-complete-main .cancel-complete-row .cancel-complete-status {
     color: #d7193f;
 }
 
-.cancel-complete-note {
+.cancel-complete-main .cancel-complete-note {
     margin: 0 0 35px;
     color: #888;
     font-size: 12px;
 }
 
-.cancel-complete-button {
+.cancel-complete-main .cancel-complete-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -3568,7 +3576,7 @@
     transition: 0.2s;
 }
 
-.cancel-complete-button:hover {
+.cancel-complete-main .cancel-complete-button:hover {
     background: #b41234;
     border-color: #b41234;
     color: #fff;
@@ -3580,27 +3588,103 @@
         padding: 30px 15px 60px;
     }
 
-    .cancel-complete-title {
+    .cancel-complete-main .cancel-complete-title {
         padding: 0;
     }
 
-    .cancel-complete-title h1 {
+    .cancel-complete-main .cancel-complete-title h1 {
         font-size: 26px;
     }
 
-    .cancel-complete-panel {
+    .cancel-complete-main .cancel-complete-panel {
         padding: 40px 20px;
     }
 
-    .cancel-complete-panel h2 {
+    .cancel-complete-main .cancel-complete-panel h2 {
         font-size: 20px;
     }
 
-    .cancel-complete-row {
+    .cancel-complete-main .cancel-complete-row {
         padding: 15px 5px;
     }
 
-    .cancel-complete-button {
+    .cancel-complete-main .cancel-complete-button {
         width: 100%;
+    }
+}
+
+/* ========================================
+   幅の整合性・狭い画面でのはみ出し防止
+   ======================================== */
+.user-main > :not(.promotion) {
+    max-width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user-main .promotion-item {
+    min-width: 0;
+    max-width: 100%;
+    scroll-snap-stop: always;
+}
+
+.user-main .movie-card,
+.movies-main .movie-card,
+.reservation-main .reservation-panel,
+.reservation-main .reservation-button,
+.cancel-main .cancel-button,
+.contact-main .contact-submit,
+.schedule-main .schedule-time {
+    box-sizing: border-box;
+}
+
+.schedule-main .schedule-movie-info,
+.movie-detail-main .movie-detail-content {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.movie-detail-main .movie-detail-actions,
+.schedule-main .schedule-movie-meta {
+    flex-wrap: wrap;
+}
+
+.reservation-main .seat input:focus-visible + span {
+    outline: 2px solid #d7193f;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .user-main .promotion-text {
+        left: 52px;
+        right: 52px;
+    }
+
+    .contact-main .contact-title {
+        padding: 0;
+    }
+
+    .contact-complete-main .contact-complete-button,
+    .cancel-complete-main .cancel-complete-button,
+    .movie-detail-main .movie-detail-schedule-button,
+    .movie-detail-main .movie-detail-back-button {
+        min-width: 0;
+    }
+
+    .reservation-complete-main .reservation-number,
+    .cancel-complete-main .cancel-complete-row {
+        flex-wrap: wrap;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 400px) {
+    .schedule-main .schedule-movie {
+        flex-direction: column;
+    }
+
+    .reservation-main .ticket-row {
+        grid-template-columns: minmax(0, 1fr) 85px;
+        gap: 10px;
     }
 }
