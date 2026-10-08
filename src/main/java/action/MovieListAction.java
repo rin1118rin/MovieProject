@@ -11,7 +11,6 @@ import tool.Action;
 
 public class MovieListAction extends Action {
 
-    @Override
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response)
@@ -19,12 +18,13 @@ public class MovieListAction extends Action {
 
         MovieDao dao = new MovieDao();
 
+        // DBから全映画情報を取得
         List<Movie> movieList = dao.getAll();
 
+        // リクエストスコープにセット
         request.setAttribute("movieList", movieList);
 
-        request.getRequestDispatcher(
-                "/admin/movies/list.jsp")
-                .forward(request, response);
+        // FrontController 側に遷移先JSPのパスを返却
+        return;
     }
 }

@@ -638,3 +638,1748 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ========================================
+   予約ページ
+   ======================================== */
+
+.reservation-main {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 45px 25px 80px;
+
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   ページタイトル
+   ======================================== */
+
+.reservation-title {
+    margin-bottom: 35px;
+}
+
+.reservation-title h1 {
+    margin: 0;
+
+    color: #111;
+
+    font-size: 32px;
+}
+
+
+/* ========================================
+   2カラム
+   ======================================== */
+
+.booking-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        340px;
+
+    gap: 30px;
+
+    align-items: start;
+}
+
+.booking-content {
+    min-width: 0;
+}
+
+
+/* ========================================
+   パネル
+   ======================================== */
+
+.reservation-panel {
+    margin-bottom: 25px;
+    padding: 30px;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ========================================
+   ステップタイトル
+   ======================================== */
+
+.step-title,
+.summary-title {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 25px;
+}
+
+.step-title span,
+.summary-title span {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    background: #d7193f;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.step-title h2,
+.summary-title h2 {
+    margin: 0;
+
+    color: #111;
+
+    font-size: 21px;
+}
+
+
+/* ========================================
+   フォーム
+   ======================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #333;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-group select,
+.ticket-row select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border: 1px solid #ccc;
+    border-radius: 2px;
+
+    color: #222;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.form-group select:focus,
+.ticket-row select:focus {
+    border-color: #d7193f;
+
+    box-shadow:
+        0 0 0 2px rgba(215, 25, 63, 0.12);
+}
+
+
+/* ========================================
+   スクリーン
+   ======================================== */
+
+.screen-area {
+    margin: 15px auto 40px;
+
+    text-align: center;
+}
+
+.screen {
+    width: 75%;
+    max-width: 500px;
+
+    margin: 0 auto;
+
+    padding: 8px;
+
+    background: linear-gradient(
+        to bottom,
+        #ddd,
+        #fafafa
+    );
+
+    border-top: 3px solid #555;
+
+    color: #777;
+
+    font-size: 11px;
+    letter-spacing: 5px;
+
+    box-shadow:
+        0 8px 15px rgba(0, 0, 0, 0.12);
+}
+
+.screen-area p {
+    margin: 10px 0 0;
+
+    color: #999;
+
+    font-size: 11px;
+}
+
+
+/* ========================================
+   座席
+   ======================================== */
+
+.seats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 55px);
+
+    justify-content: center;
+
+    gap: 14px 12px;
+
+    margin: 0 auto 30px;
+}
+
+.seat {
+    cursor: pointer;
+}
+
+.seat input {
+    position: absolute;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.seat span {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 55px;
+    height: 45px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+    color: #222;
+
+    border: 2px solid #bbb;
+    border-radius: 7px 7px 3px 3px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    transition:
+        background 0.2s,
+        color 0.2s,
+        border-color 0.2s,
+        transform 0.15s;
+}
+
+
+/* 選択可能 */
+
+.seat input:not(:disabled) + span:hover {
+    border-color: #d7193f;
+
+    transform: translateY(-2px);
+}
+
+
+/* 選択中 */
+
+.seat input:checked + span {
+    background: #d7193f;
+    color: #fff;
+
+    border-color: #d7193f;
+}
+
+
+/* 販売済み */
+
+.seat input:disabled + span {
+    background: #ddd;
+    color: #999;
+
+    border-color: #ccc;
+
+    cursor: not-allowed;
+}
+
+
+/* ========================================
+   座席の説明
+   ======================================== */
+
+.seat-legend {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eee;
+
+    color: #666;
+
+    font-size: 12px;
+}
+
+.seat-legend div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+.legend-seat {
+    display: inline-block;
+
+    width: 18px;
+    height: 15px;
+
+    border-radius: 3px;
+}
+
+.legend-seat.available {
+    background: #fff;
+
+    border: 1px solid #aaa;
+}
+
+.legend-seat.selected {
+    background: #d7193f;
+
+    border: 1px solid #d7193f;
+}
+
+.legend-seat.sold {
+    background: #ddd;
+
+    border: 1px solid #ccc;
+}
+
+
+/* ========================================
+   券種
+   ======================================== */
+
+.ticket-row {
+    display: grid;
+
+    grid-template-columns:
+        1fr 120px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.ticket-row:last-child {
+    border-bottom: none;
+}
+
+.ticket-row strong {
+    display: block;
+
+    color: #222;
+
+    font-size: 16px;
+}
+
+.ticket-row p {
+    margin: 4px 0 0;
+
+    color: #d7193f;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   支払い方法
+   ======================================== */
+
+.payment-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.payment-option {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 18px;
+
+    border: 1px solid #ddd;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+}
+
+.payment-option:hover {
+    border-color: #d7193f;
+
+    background: #fff8f9;
+}
+
+.payment-option input {
+    accent-color: #d7193f;
+}
+
+.payment-option strong {
+    display: block;
+
+    color: #222;
+}
+
+.payment-option small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #888;
+}
+
+
+/* ========================================
+   予約内容
+   ======================================== */
+
+.booking-summary {
+    position: sticky;
+    top: 110px;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    background: #111;
+    color: #fff;
+
+    border-top: 4px solid #d7193f;
+}
+
+.summary-title h2 {
+    color: #fff;
+}
+
+
+/* ========================================
+   予約詳細
+   ======================================== */
+
+.details {
+    margin: 0;
+}
+
+.details dt {
+    margin-top: 17px;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+.details dd {
+    margin: 5px 0 0;
+
+    padding-bottom: 15px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    color: #fff;
+
+    font-size: 15px;
+}
+
+
+/* ========================================
+   合計
+   ======================================== */
+
+.total {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin: 25px 0;
+
+    padding: 20px 0;
+
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
+}
+
+.total span {
+    font-size: 14px;
+}
+
+.total strong {
+    color: #fff;
+
+    font-size: 30px;
+}
+
+.total small {
+    margin-left: 3px;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   確認
+   ======================================== */
+
+.confirm-check {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 20px;
+
+    color: #ddd;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.confirm-check input {
+    accent-color: #d7193f;
+}
+
+
+/* ========================================
+   予約ボタン
+   ======================================== */
+
+.reservation-button {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #d7193f;
+    color: #fff;
+
+    border: none;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        transform 0.15s;
+}
+
+.reservation-button:hover {
+    background: #b91434;
+
+    transform: translateY(-1px);
+}
+
+
+/* ========================================
+   戻るリンク
+   ======================================== */
+
+.back-link {
+    display: block;
+
+    margin-top: 18px;
+
+    color: #ccc;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 12px;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+
+@media (max-width: 900px) {
+
+    .booking-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-summary {
+        position: static;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .reservation-main {
+        padding: 30px 15px 60px;
+    }
+
+    .reservation-panel {
+        padding: 20px 15px;
+    }
+
+    .seats {
+        grid-template-columns:
+            repeat(6, 42px);
+
+        gap: 10px 6px;
+    }
+
+    .seat span {
+        width: 42px;
+        height: 38px;
+
+        font-size: 11px;
+    }
+
+    .seat-legend {
+        gap: 12px;
+
+        flex-wrap: wrap;
+    }
+
+    .payment-list {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ========================================
+   お客様情報
+   ======================================== */
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    box-sizing: border-box;
+
+    background-color: #fff;
+    color: #222;
+
+    border: 1px solid #ccc;
+    border-radius: 2px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+
+/* 入力中 */
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus {
+    border-color: #d7193f;
+
+    box-shadow:
+        0 0 0 2px rgba(215, 25, 63, 0.12);
+}
+
+
+/* プレースホルダー */
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+
+/* 必須 */
+
+.required {
+    display: inline-block;
+
+    margin-left: 7px;
+    padding: 2px 6px;
+
+    background-color: #d7193f;
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    vertical-align: middle;
+}
+
+
+/* お客様情報の説明 */
+
+.customer-note {
+    margin: -5px 0 25px;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* 入力欄下の説明 */
+
+.input-note {
+    margin: 7px 0 0;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+/* ==================================================
+   予約完了画面
+   ================================================== */
+
+.reservation-complete-main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+    box-sizing: border-box;
+}
+
+
+/* カード */
+
+.reservation-complete-card {
+    width: 100%;
+    overflow: hidden;
+
+    background-color: #fff;
+
+    border: 1px solid #ddd;
+    border-top: 5px solid #d7193f;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+    box-sizing: border-box;
+}
+
+
+/* ==================================================
+   完了メッセージ
+   ================================================== */
+
+.reservation-complete-header {
+    padding: 45px 30px 40px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+/* チェックマーク */
+
+.reservation-complete-check {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    background-color: #d7193f;
+
+    color: #fff;
+
+    border-radius: 50%;
+
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+
+/* タイトル */
+
+.reservation-complete-header h1 {
+    margin: 0 0 15px;
+
+    color: #111;
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+/* メッセージ */
+
+.reservation-complete-message {
+    margin: 0 0 25px;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* ==================================================
+   予約番号
+   ================================================== */
+
+.reservation-number {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 12px 20px;
+
+    background-color: #f5f5f5;
+
+    border: 1px solid #ddd;
+}
+
+
+.reservation-number span {
+    color: #666;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+.reservation-number strong {
+    color: #d7193f;
+
+    font-size: 21px;
+    letter-spacing: 1px;
+}
+
+
+/* ==================================================
+   予約内容
+   ================================================== */
+
+.reservation-complete-body {
+    padding: 35px 40px 10px;
+}
+
+
+.reservation-complete-body h2 {
+    margin: 0 0 20px;
+
+    padding-left: 12px;
+
+    border-left: 4px solid #d7193f;
+
+    color: #111;
+
+    font-size: 20px;
+}
+
+
+/* dl */
+
+.reservation-complete-details {
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 1行 */
+
+.reservation-complete-row {
+    display: grid;
+
+    grid-template-columns: 160px 1fr;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+/* 項目名 */
+
+.reservation-complete-row dt {
+    margin: 0;
+
+    padding: 18px 15px;
+
+    background-color: #fafafa;
+
+    color: #666;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    box-sizing: border-box;
+}
+
+
+/* 内容 */
+
+.reservation-complete-row dd {
+    margin: 0;
+
+    padding: 18px 20px;
+
+    color: #222;
+
+    font-size: 15px;
+
+    box-sizing: border-box;
+}
+
+
+/* ==================================================
+   合計金額
+   ================================================== */
+
+.reservation-complete-total {
+    border-bottom: none;
+}
+
+
+.reservation-complete-total dt {
+    color: #111;
+}
+
+
+.reservation-complete-total dd strong {
+    color: #d7193f;
+
+    font-size: 24px;
+}
+
+
+.reservation-complete-total dd span {
+    margin-left: 3px;
+
+    font-size: 14px;
+}
+
+
+/* ==================================================
+   注意書き
+   ================================================== */
+
+.reservation-complete-notice {
+    margin: 20px 40px 0;
+
+    padding: 15px 20px;
+
+    background-color: #f7f7f7;
+
+    border-left: 3px solid #999;
+}
+
+
+.reservation-complete-notice p {
+    margin: 3px 0;
+
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+/* ==================================================
+   ボタン
+   ================================================== */
+
+.reservation-complete-actions {
+    padding: 35px 40px 40px;
+
+    text-align: center;
+}
+
+
+.reservation-complete-button {
+    display: inline-block;
+
+    min-width: 260px;
+
+    padding: 14px 30px;
+
+    box-sizing: border-box;
+
+    background-color: #111;
+
+    border: 2px solid #111;
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    text-align: center;
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        transform 0.2s;
+}
+
+
+.reservation-complete-button:hover {
+    background-color: #d7193f;
+
+    border-color: #d7193f;
+
+    color: #fff;
+
+    transform: translateY(-2px);
+}
+
+
+/* ==================================================
+   スマホ
+   ================================================== */
+
+@media (max-width: 600px) {
+
+    .reservation-complete-main {
+        padding: 30px 15px 60px;
+    }
+
+
+    .reservation-complete-header {
+        padding: 35px 20px 30px;
+    }
+
+
+    .reservation-complete-check {
+        width: 60px;
+        height: 60px;
+
+        font-size: 30px;
+    }
+
+
+    .reservation-complete-header h1 {
+        font-size: 23px;
+    }
+
+
+    .reservation-number {
+        display: flex;
+
+        justify-content: center;
+
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    .reservation-complete-body {
+        padding: 25px 20px 5px;
+    }
+
+
+    .reservation-complete-row {
+        display: block;
+    }
+
+
+    .reservation-complete-row dt {
+        padding: 13px 10px 4px;
+
+        background-color: transparent;
+    }
+
+
+    .reservation-complete-row dd {
+        padding: 4px 10px 15px;
+    }
+
+
+    .reservation-complete-notice {
+        margin: 20px 20px 0;
+    }
+
+
+    .reservation-complete-actions {
+        padding: 30px 20px;
+    }
+
+
+    .reservation-complete-button {
+        width: 100%;
+        min-width: 0;
+    }
+
+}
+
+/* ==================================================
+   予約取消画面
+   ================================================== */
+
+.cancel-main {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+    box-sizing: border-box;
+}
+
+.cancel-card {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: 5px solid #d7193f;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+    box-sizing: border-box;
+}
+
+
+/* タイトル */
+
+.cancel-header {
+    padding: 40px 30px 30px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.cancel-header h1 {
+    margin: 0 0 15px;
+    color: #111;
+    font-size: 28px;
+}
+
+.cancel-header p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* フォーム */
+
+.cancel-form {
+    padding: 35px 40px 40px;
+}
+
+.cancel-form-group {
+    margin-bottom: 25px;
+}
+
+.cancel-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #222;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cancel-form-group input {
+    width: 100%;
+    padding: 13px 14px;
+    box-sizing: border-box;
+
+    background-color: #fff;
+
+    border: 1px solid #ccc;
+    border-radius: 2px;
+
+    color: #222;
+    font-size: 15px;
+
+    outline: none;
+}
+
+.cancel-form-group input:focus {
+    border-color: #d7193f;
+    box-shadow: 0 0 0 2px rgba(215, 25, 63, .12);
+}
+
+
+/* 必須 */
+
+.cancel-form .required {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 6px;
+
+    background-color: #d7193f;
+    color: #fff;
+
+    font-size: 10px;
+}
+
+
+/* エラー */
+
+.cancel-error {
+    margin: 25px 40px 0;
+    padding: 13px 15px;
+
+    background-color: #fff1f3;
+    border: 1px solid #d7193f;
+
+    color: #d7193f;
+    font-size: 14px;
+}
+
+
+/* 注意 */
+
+.cancel-notice {
+    margin: 10px 0 30px;
+    padding: 15px 18px;
+
+    background-color: #f7f7f7;
+    border-left: 3px solid #999;
+}
+
+.cancel-notice p {
+    margin: 4px 0;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* 取消ボタン */
+
+.cancel-button {
+    display: block;
+    width: 100%;
+
+    padding: 15px;
+
+    background-color: #d7193f;
+    border: 2px solid #d7193f;
+
+    color: #fff;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.cancel-button:hover {
+    background-color: #b91435;
+    border-color: #b91435;
+}
+
+
+/* 戻る */
+
+.cancel-back {
+    display: block;
+    margin-top: 20px;
+
+    color: #666;
+
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.cancel-back:hover {
+    color: #d7193f;
+}
+
+
+/* スマホ */
+
+@media (max-width: 600px) {
+
+    .cancel-main {
+        padding: 30px 15px 60px;
+    }
+
+    .cancel-header {
+        padding: 30px 20px 25px;
+    }
+
+    .cancel-header h1 {
+        font-size: 24px;
+    }
+
+    .cancel-form {
+        padding: 25px 20px 30px;
+    }
+
+    .cancel-error {
+        margin: 20px 20px 0;
+    }
+}
+
+/* ========================================
+   上映スケジュール
+======================================== */
+
+.schedule-main {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 20px 80px;
+    box-sizing: border-box;
+}
+
+
+/* タイトル */
+
+.schedule-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 30px;
+}
+
+.schedule-title h1 {
+    margin: 0;
+
+    color: #111;
+
+    font-size: 28px;
+}
+
+.schedule-title .material-symbols-outlined {
+    color: #d7193f;
+
+    font-size: 32px;
+}
+
+
+/* ========================================
+   日付選択
+======================================== */
+
+.schedule-date-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    margin-bottom: 40px;
+
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.schedule-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 18px 5px;
+
+    border-right: 1px solid #ddd;
+
+    color: #222;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.schedule-date:first-child {
+    border-left: 1px solid #ddd;
+}
+
+
+.schedule-date:hover {
+    background-color: #f5f5f5;
+
+    color: #d7193f;
+}
+
+
+.schedule-month-day {
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+
+.schedule-week {
+    margin-top: 5px;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* 選択中の日付 */
+
+.schedule-date.active {
+    background-color: #d7193f;
+
+    color: #fff;
+}
+
+
+.schedule-date.active .schedule-week {
+    color: #fff;
+}
+
+
+/* ========================================
+   上映作品
+======================================== */
+
+.schedule-content {
+    margin-top: 40px;
+}
+
+
+.schedule-section-title {
+    margin: 0 0 25px;
+
+    padding-left: 12px;
+
+    border-left: 4px solid #d7193f;
+
+    color: #111;
+
+    font-size: 22px;
+}
+
+
+/* 映画カード */
+
+.schedule-movie {
+    display: flex;
+
+    gap: 30px;
+
+    margin-bottom: 25px;
+
+    padding: 25px;
+
+    background-color: #fff;
+
+    border: 1px solid #ddd;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, .06);
+}
+
+
+/* ポスター */
+
+.schedule-poster {
+    width: 150px;
+
+    flex-shrink: 0;
+}
+
+
+.schedule-poster img {
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
+}
+
+
+/* 映画情報 */
+
+.schedule-movie-info {
+    flex: 1;
+}
+
+
+.schedule-movie-title {
+    margin: 0 0 10px;
+
+    color: #111;
+
+    font-size: 23px;
+}
+
+
+/* 上映時間・ジャンル */
+
+.schedule-movie-meta {
+    display: flex;
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+.schedule-movie-meta span {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+}
+
+
+.schedule-movie-meta
+.material-symbols-outlined {
+
+    font-size: 18px;
+}
+
+
+.schedule-movie-info h4 {
+    margin: 0 0 12px;
+
+    color: #333;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   上映時間ボタン
+======================================== */
+
+.schedule-times {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.schedule-time {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 105px;
+
+    padding: 12px 18px;
+
+    background-color: #fff;
+
+    border: 1px solid #ccc;
+
+    color: #222;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.schedule-time:hover {
+    background-color: #d7193f;
+
+    border-color: #d7193f;
+
+    color: #fff;
+}
+
+
+.schedule-start {
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+
+.schedule-end {
+    margin-top: 3px;
+
+    color: #888;
+
+    font-size: 11px;
+}
+
+
+.schedule-screen {
+    margin-top: 7px;
+
+    color: #777;
+
+    font-size: 10px;
+}
+
+
+.schedule-time:hover
+.schedule-end,
+
+.schedule-time:hover
+.schedule-screen {
+
+    color: #fff;
+}
+
+
+/* ========================================
+   上映なし
+======================================== */
+
+.schedule-empty {
+    padding: 60px 20px;
+
+    background-color: #f7f7f7;
+
+    border: 1px solid #ddd;
+
+    color: #777;
+
+    text-align: center;
+}
+
+
+.schedule-empty
+.material-symbols-outlined {
+
+    margin-bottom: 10px;
+
+    color: #aaa;
+
+    font-size: 45px;
+}
+
+
+.schedule-empty p {
+    margin: 0;
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media (max-width: 600px) {
+
+    .schedule-main {
+        padding: 30px 15px 60px;
+    }
+
+
+    .schedule-date {
+        padding: 13px 2px;
+    }
+
+
+    .schedule-month-day {
+        font-size: 14px;
+    }
+
+
+    .schedule-movie {
+        gap: 15px;
+
+        padding: 15px;
+    }
+
+
+    .schedule-poster {
+        width: 95px;
+    }
+
+
+    .schedule-movie-title {
+        font-size: 18px;
+    }
+
+
+    .schedule-movie-meta {
+        display: block;
+    }
+
+
+    .schedule-movie-meta span {
+        margin-bottom: 5px;
+    }
+
+
+    .schedule-time {
+        min-width: 75px;
+
+        padding: 9px;
+    }
+
+
+    .schedule-start {
+        font-size: 15px;
+    }
+}

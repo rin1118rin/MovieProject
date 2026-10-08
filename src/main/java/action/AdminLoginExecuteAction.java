@@ -10,10 +10,8 @@ import tool.Action;
 
 public class AdminLoginExecuteAction extends Action{
 	@Override
-	public void execute(
-			HttpServletRequest request,
-			HttpServletResponse response)
-			throws Exception {
+	public void execute(HttpServletRequest request,HttpServletResponse response)
+		throws Exception {
 		
 		int adminId = Integer.parseInt(
 				request.getParameter("adminId"));
