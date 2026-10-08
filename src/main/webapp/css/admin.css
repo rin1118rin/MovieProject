@@ -1,250 +1,685 @@
-/* =========================
-   管理者用の本文
-========================= */
-.admin-main {
-    width: 90%;
+/* ==================================================
+   管理者画面用CSS
+   読み込み順: common.css → admin.css
+   (管理者画面では user.css は読み込まない)
+
+   目次
+     1. 全体        本文へ移動 / 本文の幅 / ページタイトル
+     2. ヘッダー・フッター
+     3. 共通の部品  ボタン / 幅のせまいパネル / 完了画面 / エラーメッセージ /
+                    パネル見出し / 一覧表 / 項目名と内容の一覧 / 数字のまとまり
+     4. 画面ごと    管理者メインメニュー / ログイン / 上映スケジュール一覧 / 分析一覧
+
+   スマートフォン・タブレット用(@media)は、それぞれの部分のすぐ下に置いてある
+================================================== */
+
+
+/* ==================================================
+   1. 全体
+================================================== */
+
+/* 本文へ移動(キーボード操作用)。普段は見えず、Tabキーで選んだときだけ表示 */
+.skip {
+    position: absolute;
+    top: 10px;
+    left: -9999px;
+    z-index: 2000;
+    padding: 10px 16px;
+    background-color: #fff;
+    color: #222;
+}
+
+.skip:focus {
+    left: 10px;
+}
+
+/* 本文の幅 */
+.container {
+    width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 30px 0;
+    padding: 35px 20px 60px;
 }
 
-/* =========================
-   管理メニュー
-========================= */
-.admin-main .admin-menu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+/* フッターの中の container は上下の余白を付けない */
+.footer .container {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-.admin-main .admin-menu a {
-    display: block;
-    padding: 25px;
-    border: 1px solid #ddd;
-    background-color: white;
-    color: #222;
-    font-weight: bold;
-    text-decoration: none;
+@media (max-width: 600px) {
+    .container {
+        padding: 25px 15px 40px;
+    }
 }
 
-.admin-main .admin-menu a:hover {
-    border-color: #c51837;
-    color: #c51837;
-}
-
-/* =========================
-   一覧の見出し・登録ボタン
-========================= */
-.admin-main .list-heading {
+/* ページタイトル。右側にボタンなどを置きたいときは、div を2つ並べる */
+.page-title {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    margin: 0;
+}
+
+
+/* ==================================================
+   2. ヘッダー・フッター
+================================================== */
+
+/* ヘッダー: common.css の .header の中に header-inner がある構造 */
+.header .header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px 30px;
+    width: 100%;
+}
+
+/* ロゴ横の「管理」 */
+.header .logo small {
+    margin-left: 4px;
+    color: #bbb;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+/* フッター */
+.footer .footer-inner {
+    text-align: left;
+}
+
+.footer .footer-inner .logo {
+    display: inline-block;
+    margin: 0 0 12px;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.footer .footer-inner p {
+    color: #aaa;
+}
+
+
+/* ==================================================
+   3. 共通の部品
+================================================== */
+
+/* ---------- ボタン ----------
+   文字は太字(管理者画面のお手本に合わせる) */
+.button {
+    font-weight: bold;
+}
+
+/* ---------- 幅のせまいパネル(ログイン、入力フォームなど) ----------
+   <section class="panel narrow"> のように、panel に narrow を足して使う */
+.panel.narrow {
+    max-width: 680px;
+    margin: 0 auto 25px;
+    padding: 30px;
+}
+
+/* パネルの中の、フォームの下に置く単独のボタン(「管理者登録へ」など) */
+.panel.narrow > .button {
+    margin-top: 20px;
+}
+
+/* ---------- 完了画面(ログアウトしました、回答を送信しました、など) ----------
+   <section class="panel narrow completion"> のように使う */
+.panel.narrow.completion {
+    padding: 36px 30px 26px;
+    text-align: center;
+}
+
+/* 赤い丸のチェックマーク */
+.completion .checkmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background-color: #c51837;
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.completion h2 {
+    margin-bottom: 20px;
+}
+
+/* 見出しの下の一言(「受付番号：C001」など) */
+.completion h2 + p {
+    margin: -8px 0 22px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* 並んだボタン(せまい画面では折り返す) */
+.panel.narrow.completion > .button {
+    margin: 0 2px 10px;
+}
+
+/* ---------- エラーメッセージ(ログイン失敗、入力まちがいなど) ---------- */
+.error-message {
+    margin: 0 0 20px;
+    padding: 12px 15px;
+    border: 1px solid #c51837;
+    background-color: #fff1f3;
+    color: #c51837;
+    font-size: 14px;
+}
+
+/* ---------- パネル見出し(左に見出し、右にボタン) ----------
+   <div class="section-heading"><h2>…</h2><a class="button">…</a></div> */
+.section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.admin-main .list-heading h2 {
+.section-heading h2 {
     margin: 0;
 }
 
-.admin-main td a {
-    color: #b5122e;
+/* ---------- 一覧表(横線だけの表。せまい画面では横にスクロール) ----------
+   <div class="table-scroll"><table>…</table></div> のように使う */
+.table-scroll {
+    overflow-x: auto;
 }
 
-.admin-main .movie-thumbnail {
-    display: block;
-    width: 65px;
-    height: 90px;
-    object-fit: cover;
+.table-scroll table {
+    min-width: 520px;
 }
 
-/* =========================
-   登録・変更・ログイン
-========================= */
-.admin-main .admin-form {
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 25px;
-    border: 1px solid #ddd;
-    background-color: white;
+.table-scroll th,
+.table-scroll td {
+    padding: 14px 12px;
+    border: 0;
+    border-bottom: 1px solid #ddd;
 }
 
-.admin-main .login-form {
-    max-width: 450px;
+.table-scroll th {
+    border-bottom: 0;
+    font-size: 14px;
 }
 
-/* 登録済みの映画画像 */
-.admin-main .current-image {
-    display: block;
-    width: 160px;
-    height: auto;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
+.table-scroll td a {
+    color: #222;
+    text-decoration: underline;
 }
 
-/* =========================
-   分析の集計値
-========================= */
-.admin-main .stats {
+.table-scroll td a:hover {
+    color: #c51837;
+}
+
+/* 表の見出しセル(合計の行の「合計」など)。灰色の見出し行とは別の見た目にする */
+.table-scroll tbody th {
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    font-size: inherit;
+}
+
+/* 合計の行を太字にする(<tr class="total-row">) */
+.table-scroll .total-row th,
+.table-scroll .total-row td {
+    font-weight: bold;
+}
+
+/* 表の下に置く「戻る」ボタン */
+.table-scroll + .button {
+    margin-top: 20px;
+}
+
+/* ---------- 項目名と内容の一覧(お問い合わせ回答の「受付番号 / お名前 / メール …」) ----------
+   <dl class="details"><dt>項目名</dt><dd>内容</dd> … </dl>
+   改行を含む長い文章の内容には、<dd class="multiline"> を使う */
+.details {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 25px;
+    grid-template-columns: 110px 1fr;
+    margin: 0 0 25px;
 }
 
-.admin-main .stat-card {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-top: 4px solid #c51837;
-    background-color: white;
+.details dt,
+.details dd {
+    margin: 0;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
 }
 
-.admin-main .stat-card span {
-    display: block;
+.details dt {
     color: #666;
     font-size: 13px;
 }
 
-.admin-main .stat-card strong {
-    display: block;
-    margin-top: 10px;
-    font-size: 30px;
-}
-
-/* =========================
-   分析グラフの配置
-========================= */
-.admin-main .chart-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-}
-
-.admin-main .chart-box {
-    min-width: 0;
-    padding: 25px;
-    border: 1px solid #ddd;
-    background-color: white;
-}
-
-/* 円グラフ：HTML側のstyleで割合を指定 */
-.admin-main .pie-chart {
-    width: 240px;
-    max-width: 100%;
-    aspect-ratio: 1;
-    margin: 25px auto;
-    border-radius: 50%;
-    background: conic-gradient(
-        #227bb5 0% var(--front, 23.5%),
-        #ff8514 var(--front, 23.5%) var(--middle-end, 58.8%),
-        #299f42 var(--middle-end, 58.8%) 100%
-    );
-}
-
-.admin-main .chart-legend {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.admin-main .chart-legend li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.admin-main .legend-color {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-}
-
-.admin-main .front {
-    background-color: #227bb5;
-}
-
-.admin-main .middle {
-    background-color: #ff8514;
-}
-
-.admin-main .back {
-    background-color: #299f42;
-}
-
-/* 棒グラフ：各barのheightに予約率を指定 */
-.admin-main .bar-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
-    height: 260px;
-    margin: 35px 0 40px;
-    padding: 0 20px;
-    border-left: 1px solid #888;
-    border-bottom: 1px solid #888;
-    background: repeating-linear-gradient(
-        to top,
-        #ddd 0 1px,
-        transparent 1px 25%
-    );
-}
-
-.admin-main .bar-column {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    flex: 1;
-    height: 100%;
-}
-
-.admin-main .bar {
-    width: 100%;
-    max-width: 55px;
-    background-color: #299f42;
-}
-
-.admin-main .bar-label {
-    position: absolute;
-    bottom: -30px;
-    font-size: 13px;
-}
-
-.admin-main .bar-value {
-    position: absolute;
-    top: -25px;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-/* =========================
-   お問い合わせ・完了
-========================= */
-.admin-main .inquiry {
-    margin-bottom: 25px;
-    padding: 20px;
-    background-color: #eee;
+.details dd {
     overflow-wrap: anywhere;
 }
 
-.admin-main .complete {
-    padding: 40px 20px;
-    text-align: center;
+.details .multiline {
+    white-space: pre-wrap;
 }
 
-/* =========================
-   スマートフォン対応
-========================= */
-@media (max-width: 700px) {
-    .admin-main .admin-menu,
-    .admin-main .stats,
-    .admin-main .chart-list {
+@media (max-width: 600px) {
+    .details {
         grid-template-columns: 1fr;
     }
 
-    .admin-main .admin-form,
-    .admin-main .chart-box {
-        padding: 18px;
+    .details dt {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+}
+
+/* ---------- 数字のまとまり(予約管理の「総座席数・予約済み・空席」など) ----------
+   <div class="admin-stats"><div><small>名前</small><strong>数字</strong></div> … </div> */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0 30px;
+}
+
+.admin-stats > div {
+    padding: 14px 18px 16px;
+    border-top: 2px solid #c51837;
+    background-color: #f4f4f4;
+}
+
+.admin-stats small {
+    display: block;
+    color: #666;
+    font-size: 12px;
+}
+
+.admin-stats strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+/* 数字のうしろの小さな文字(%、／72席、席 など) */
+.stat-unit {
+    margin-left: 4px;
+    color: #444;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+@media (max-width: 600px) {
+    .admin-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+
+/* ==================================================
+   4. 画面ごと
+================================================== */
+
+/* ---------- 管理者メインメニュー ----------
+   メニューのリンクを3列に並べ、線で区切る */
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+/* 各マスの右・下の線は、となりのマスに1px重ねる(線が2本にならない)。
+   いちばん外側の線ははみ出して隠れ、外枠の線だけが残る。
+   マスの数が3の倍数でなくても、空いたマスまで枠が閉じる */
+.quick-links a {
+    display: block;
+    margin: 0 -1px -1px 0;
+    padding: 24px 22px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    color: #222;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.quick-links a:hover {
+    background-color: #fafafa;
+    color: #c51837;
+}
+
+@media (max-width: 900px) {
+    .quick-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .quick-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- ログイン ----------
+   「管理者登録へ」。上のボタン行とのあいだにすき間を作る */
+.register-link {
+    margin-top: 20px;
+}
+
+/* ---------- 上映スケジュール一覧 ----------
+   上映日の選択。ラジオボタンの選択状態(:checked)を使って、CSSだけで一覧を切り替える。
+   ボタン(label)と一覧(date-panel)は、input と同じ親の中に置くこと。
+   日付は7日分(0〜6)まで対応。 */
+.schedule-picker {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    min-width: 0;
+    margin: 0 0 25px;
+    padding: 0;
+    border: 0;
+}
+
+.schedule-picker legend {
+    margin-bottom: 12px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* ラジオボタン本体は見えなくする(キーボードの操作はできる) */
+.date-choice {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.date-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    margin: 0 -1px 0 0;
+    padding: 14px 6px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #222;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.date-label strong {
+    font-size: 18px;
+}
+
+.date-label span {
+    color: #666;
+    font-size: 12px;
+}
+
+.date-label:hover {
+    background-color: #fafafa;
+}
+
+/* 選ばれている日 */
+.date-choice:checked + .date-label {
+    position: relative;
+    border-color: #c51837;
+    background-color: #c51837;
+    color: #fff;
+}
+
+.date-choice:checked + .date-label span {
+    color: #fff;
+}
+
+/* キーボードで選んでいるときの枠 */
+.date-choice:focus-visible + .date-label {
+    outline: 3px solid #222;
+    outline-offset: 2px;
+}
+
+/* 日ごとの一覧は、選ばれた日のものだけ表示する */
+.date-panels {
+    grid-column: 1 / -1;
+}
+
+.date-panel {
+    display: none;
+}
+
+#day-0:checked ~ .date-panels .date-panel-0,
+#day-1:checked ~ .date-panels .date-panel-1,
+#day-2:checked ~ .date-panels .date-panel-2,
+#day-3:checked ~ .date-panels .date-panel-3,
+#day-4:checked ~ .date-panels .date-panel-4,
+#day-5:checked ~ .date-panels .date-panel-5,
+#day-6:checked ~ .date-panels .date-panel-6 {
+    display: block;
+}
+
+/* 選んだ日付の見出し(2026年10月2日(金)) */
+.selected-date {
+    margin: 22px 0 14px;
+    font-size: 18px;
+}
+
+/* スマートフォン: 日付ボタンを小さくして、7日分を1行に並べる */
+@media (max-width: 600px) {
+    .date-label {
+        padding: 12px 2px;
+    }
+
+    .date-label strong {
+        font-size: 14px;
+    }
+}
+
+/* ---------- 分析一覧 ---------- */
+
+/* 数字のまとまりを4つ並べる(.admin-stats に seat-totals を足す) */
+.admin-stats.seat-totals {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* 予約率のバー(灰色の帯の上に、予約済みの割合だけ赤を重ねる) */
+.occupancy-meter {
+    height: 12px;
+    margin: 4px 0 10px;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: #e3e3e3;
+}
+
+.occupancy-meter span {
+    display: block;
+    height: 100%;
+    background-color: #c51837;
+}
+
+/* 円グラフと棒グラフを横に2つ並べる */
+.analysis-charts {
+    --area-0: #1f77b4;
+    --area-1: #ff7f0e;
+    --area-2: #2ca02c;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.analysis-charts .panel {
+    margin-bottom: 0;
+}
+
+/* 円グラフ(色の境目は、JSPが style で渡す) */
+.vacancy-pie {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 24px auto;
+    border-radius: 50%;
+}
+
+/* 円の中の数字。--mid(その部分の真ん中の角度)の向きに、中心から外へ置く */
+.pie-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    transform: rotate(var(--mid)) translateY(-72px) rotate(calc(-1 * var(--mid))) translate(-50%, -50%);
+}
+
+.pie-label.area-1 {
+    color: #222;
+}
+
+/* 円グラフの凡例 */
+.chart-legend {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.chart-legend li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.chart-legend strong {
+    margin-left: auto;
+}
+
+.swatch {
+    flex: none;
+    width: 12px;
+    height: 12px;
+}
+
+.swatch.area-0 { background-color: var(--area-0); }
+.swatch.area-1 { background-color: var(--area-1); }
+.swatch.area-2 { background-color: var(--area-2); }
+
+/* 棒グラフ */
+.row-chart {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+/* 左の目盛り(100%〜0%)。数字の中心が、横線の位置に合うようにずらしてある */
+.chart-scale {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 212px;
+    margin-top: 20px;
+    color: #666;
+    font-size: 12px;
+    line-height: 1;
+    text-align: right;
+}
+
+.bar-plot {
+    display: flex;
+}
+
+/* 1列分: 上に数字、真ん中に棒、下に列の名前 */
+.bar-column {
+    display: grid;
+    flex: 1;
+    grid-template-rows: 26px 200px auto;
+    min-width: 0;
+    text-align: center;
+}
+
+.bar-value {
+    align-self: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 棒を立てる場所(25%ごとに横線) */
+.bar-area {
+    position: relative;
+    border-bottom: 1px solid #999;
+    background-image: linear-gradient(#ddd 1px, transparent 1px);
+    background-size: 100% 25%;
+}
+
+.row-bar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 48px;
+    max-width: 60%;
+    background-color: #2ca02c;
+    transform: translateX(-50%);
+}
+
+.bar-name {
+    margin-top: 8px;
+    color: #444;
+    font-size: 12px;
+}
+
+/* グラフの下の一言 */
+.analysis-note {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    background-color: #f4f4f4;
+    font-size: 14px;
+}
+
+/* 開閉できるパネル(列ごとの座席数を確認) */
+details.panel summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+details.panel[open] summary {
+    margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+    .admin-stats.seat-totals {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .analysis-charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-stats.seat-totals {
+        grid-template-columns: 1fr;
+    }
+
+    .row-bar {
+        width: 32px;
     }
 }
