@@ -2383,3 +2383,266 @@
         font-size: 15px;
     }
 }
+
+/* ========================================
+   作品一覧ページ
+======================================== */
+
+.movies-main {
+    width: 100%;
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 45px 30px 80px;
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   ページタイトル
+======================================== */
+
+.movies-title {
+    margin-bottom: 35px;
+}
+
+.movies-title h1 {
+    margin: 0 0 12px;
+    color: #111;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   作品一覧
+======================================== */
+
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+
+/* ========================================
+   映画カード
+======================================== */
+
+.movie-card {
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #ddd;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ========================================
+   ポスターの代わりになる映画エリア
+======================================== */
+
+.movie-poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 330px;
+
+    padding: 35px;
+    box-sizing: border-box;
+
+    background-color: #294764;
+
+    border-bottom: 5px solid #d7193f;
+
+    color: #fff;
+    text-align: center;
+}
+
+
+/* ジャンル */
+
+.movie-poster span {
+    margin-bottom: 60px;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+
+/* 映画タイトル */
+
+.movie-poster strong {
+    margin-bottom: 40px;
+
+    color: #fff;
+
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+
+/* キャッチコピー */
+
+.movie-poster small {
+    color: rgba(255, 255, 255, 0.9);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   カード下部分
+======================================== */
+
+.card-body {
+    padding: 25px 24px 28px;
+}
+
+
+/* 上映状況 / ジャンル */
+
+.card-body .eyebrow {
+    margin: 0 0 15px;
+
+    color: #d7193f;
+
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+/* 映画タイトル */
+
+.card-body h2 {
+    margin: 0 0 12px;
+
+    color: #111;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+/* 上映時間・言語など */
+
+.card-body p:not(.eyebrow) {
+    margin: 0 0 28px;
+
+    color: #555;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   作品詳細・予約リンク
+======================================== */
+
+.text-link {
+    display: inline-block;
+
+    color: #d7193f;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #d7193f;
+
+    transition: 0.2s;
+}
+
+.text-link:hover {
+    color: #a80f2e;
+    transform: translateX(3px);
+}
+
+
+/* ========================================
+   タブレット
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .movies-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media (max-width: 600px) {
+
+    .movies-main {
+        padding: 30px 15px 60px;
+    }
+
+    .movies-title h1 {
+        font-size: 26px;
+    }
+
+    .movies-list {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .movie-poster {
+        height: 280px;
+    }
+
+    .movie-poster strong {
+        font-size: 25px;
+    }
+
+}
+
+.movies-description {
+    margin: 15px 0 0;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* 作品が存在しない場合 */
+
+.movies-empty {
+    grid-column: 1 / -1;
+
+    padding: 60px 20px;
+
+    background-color: #f7f7f7;
+
+    border: 1px solid #ddd;
+
+    color: #777;
+
+    text-align: center;
+}
+
+.movies-empty p {
+    margin: 0;
+}
