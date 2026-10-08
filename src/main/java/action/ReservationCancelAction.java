@@ -7,7 +7,7 @@ import bean.Reservation;
 import dao.ReservationDao;
 import tool.Action;
 
-public class ReservationCancel extends Action {
+public class ReservationCancelAction extends Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //予約IDを取得
