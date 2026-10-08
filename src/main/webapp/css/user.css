@@ -2383,3 +2383,584 @@
         font-size: 15px;
     }
 }
+
+/* ========================================
+   作品一覧ページ
+======================================== */
+
+.movies-main {
+    width: 100%;
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 45px 30px 80px;
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   ページタイトル
+======================================== */
+
+.movies-title {
+    margin-bottom: 35px;
+}
+
+.movies-title h1 {
+    margin: 0 0 12px;
+    color: #111;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   作品一覧
+======================================== */
+
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+
+/* ========================================
+   映画カード
+======================================== */
+
+.movie-card {
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #ddd;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ========================================
+   ポスターの代わりになる映画エリア
+======================================== */
+
+.movie-poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 330px;
+
+    padding: 35px;
+    box-sizing: border-box;
+
+    background-color: #294764;
+
+    border-bottom: 5px solid #d7193f;
+
+    color: #fff;
+    text-align: center;
+}
+
+
+/* ジャンル */
+
+.movie-poster span {
+    margin-bottom: 60px;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+
+/* 映画タイトル */
+
+.movie-poster strong {
+    margin-bottom: 40px;
+
+    color: #fff;
+
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+
+/* キャッチコピー */
+
+.movie-poster small {
+    color: rgba(255, 255, 255, 0.9);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   カード下部分
+======================================== */
+
+.card-body {
+    padding: 25px 24px 28px;
+}
+
+
+/* 上映状況 / ジャンル */
+
+.card-body .eyebrow {
+    margin: 0 0 15px;
+
+    color: #d7193f;
+
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+/* 映画タイトル */
+
+.card-body h2 {
+    margin: 0 0 12px;
+
+    color: #111;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+/* 上映時間・言語など */
+
+.card-body p:not(.eyebrow) {
+    margin: 0 0 28px;
+
+    color: #555;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   作品詳細・予約リンク
+======================================== */
+
+.text-link {
+    display: inline-block;
+
+    color: #d7193f;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #d7193f;
+
+    transition: 0.2s;
+}
+
+.text-link:hover {
+    color: #a80f2e;
+    transform: translateX(3px);
+}
+
+
+/* ========================================
+   タブレット
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .movies-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media (max-width: 600px) {
+
+    .movies-main {
+        padding: 30px 15px 60px;
+    }
+
+    .movies-title h1 {
+        font-size: 26px;
+    }
+
+    .movies-list {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .movie-poster {
+        height: 280px;
+    }
+
+    .movie-poster strong {
+        font-size: 25px;
+    }
+
+}
+
+.movies-description {
+    margin: 15px 0 0;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* 作品が存在しない場合 */
+
+.movies-empty {
+    grid-column: 1 / -1;
+
+    padding: 60px 20px;
+
+    background-color: #f7f7f7;
+
+    border: 1px solid #ddd;
+
+    color: #777;
+
+    text-align: center;
+}
+
+.movies-empty p {
+    margin: 0;
+}
+
+/* ========================================
+   作品詳細ページ
+======================================== */
+
+.movie-detail-main {
+    width: 100%;
+    max-width: 1340px;
+
+    margin: 0 auto;
+    padding: 45px 30px 80px;
+
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   ページタイトル
+======================================== */
+
+.movie-detail-page-title {
+    margin-bottom: 35px;
+}
+
+.movie-detail-page-title h1 {
+    margin: 0;
+
+    color: #111;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   詳細カード
+======================================== */
+
+.movie-detail-card {
+    display: grid;
+
+    grid-template-columns: 360px 1fr;
+
+    gap: 42px;
+
+    padding: 32px;
+
+    background-color: #fff;
+
+    border: 1px solid #ddd;
+
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   ポスター
+======================================== */
+
+.movie-detail-poster {
+    width: 100%;
+}
+
+.movie-detail-poster img {
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
+
+    border-bottom: 5px solid #d7193f;
+
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   右側
+======================================== */
+
+.movie-detail-content {
+    padding: 5px 0;
+}
+
+
+/* MOVIE / ジャンル */
+
+.movie-detail-status {
+    margin: 0 0 18px;
+
+    color: #d7193f;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+
+/* 映画タイトル */
+
+.movie-detail-title {
+    margin: 0 0 28px;
+
+    color: #111;
+
+    font-size: 26px;
+    font-weight: 700;
+}
+
+
+/* あらすじ */
+
+.movie-detail-description {
+    margin: 0 0 35px;
+
+    color: #555;
+
+    font-size: 14px;
+
+    line-height: 2;
+}
+
+
+/* ========================================
+   詳細情報
+======================================== */
+
+.movie-detail-info {
+    width: 100%;
+
+    margin: 0;
+
+    border-top: 1px solid #eee;
+}
+
+
+.movie-detail-info-row {
+    display: grid;
+
+    grid-template-columns: 140px 1fr;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.movie-detail-info-row dt {
+    margin: 0;
+
+    padding: 18px 0;
+
+    color: #888;
+
+    font-size: 13px;
+    font-weight: normal;
+}
+
+
+.movie-detail-info-row dd {
+    margin: 0;
+
+    padding: 18px 0;
+
+    color: #333;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   ボタン
+======================================== */
+
+.movie-detail-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+
+/* 上映時間を選ぶ */
+
+.movie-detail-schedule-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 200px;
+
+    padding: 15px 25px;
+
+    box-sizing: border-box;
+
+    background-color: #d7193f;
+
+    border: 1px solid #d7193f;
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.movie-detail-schedule-button:hover {
+    background-color: #b41234;
+
+    border-color: #b41234;
+
+    color: #fff;
+}
+
+
+/* 作品一覧へ */
+
+.movie-detail-back-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 145px;
+
+    padding: 15px 25px;
+
+    box-sizing: border-box;
+
+    background-color: #fff;
+
+    border: 1px solid #bbb;
+
+    color: #222;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.movie-detail-back-button:hover {
+    background-color: #111;
+
+    border-color: #111;
+
+    color: #fff;
+}
+
+
+/* ========================================
+   タブレット
+======================================== */
+
+@media (max-width: 900px) {
+
+    .movie-detail-card {
+        grid-template-columns: 280px 1fr;
+
+        gap: 30px;
+    }
+
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media (max-width: 650px) {
+
+    .movie-detail-main {
+        padding: 30px 15px 60px;
+    }
+
+    .movie-detail-page-title h1 {
+        font-size: 26px;
+    }
+
+    .movie-detail-card {
+        display: block;
+
+        padding: 20px;
+    }
+
+    .movie-detail-poster {
+        max-width: 300px;
+
+        margin: 0 auto 30px;
+    }
+
+    .movie-detail-title {
+        font-size: 22px;
+    }
+
+    .movie-detail-info-row {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .movie-detail-actions {
+        flex-direction: column;
+    }
+
+    .movie-detail-schedule-button,
+    .movie-detail-back-button {
+        width: 100%;
+    }
+}
