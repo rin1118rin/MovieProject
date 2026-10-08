@@ -30,13 +30,14 @@
         schedule     : 対象の上映スケジュール1件
                        (scheduleId / movieTitle / startDateTime(LocalDateTime) / totalSeats / reservedSeats)
         reservations : そのスケジュールの予約のリスト(1件 = 1つの予約)
-                       (reservationId / ticketType / seats(座席番号のリスト) / totalPrice / status)
+                       (reservationId / customerName / tickets(券種のリスト) / seats(座席番号のリスト) / totalPrice / status)
+                       tickets の1件 = RESERVATION_TICKETS の1行 (ticketType / quantity)
     --%>
     <c:set var="start" value="${schedule.startDateTime}" />
     <c:set var="wd" value="${start.dayOfWeek.value}" />
 
     <section class="panel">
-      <h2><c:out value="${schedule.movieTitle}" /> 怪盗グルー<fmt:formatNumber value="${schedule.scheduleId}" pattern="000" /></h2>
+      <h2><c:out value="${schedule.movieTitle}" /> / S<fmt:formatNumber value="${schedule.scheduleId}" pattern="000" /></h2>
       <p>${start.year}年${start.monthValue}月${start.dayOfMonth}日(${fn:substring('月火水木金土日', wd - 1, wd)})<fmt:formatNumber value="${start.hour}" pattern="00" />:<fmt:formatNumber value="${start.minute}" pattern="00" /></p>
 
       <div class="admin-stats">
@@ -51,6 +52,7 @@
           <thead>
             <tr>
               <th scope="col">予約番号</th>
+              <th scope="col">予約者</th>
               <th scope="col">券種</th>
               <th scope="col">座席</th>
               <th scope="col">枚数</th>
@@ -62,7 +64,11 @@
             <c:forEach var="r" items="${reservations}">
               <tr>
                 <td>R<fmt:formatNumber value="${r.reservationId}" pattern="000" /></td>
-                <td><c:out value="${r.ticketType}" /></td>
+                <td><c:out value="${r.customerName}" /></td>
+                <td>
+                  <c:forEach var="t" items="${r.tickets}" varStatus="st"><c:if test="${not st.first}">・</c:if><c:out value="${t.ticketType}" />×${t.quantity}</c:forEach>
+                  <c:if test="${empty r.tickets}">—</c:if>
+                </td>
                 <td>
                   <c:forEach var="seat" items="${r.seats}" varStatus="st"><c:if test="${not st.first}">・</c:if><c:out value="${seat}" /></c:forEach>
                   <c:if test="${empty r.seats}">—</c:if>
@@ -75,14 +81,14 @@
 
             <c:if test="${empty reservations}">
               <tr>
-                <td colspan="6">この上映の予約はありません。</td>
+                <td colspan="7">この上映の予約はありません。</td>
               </tr>
             </c:if>
           </tbody>
         </table>
       </div>
 
-      <a class="button secondary" href="${pageContext.request.contextPath}/admin/schedules">戻る</a>
+      <a class="button secondary" href="${pageContext.request.contextPath}/admin/schedule/list.jsp">戻る</a>
     </section>
   </main>
 
