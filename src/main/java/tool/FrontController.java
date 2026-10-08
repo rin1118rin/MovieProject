@@ -1,4 +1,5 @@
 package tool;
+
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
@@ -6,36 +7,46 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+// すべての *.action リクエストを一括受領し、対応する actionクラスを動的にロード・実行するフロントコントローラー
  
-@WebServlet(urlPatterns={"*.action"})
- 
+@WebServlet("*.action")
 public class FrontController extends HttpServlet {
- 
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-        try {
-            String path = req.getServletPath().substring(1);
-            String base = path.replace(".action", "").replace("/", ".");
-            // パッケージ名 + クラス名
-            String className = base + "Action";
-            
+        doProcess(request, response);
+    }
 
-            System.out.println("★ servlet path -> " + req.getServletPath());
-            System.out.println("★ class name -> " + className);
-            Class<?> type = Class.forName(className);
-            Action action = (Action) type.getDeclaredConstructor().newInstance();
-            action.execute(req, res);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doProcess(request, response);
+    }
+
+    private void doProcess(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            // リクエストURIからaction名を取得
+            String path = request.getRequestURI().substring(request.getContextPath().length() + 1);
+            String name = path.substring(0, path.indexOf(".action"));
+
+            // クラス名の組み立て
+            String className = "action." + Character.toUpperCase(name.charAt(0)) + name.substring(1) + "Action";
+
+            // クラスの動的ロードとインスタンス化
+            Action action = (Action) Class.forName(className).getDeclaredConstructor().newInstance();
+
+            // 各Actionの処理を実行
+            action.execute(request, response);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "指定されたActionクラスが存在しません。");
         } catch (Exception e) {
             e.printStackTrace();
-            req.getRequestDispatcher("/error.jsp").forward(req, res);
+            throw new ServletException(e);
         }
-    }
-    @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse res)
-            throws ServletException, IOException {
-        doGet(req, res);
     }
 }
