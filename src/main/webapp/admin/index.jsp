@@ -19,14 +19,14 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin">管理者メインメニュー</a> / 管理者メインメニュー
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 管理者メインメニュー
     </p>
     <div class="page-title"><div><h1>管理者メインメニュー</h1></div></div>
 
     <div class="quick-links">
       <a href="${pageContext.request.contextPath}/admin/movies/list.jsp"><strong>上映映画管理 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/schedule/list.jsp"><strong>上映スケジュール管理 →</strong></a>
-      <a href="${pageContext.request.contextPath}/admin/analysis/index.jsp"><strong>分析一覧 →</strong></a>
+      <a href="${pageContext.request.contextPath}/admin/analyticsList.action"><strong>分析一覧 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/contact/list.jsp"><strong>お問い合わせ管理 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/register.jsp"><strong>管理者登録 →</strong></a>
     </div>
