@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-// すべての *.action リクエストを一括受領し、Action クラスを動的にロード・実行するフロントコントローラー
 @WebServlet("*.action")
 public class FrontController extends HttpServlet {
 
@@ -27,39 +26,32 @@ public class FrontController extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // リクエストURIからパスを抽出
+            // リクエストURIからパスを抽出 (例: "user/scheduleList.action")
             String path = request.getRequestURI().substring(request.getContextPath().length() + 1);
             String name = path.substring(0, path.indexOf(".action"));
 
-            String className;
-
-            // パスに "/" が含まれているか判定
-            if (name.contains("/")) {
-                // admin や user パッケージの場合
-                int lastSlash = name.lastIndexOf("/");
-                String pkg = name.substring(0, lastSlash).replace('/', '.'); // "user" や "admin"
-                String actionName = name.substring(lastSlash + 1);          // "reservationCreate"
-
-                // 先頭を大文字化
-                String formattedActionName = Character.toUpperCase(actionName.charAt(0)) + actionName.substring(1);
-
-                // 末尾にActionがなければ補完
-                if (!formattedActionName.endsWith("Action")) {
-                    formattedActionName += "Action";
-                }
-
-                className = pkg + "." + formattedActionName;
-            } else {
-                // 共通の action パッケージ直下の場合
-                String formattedActionName = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-
-                // 末尾にActionがなければ補完
-                if (!formattedActionName.endsWith("Action")) {
-                    formattedActionName += "Action";
-                }
-
-                className = "action." + formattedActionName;
+            // スラッシュが含まれていない場合のエラーハンドリング
+            if (!name.contains("/")) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, 
+                    "URLの形式が正しくありません。パッケージ名(/user/ または /admin/)を含めて指定してください。");
+                return;
             }
+
+            // パッケージ名とアクション名に分割
+            int lastSlash = name.lastIndexOf("/");
+            String pkg = name.substring(0, lastSlash).replace('/', '.'); // "user" や "admin"
+            String actionName = name.substring(lastSlash + 1);          // "scheduleList"
+
+            // 先頭を大文字化
+            String formattedActionName = Character.toUpperCase(actionName.charAt(0)) + actionName.substring(1);
+
+            // 末尾に"Action"がなければ補完
+            if (!formattedActionName.endsWith("Action")) {
+                formattedActionName += "Action";
+            }
+
+            // 完全限定クラス名の組み立て
+            String className = pkg + "." + formattedActionName;
 
             // クラスの動的ロードとインスタンス化
             Action action = (Action) Class.forName(className).getDeclaredConstructor().newInstance();

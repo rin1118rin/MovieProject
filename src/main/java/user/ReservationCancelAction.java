@@ -18,6 +18,6 @@ public class ReservationCancelAction extends Action {
         //予約情報をJSPに渡す
         request.setAttribute("reservation", reservation);
         //予約取消画面を表示
-        request.getRequestDispatcher("cancel.jsp").forward(request, response);
+        request.getRequestDispatcher("/reservation/cancel.jsp").forward(request, response);
     }
 }

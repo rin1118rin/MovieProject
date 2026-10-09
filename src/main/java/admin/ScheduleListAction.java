@@ -16,30 +16,25 @@ public class ScheduleListAction extends Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        // リクエストパラメータから日付を取得
         String dateStr = request.getParameter("date");
-        
-        Date targetDate = new Date(); // デフォルトは本日日付
+        Date targetDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         if (dateStr != null && !dateStr.trim().isEmpty()) {
             try {
                 targetDate = sdf.parse(dateStr.trim());
             } catch (Exception e) {
-                // 変換失敗時は本日日付を使用
                 targetDate = new Date();
             }
         }
 
-        // ScheduleDao を使用して指定日のスケジュール一覧を取得
         ScheduleDao dao = new ScheduleDao();
         List<Schedule> scheduleList = dao.getByDate(targetDate);
 
-        // リクエストスコープに必要なデータをセット
         request.setAttribute("scheduleList", scheduleList);
-        request.setAttribute("selectedDate", sdf.format(targetDate)); // JSPの日付選択用
+        request.setAttribute("selectedDate", sdf.format(targetDate));
 
-        // スケジュール一覧JSPへ
+        // 管理者用JSPへ
         request.getRequestDispatcher("/admin/schedule/list.jsp").forward(request, response);
     }
 }

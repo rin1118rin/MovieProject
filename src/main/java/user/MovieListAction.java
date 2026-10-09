@@ -1,4 +1,4 @@
-package action;
+package user;
 
 import java.util.List;
 
@@ -11,20 +11,18 @@ import tool.Action;
 
 public class MovieListAction extends Action {
 
-    public void execute(
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws Exception {
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         MovieDao dao = new MovieDao();
 
-        // DBから全映画情報を取得
+        // 映画一覧を取得（必要に応じて公開中・公開予定のみを抽出するメソッドに変更可能）
         List<Movie> movieList = dao.getAll();
 
         // リクエストスコープにセット
         request.setAttribute("movieList", movieList);
 
-        // 映画一覧JSPへ
-        request.getRequestDispatcher("/movies/list.jsp").forward(request, response);
+        // ユーザー用映画一覧JSPへフォワード
+        request.getRequestDispatcher("/user/movies/list.jsp").forward(request, response);
     }
 }

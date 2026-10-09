@@ -19,7 +19,7 @@ public class ReservationCreateAction extends Action {
         //JSPへ渡す
         req.setAttribute("schedule",schedule);
         //予約登録画面へ
-       req.getRequestDispatcher("create.jsp").forward(req, res);
+       req.getRequestDispatcher("/reservation/create.jsp").forward(req, res);
     }
 }
 
