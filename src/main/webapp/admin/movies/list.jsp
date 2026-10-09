@@ -20,15 +20,26 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 上映映画一覧
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 上映映画一覧
     </p>
     <div class="page-title"><div><h1>上映映画一覧</h1></div></div>
 
     <section class="panel">
       <div class="section-heading">
         <h2>登録済みの上映映画</h2>
-        <a class="button" href="${pageContext.request.contextPath}/admin/movies/create.jsp">＋ 上映映画登録</a>
+        <a class="button" href="${pageContext.request.contextPath}/admin/movieCreate.action">＋ 上映映画登録</a>
       </div>
+
+      <%-- Actionが "message"(成功) / "errorMessage"(失敗) に入れた文章を表示する。
+           message はセッションに入っていることがあるので、表示したら消す --%>
+      <c:if test="${not empty message}">
+        <p class="success-message" role="status"><c:out value="${message}" /></p>
+        <c:remove var="message" scope="session" />
+      </c:if>
+      <c:if test="${not empty errorMessage}">
+        <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
+        <c:remove var="errorMessage" scope="session" />
+      </c:if>
 
       <div class="table-scroll">
         <table>
@@ -46,27 +57,29 @@
             <jsp:useBean id="now" class="java.util.Date" />
             <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
 
-            <%-- Actionが "movies" にリストを入れておく(1行 = 1本の映画) --%>
-            <c:forEach var="movie" items="${movies}">
+            <%-- Actionが "movieList" にリストを入れておく(1行 = 1本の映画) --%>
+            <c:forEach var="movie" items="${movieList}">
+              <%-- 日付は "2026-10-08" の形の文字列にして比べる(この形なら文字の順 = 日付の順) --%>
+              <fmt:formatDate var="startDate" value="${movie.releaseStartDate}" pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+              <fmt:formatDate var="endDate" value="${movie.releaseEndDate}" pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
               <tr>
                 <td>M<fmt:formatNumber value="${movie.movieId}" pattern="000" /></td>
                 <td><c:out value="${movie.title}" /></td>
                 <td><c:out value="${movie.duration}" />分</td>
                 <td>
-                  <%-- 日付は "2026-10-08" の形の文字列として比べる(この形なら文字の順 = 日付の順) --%>
                   <c:choose>
-                    <c:when test="${today < movie.releaseStartDate.toString()}">公開予定</c:when>
-                    <c:when test="${today > movie.releaseEndDate.toString()}">上映終了</c:when>
+                    <c:when test="${today < startDate}">公開予定</c:when>
+                    <c:when test="${today > endDate}">上映終了</c:when>
                     <c:otherwise>上映中</c:otherwise>
                   </c:choose>
                 </td>
                 <td>
-                  <a href="${pageContext.request.contextPath}/admin/movies/edit.jsp?Id=${movie.movieId}">編集 →</a>
+                  <a href="${pageContext.request.contextPath}/admin/movieUpdate.action?movieId=${movie.movieId}">編集 →</a>
                 </td>
               </tr>
             </c:forEach>
 
-            <c:if test="${empty movies}">
+            <c:if test="${empty movieList}">
               <tr>
                 <td colspan="5">登録されている上映映画はありません。</td>
               </tr>

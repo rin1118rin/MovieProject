@@ -20,7 +20,7 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 上映映画変更
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 上映映画変更
     </p>
     <div class="page-title"><div><h1>上映映画変更</h1></div></div>
 
@@ -33,9 +33,11 @@
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
 
-      <%-- 画像を送るので enctype="multipart/form-data" が必要 --%>
-      <form action="${pageContext.request.contextPath}/admin/movies/update/execute"
-            method="post" enctype="multipart/form-data">
+      <%-- 日付入力欄(type="date")には "2026-10-08" の形で入れる必要がある --%>
+      <fmt:formatDate var="startValue" value="${movie.releaseStartDate}" pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+      <fmt:formatDate var="endValue" value="${movie.releaseEndDate}" pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+
+      <form action="${pageContext.request.contextPath}/admin/movieUpdateExecute.action" method="post">
         <%-- どの映画を変更するか(画面には出ない) --%>
         <input type="hidden" name="movieId" value="<c:out value='${movie.movieId}' />">
 
@@ -43,10 +45,11 @@
         <input id="title" name="title" type="text" required maxlength="100"
                value="<c:out value='${movie.title}' />">
 
-        <label for="movie-image">映画の画像</label>
-        <input id="movie-image" name="image" type="file"
-               accept="image/jpeg,image/png,image/webp" aria-describedby="movie-image-help">
-        <p id="movie-image-help" class="muted">画像を変えるときだけ選択してください(JPG・PNG・WebP)。選ばなければ今の画像のままです。</p>
+        <label for="poster-url">ポスター画像のURL</label>
+        <input id="poster-url" name="posterUrl" type="text" required maxlength="500"
+               aria-describedby="poster-url-help"
+               value="<c:out value='${movie.posterUrl}' />">
+        <p id="poster-url-help" class="muted">ポスター画像のURL(または画像のパス)を入力してください。</p>
 
         <label for="duration">上映時間(分)</label>
         <input id="duration" name="duration" type="number" required min="1" max="600"
@@ -63,11 +66,11 @@
 
         <label for="release-start">公開開始日</label>
         <input id="release-start" name="releaseStartDate" type="date" required
-               value="<c:out value='${movie.releaseStartDate}' />">
+               value="<c:out value='${startValue}' />">
 
         <label for="release-end">公開終了日</label>
         <input id="release-end" name="releaseEndDate" type="date" required
-               value="<c:out value='${movie.releaseEndDate}' />">
+               value="<c:out value='${endValue}' />">
 
         <label for="age-limit">年齢制限</label>
         <select id="age-limit" name="ageLimit">
@@ -90,7 +93,7 @@
 
         <div class="actions">
           <button class="button" type="submit">変更</button>
-          <a class="button secondary" href="${pageContext.request.contextPath}/admin/movies/list.jsp">戻る</a>
+          <a class="button secondary" href="${pageContext.request.contextPath}/admin/movieList.action">戻る</a>
         </div>
       </form>
     </section>

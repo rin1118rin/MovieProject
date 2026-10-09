@@ -10,4 +10,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="lib" path="C:\work\pleiades2026\tomcat\apache-tomcat-10.1.36\lib\servlet-api.jar"/>
 </classpath>
