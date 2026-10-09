@@ -43,7 +43,7 @@
 
 
     <form
-        action="${pageContext.request.contextPath}/reservation/complete"
+        action="${pageContext.request.contextPath}/user/reservationCreateExecute.action"
         method="post"
         id="reservationForm">
 
@@ -653,7 +653,7 @@
 
                 <a
                     class="back-link"
-                    href="${pageContext.request.contextPath}/schedule">
+                    href="${pageContext.request.contextPath}/user/scheduleList.action">
 
                     ← 上映スケジュールに戻る
 
