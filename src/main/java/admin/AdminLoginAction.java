@@ -16,6 +16,6 @@ public class AdminLoginAction extends Action {
 
         if (session != null) { session.invalidate(); }
         //ログイン画面へ偏移
-        request.getRequestDispatcher("/admin/logout.jsp") .forward(request, response);
+        request.getRequestDispatcher("/admin/login.jsp") .forward(request, response);
     }
 }

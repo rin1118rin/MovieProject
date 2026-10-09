@@ -18,15 +18,15 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / ログアウト
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / ログアウト
     </p>
     <div class="page-title"><div><h1>ログアウト</h1></div></div>
 
     <section class="panel narrow completion">
       <span class="checkmark" aria-hidden="true">✓</span>
       <h2>ログアウトしました</h2>
-      <a class="button" href="${pageContext.request.contextPath}/admin/login.jsp">管理者ログインへ</a>
-      <a class="button secondary" href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニューへ</a>
+      <a class="button" href="${pageContext.request.contextPath}/admin/adminLogin,action">管理者ログインへ</a>
+      <a class="button secondary" href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニューへ</a>
     </section>
   </main>
 
