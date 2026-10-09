@@ -20,14 +20,14 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 上映映画一覧
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 上映映画一覧
     </p>
     <div class="page-title"><div><h1>上映映画一覧</h1></div></div>
 
     <section class="panel">
       <div class="section-heading">
         <h2>登録済みの上映映画</h2>
-        <a class="button" href="${pageContext.request.contextPath}/admin/movies/create.jsp">＋ 上映映画登録</a>
+        <a class="button" href="${pageContext.request.contextPath}/admin/movieCreate.action">＋ 上映映画登録</a>
       </div>
 
       <div class="table-scroll">
@@ -61,7 +61,7 @@
                   </c:choose>
                 </td>
                 <td>
-                  <a href="${pageContext.request.contextPath}/admin/movies/edit.jsp?Id=${movie.movieId}">編集 →</a>
+                  <a href="${pageContext.request.contextPath}/admin/movieUpdate.action?Id=${movie.movieId}">編集 →</a>
                 </td>
               </tr>
             </c:forEach>

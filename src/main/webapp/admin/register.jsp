@@ -19,7 +19,7 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 管理者登録
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 管理者登録
     </p>
     <div class="page-title"><div><h1>管理者登録</h1></div></div>
 
@@ -31,7 +31,7 @@
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
 
-      <form action="${pageContext.request.contextPath}/admin/create/execute" method="post">
+      <form action="${pageContext.request.contextPath}/admin/adminCreateExecute.action" method="post">
         <label for="adminId">管理者ID</label>
         <input id="adminId" name="adminId" type="text" inputmode="numeric"
                pattern="[0-9]+" maxlength="9" title="数字で入力してください"
@@ -44,7 +44,7 @@
 
         <div class="actions">
           <button class="button" type="submit">登録</button>
-          <a class="button secondary" href="${pageContext.request.contextPath}/admin/index.jsp">戻る</a>
+          <a class="button secondary" href="${pageContext.request.contextPath}/admin/adminMenu.action">戻る</a>
         </div>
       </form>
     </section>

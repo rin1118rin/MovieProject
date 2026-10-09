@@ -19,7 +19,7 @@ public class MovieListAction extends Action {
         HttpSession session = request.getSession();
         if (session.getAttribute("admin") == null) {
             // 未ログインの場合はログイン画面へ
-            response.sendRedirect(request.getContextPath() + "/admin/login.action");
+            response.sendRedirect(request.getContextPath() + "/admin/adminLogin.action");
             return;
         }
 

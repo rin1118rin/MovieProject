@@ -24,7 +24,7 @@
     <div class="page-title"><div><h1>管理者メインメニュー</h1></div></div>
 
     <div class="quick-links">
-      <a href="${pageContext.request.contextPath}/admin/movies/list.jsp"><strong>上映映画管理 →</strong></a>
+      <a href="${pageContext.request.contextPath}/admin/movieList.action"><strong>上映映画管理 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/schedule/list.jsp"><strong>上映スケジュール管理 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/analyticsList.action"><strong>分析一覧 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/contact/list.jsp"><strong>お問い合わせ管理 →</strong></a>
