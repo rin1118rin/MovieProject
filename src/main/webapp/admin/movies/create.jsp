@@ -19,7 +19,7 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 上映映画登録
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 上映映画登録
     </p>
     <div class="page-title"><div><h1>上映映画登録</h1></div></div>
 
@@ -31,17 +31,16 @@
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
 
-      <%-- 画像を送るので enctype="multipart/form-data" が必要 --%>
-      <form action="${pageContext.request.contextPath}/admin/movies/create/execute"
-            method="post" enctype="multipart/form-data">
+      <form action="${pageContext.request.contextPath}/admin/movieCreateExecute.action" method="post">
         <label for="title">作品名</label>
         <input id="title" name="title" type="text" required maxlength="100"
                value="<c:out value='${param.title}' />">
 
-        <label for="movie-image">映画の画像</label>
-        <input id="movie-image" name="image" type="file"
-               accept="image/jpeg,image/png,image/webp" aria-describedby="movie-image-help">
-        <p id="movie-image-help" class="muted">ポスター画像を選択してください(JPG・PNG・WebP)。</p>
+        <label for="poster-url">ポスター画像のURL</label>
+        <input id="poster-url" name="posterUrl" type="text" required maxlength="500"
+               aria-describedby="poster-url-help"
+               value="<c:out value='${param.posterUrl}' />">
+        <p id="poster-url-help" class="muted">ポスター画像のURL(または画像のパス)を入力してください。</p>
 
         <label for="duration">上映時間(分)</label>
         <input id="duration" name="duration" type="number" required min="1" max="600"
@@ -49,11 +48,11 @@
 
         <label for="genre">ジャンル</label>
         <select id="genre" name="genre">
-          <option>ドラマ</option>
-          <option>青春</option>
-          <option>SF</option>
-          <option>アニメ</option>
-          <option>その他</option>
+          <option${param.genre == 'ドラマ' ? ' selected' : ''}>ドラマ</option>
+          <option${param.genre == '青春' ? ' selected' : ''}>青春</option>
+          <option${param.genre == 'SF' ? ' selected' : ''}>SF</option>
+          <option${param.genre == 'アニメ' ? ' selected' : ''}>アニメ</option>
+          <option${param.genre == 'その他' ? ' selected' : ''}>その他</option>
         </select>
 
         <label for="release-start">公開開始日</label>
@@ -66,10 +65,10 @@
 
         <label for="age-limit">年齢制限</label>
         <select id="age-limit" name="ageLimit">
-          <option>全年齢</option>
-          <option>PG12</option>
-          <option>R15+</option>
-          <option>R18+</option>
+          <option${param.ageLimit == '全年齢' ? ' selected' : ''}>全年齢</option>
+          <option${param.ageLimit == 'PG12' ? ' selected' : ''}>PG12</option>
+          <option${param.ageLimit == 'R15+' ? ' selected' : ''}>R15+</option>
+          <option${param.ageLimit == 'R18+' ? ' selected' : ''}>R18+</option>
         </select>
 
         <label for="director">監督</label>
@@ -85,7 +84,7 @@
 
         <div class="actions">
           <button class="button" type="submit">登録</button>
-          <a class="button secondary" href="${pageContext.request.contextPath}/admin/movies/list.jsp">戻る</a>
+          <a class="button secondary" href="${pageContext.request.contextPath}/admin/movieList.action">戻る</a>
         </div>
       </form>
     </section>
