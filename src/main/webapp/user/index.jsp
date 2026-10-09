@@ -105,7 +105,7 @@
                 </a>
 
                 <a class="button"
-                   href="${pageContext.request.contextPath}/user/scheduleList.action">
+                   href="${pageContext.request.contextPath}/user/reservationCreate.action">
                     予約
                 </a>
 

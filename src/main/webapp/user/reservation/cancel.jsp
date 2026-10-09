@@ -42,7 +42,8 @@
             </c:if>
 
             <!-- 取消フォーム -->
-            <form action="${pageContext.request.contextPath}/reservation/cancel" method="post" class="cancel-form">
+            <form action="${pageContext.request.contextPath}/user/reservationCancelExecute.action" method="post" class="cancel-form">
+                <input type="hidden" name="cancelToken" value="<c:out value='${cancelToken}' />">
 
                 <!-- 予約番号 -->
                 <div class="cancel-form-group">
@@ -53,8 +54,8 @@
                     <input
                         type="text"
                         id="reservationId"
-                        name="reservaionId"
-                        placeholder="例:1001"
+                        name="reservationId"
+                        placeholder="例:100001"
                         min="1"
                         required>
                 </div>
