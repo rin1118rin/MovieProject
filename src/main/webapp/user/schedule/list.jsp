@@ -76,7 +76,7 @@
 
     <section class="schedule-content">
         <h2 class="schedule-section-title">
-            ${selectedDate.monthValue}月${selectedDate.dayOfMonth}日の上映作品
+            <c:out value="${selectedDate}"/> の上映作品
         </h2>
 
         <!-- 上映作品がない場合 -->

@@ -10,19 +10,19 @@
     </a>
 
     <nav aria-label="メインメニュー">
-        <a href="${pageContext.request.contextPath}/schedule">
+        <a href="${pageContext.request.contextPath}/user/scheduleList.action">
             上映スケジュール
         </a>
 
-        <a href="${pageContext.request.contextPath}/movies">
+        <a href="${pageContext.request.contextPath}/user/movieList.action">
             作品一覧
         </a>
 
-        <a href="${pageContext.request.contextPath}/reservation">
+        <a href="${pageContext.request.contextPath}/user/reservationCreate.action">
             予約
         </a>
 
-        <a href="${pageContext.request.contextPath}/reservation/cancel">
+        <a href="${pageContext.request.contextPath}/user/reservationCancel.action">
             予約取消
         </a>
 
