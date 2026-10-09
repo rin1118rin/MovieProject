@@ -36,18 +36,10 @@
 
                 <!-- 映画イメージ -->
                 <div class="movie-poster">
-                    <span>
-                        CINEMA ORIGINAL /
-                        <c:out value="${movie.genre}" />
-                    </span>
-
-                    <strong>
-                        <c:out value="${movie.title}" />
-                    </strong>
-
-                    <small>
-                        <c:out value="${movie.description}" />
-                    </small>
+                    <c:if test="${not empty movie.posterUrl}">
+                        <c:url var="posterUrl" value="/images/movies/${movie.posterUrl}" />
+                        <img src="<c:out value='${posterUrl}' />" alt="" loading="lazy">
+                    </c:if>
                 </div>
 
                 <!-- 映画情報 -->
