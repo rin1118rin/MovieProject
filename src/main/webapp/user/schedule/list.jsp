@@ -119,7 +119,7 @@
                     <!-- 上映時間 -->
                     <div class="schedule-times">
                         <c:forEach var="schedule" items="${movie.schedules}">
-                            <a href="${pageContext.request.contextPath}/reservation/create?scheduleId=${schedule.scheduleId}""
+                            <a href="${pageContext.request.contextPath}/user/reservationCreate.action?scheduleId=${schedule.scheduleId}""
                                 class="schedule-time">
                                 <span class="schedule-start">
                                     <fmt:formatDate value="${schedule.startDatetime}" pattern="yyyy-MM-dd"/>

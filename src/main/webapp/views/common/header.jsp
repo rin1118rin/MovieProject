@@ -4,7 +4,7 @@
 <!-- 共通ヘッダー -->
 <header class="header">
     <a class="logo"
-       href="${pageContext.request.contextPath}/home">
+       href="${pageContext.request.contextPath}/">
         <span class="logo-mark">O</span>
         <span>-HARAFILM</span>
     </a>
