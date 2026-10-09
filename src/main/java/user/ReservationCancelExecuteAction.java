@@ -18,6 +18,6 @@ public class ReservationCancelExecuteAction extends Action {
         // 取消結果をJSPに渡す
         request.setAttribute("result", result);
         //予約取消完了画面へ
-        request.getRequestDispatcher("cancel-complete.jsp").forward(request, response);
+        request.getRequestDispatcher("/reservation/cancel-complete.jsp").forward(request, response);
     }
 }
