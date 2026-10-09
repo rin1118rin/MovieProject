@@ -36,6 +36,6 @@ public class ScheduleUpdateAction extends Action {
         }
 
         request.setAttribute("errorMessage", "指定されたスケジュールが見つかりませんでした。");
-        request.getRequestDispatcher("/admin/schedules/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/schedule/list.jsp").forward(request, response);
     }
 }
