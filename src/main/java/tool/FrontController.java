@@ -8,8 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-// すべての *.action リクエストを一括受領し、対応する actionクラスを動的にロード・実行するフロントコントローラー
- 
+// すべての *.action リクエストを一括受領し、Action クラスを動的にロード・実行するフロントコントローラー
 @WebServlet("*.action")
 public class FrontController extends HttpServlet {
 
@@ -28,22 +27,49 @@ public class FrontController extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // リクエストURIからaction名を取得
+            // リクエストURIからパスを抽出
             String path = request.getRequestURI().substring(request.getContextPath().length() + 1);
             String name = path.substring(0, path.indexOf(".action"));
 
-            // クラス名の組み立て
-            String className = "action." + Character.toUpperCase(name.charAt(0)) + name.substring(1) + "Action";
+            String className;
+
+            // パスに "/" が含まれているか判定
+            if (name.contains("/")) {
+                // admin や user パッケージの場合
+                int lastSlash = name.lastIndexOf("/");
+                String pkg = name.substring(0, lastSlash).replace('/', '.'); // "user" や "admin"
+                String actionName = name.substring(lastSlash + 1);          // "reservationCreate"
+
+                // 先頭を大文字化
+                String formattedActionName = Character.toUpperCase(actionName.charAt(0)) + actionName.substring(1);
+
+                // 末尾にActionがなければ補完
+                if (!formattedActionName.endsWith("Action")) {
+                    formattedActionName += "Action";
+                }
+
+                className = pkg + "." + formattedActionName;
+            } else {
+                // 共通の action パッケージ直下の場合
+                String formattedActionName = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+
+                // 末尾にActionがなければ補完
+                if (!formattedActionName.endsWith("Action")) {
+                    formattedActionName += "Action";
+                }
+
+                className = "action." + formattedActionName;
+            }
 
             // クラスの動的ロードとインスタンス化
             Action action = (Action) Class.forName(className).getDeclaredConstructor().newInstance();
 
-            // 各Actionの処理を実行
+            // Actionの実行
             action.execute(request, response);
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "指定されたActionクラスが存在しません。");
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "指定されたActionクラスが存在しません: " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             throw new ServletException(e);
