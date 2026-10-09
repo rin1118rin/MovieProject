@@ -19,7 +19,7 @@
     <main class="user-main">
 
         <!-- 宣伝画像：横にスクロールできます -->
-       <section class="promotion" aria-label="上映作品の紹介">
+        <section class="promotion" aria-label="上映作品の紹介">
 
             <!-- 左矢印 -->
             <button class="slider-arrow slider-prev" type="button" aria-label="前へ">
@@ -29,7 +29,7 @@
             <div class="promotion-list">
 
                 <a class="promotion-item"
-                href="${pageContext.request.contextPath}/movies/detail?id=1">
+                   href="${pageContext.request.contextPath}/user/reservationCreate.action">
                     <img src="${pageContext.request.contextPath}/images/banners/banner5.jpg"
                         alt="予約">
 
@@ -42,7 +42,7 @@
 
 
                 <a class="promotion-item"
-                href="${pageContext.request.contextPath}/movies/detail?id=1">
+                   href="${pageContext.request.contextPath}/movieList.action?id=1">
                     <img src="${pageContext.request.contextPath}/images/banners/banner1.jpg"
                         alt="ますお">
 
@@ -55,7 +55,7 @@
 
 
                 <a class="promotion-item"
-                href="${pageContext.request.contextPath}/movies/detail?id=2">
+                   href="${pageContext.request.contextPath}/movieList.action?id=2">
                     <img src="${pageContext.request.contextPath}/images/banners/banner2.jpg"
                         alt="エイリアン">
 
@@ -68,7 +68,7 @@
 
 
                 <a class="promotion-item"
-                href="${pageContext.request.contextPath}/movies/detail?id=3">
+                   href="${pageContext.request.contextPath}/movieList.action?id=3">
                     <img src="${pageContext.request.contextPath}/images/banners/banner3.jpg"
                         alt="カンガルーマン">
 
@@ -103,17 +103,17 @@
 
             <div class="home-menu">
                 <a class="button"
-                   href="${pageContext.request.contextPath}/schedule">
+                   href="${pageContext.request.contextPath}/scheduleList.action">
                     上映スケジュール
                 </a>
 
                 <a class="button"
-                   href="${pageContext.request.contextPath}/reservation">
+                   href="${pageContext.request.contextPath}/user/reservationCreate.action">
                     予約
                 </a>
 
                 <a class="button"
-                   href="${pageContext.request.contextPath}/reservation/cancel">
+                   href="${pageContext.request.contextPath}/user/reservationCancel.action">
                     予約取消
                 </a>
             </div>
@@ -125,8 +125,7 @@
                 alt="O-HARAFILM お知らせ">
         </section>
 
-        <!-- 上映中映画ランキング
-        後からc:forEachに変更 -->
+        <!-- 上映中映画ランキング -->
         <section class="ranking-section">
 
             <h2>上映中映画ランキング</h2>
@@ -136,17 +135,17 @@
                 <!-- 1位 -->
                 <article class="ranking-card">
                     <div class="ranking-number">1</div>
-                        <img src="${pageContext.request.contextPath}/images/movies/ますお.png"
-                            alt="ますお">
+                    <img src="${pageContext.request.contextPath}/images/movies/ますお.png"
+                        alt="ますお">
 
-                        <div class="ranking-info">
-                            <h3>ますお</h3>
+                    <div class="ranking-info">
+                        <h3>ますお</h3>
 
-                            <a class="ranking-button"
-                            href="${pageContext.request.contextPath}/movies/detail?id=1">
-                                作品詳細
-                            </a>
-                        </div>
+                        <a class="ranking-button"
+                           href="${pageContext.request.contextPath}/movieList.action?id=1">
+                            作品詳細
+                        </a>
+                    </div>
                 </article>
 
 
@@ -160,8 +159,8 @@
                         <h3>エイリアン</h3>
 
                         <a class="ranking-button"
-                            href="${pageContext.request.contextPath}/movies/detail?id=2">
-                                作品詳細
+                           href="${pageContext.request.contextPath}/movieList.action?id=2">
+                            作品詳細
                         </a>
                     </div>
                 </article>
@@ -178,7 +177,7 @@
                         <h3>カンガルーマン</h3>
 
                         <a class="ranking-button"
-                        href="${pageContext.request.contextPath}/movies/detail?id=3">
+                           href="${pageContext.request.contextPath}/movieList.action?id=3">
                             作品詳細
                         </a>
                     </div>
