@@ -21,7 +21,7 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 分析一覧
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 分析一覧
     </p>
     <div class="page-title"><div><h1>分析一覧</h1></div></div>
 
