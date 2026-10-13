@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import bean.Schedule;
 import dao.ScheduleDao;
@@ -15,6 +16,15 @@ public class ScheduleListAction extends Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        // 管理者ログインチェック
+        HttpSession session = request.getSession();
+        if (session.getAttribute("loginAdmin") == null) {
+            // 未ログインの場合はログイン画面へ
+            response.sendRedirect(request.getContextPath() + "/admin/adminLogin.action");
+            return;
+        }
+
 
         String dateStr = request.getParameter("date");
         Date targetDate = new Date();
