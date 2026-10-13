@@ -24,6 +24,6 @@ public class AnalyticsListAction extends Action {
         request.setAttribute("analyticsList", analyticsList);
 
         // 分析一覧画面へ
-        request.getRequestDispatcher("/admin/analysis/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/analysis/index.jsp").forward(request, response);
     }
 }

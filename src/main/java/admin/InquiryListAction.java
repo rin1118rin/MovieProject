@@ -22,6 +22,6 @@ public class InquiryListAction extends Action {
         request.setAttribute("inquiryList", inquiryList);
 
         // お問い合わせ一覧画面へ
-        request.getRequestDispatcher("/admin/inquiry/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/contact/list.jsp").forward(request, response);
     }
 }

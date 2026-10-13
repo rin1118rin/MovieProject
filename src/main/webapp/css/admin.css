@@ -683,3 +683,13 @@ details.panel[open] summary {
         width: 32px;
     }
 }
+
+/* ---------- 成功メッセージ(登録しました、更新しました、など) ---------- */
+.success-message {
+    margin: 0 0 20px;
+    padding: 12px 15px;
+    border: 1px solid #2ca02c;
+    background-color: #f1f8f1;
+    color: #1d6b1d;
+    font-size: 14px;
+}

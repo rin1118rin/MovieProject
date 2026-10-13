@@ -35,8 +35,8 @@
          ============================== -->
     <div class="schedule-date-list">
         <c:forEach var="date" items="${dates}">
-            <a href="${pageContext.request.contextPath}/schedule?date=${date}"
-                class="schedule-date">
+            <a href="${pageContext.request.contextPath}/user/scheduleList.action?date=${date}"
+                    class="schedule-date">
                 <span class="schedule-month-day">
                     ${date.monthValue}/${date.dayOfMonth}
                 </span>
@@ -94,8 +94,10 @@
             <div class="schedule-movie">
                 <!-- ポスター -->
                 <div class="schedule-poster">
-                    <img src="${movie.posterUrl}"
-                        alt="<c:out value='${movie.title}'/>">
+                    <c:url var="posterUrl"
+                        value="/images/movies/${movie.posterUrl}" />
+                    <img src="<c:out value='${posterUrl}' />"
+                         alt="<c:out value='${movie.title}' />のポスター">
                 </div>
 
                 <!-- 映画情報 -->
@@ -105,17 +107,11 @@
                     </h3>
                     <div class="schedule-movie-meta">
                         <span>
-                            <span class="material-symbols-outlined">
-                                schedule
-                            </span>
-                            ${movie.duration}分
+                            上映時間:<c:out value="${movie.duration}"/>分
                         </span>
 
                         <span>
-                            <span class="material-symbols-outlined">
-                                movie
-                            </span>
-                            <c:out value="$movie.genre"/>
+                            ジャンル:<c:out value="${movie.genre}"/>
                         </span>
                     </div>
                     <h4>上映時間</h4>
@@ -123,7 +119,7 @@
                     <!-- 上映時間 -->
                     <div class="schedule-times">
                         <c:forEach var="schedule" items="${movie.schedules}">
-                            <a href="${pageContext.request.contextPath}/reservation/create?scheduleId=${schedule.scheduleId}""
+                            <a href="${pageContext.request.contextPath}/user/reservationCreate.action?scheduleId=${schedule.scheduleId}""
                                 class="schedule-time">
                                 <span class="schedule-start">
                                     <fmt:formatDate value="${schedule.startDatetime}" pattern="yyyy-MM-dd"/>
@@ -144,6 +140,8 @@
 
 <!-- 共通フッター -->
 <jsp:include page="/views/common/footer.jsp" />
+
+<script src="${pageContext.request.contextPath}/js/schedule.js"></script>
 
 </body>
 </html>
