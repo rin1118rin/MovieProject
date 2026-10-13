@@ -56,15 +56,11 @@ public class MovieDao extends Dao {
         }
     }
 
-    /**
-     * 条件で絞り込み。タイトル・ジャンル・監督・主要キャストのどれかに、
-     * condition を含む映画を返す(部分一致)。condition が空なら全件を返す。
-     */
+    /** 条件で絞り込み */
     public List<Movie> filter(String condition) throws Exception {
         if (condition == null || condition.trim().isEmpty()) {
             return getAll();
         }
-        // LIKE の特別な文字(\ % _)を、ただの文字として扱うようにする
         String escaped = condition.trim()
                 .replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
         String pattern = "%" + escaped + "%";
@@ -73,6 +69,7 @@ public class MovieDao extends Dao {
                 + " TITLE LIKE ? ESCAPE '\\' OR GENRE LIKE ? ESCAPE '\\'"
                 + " OR DIRECTOR LIKE ? ESCAPE '\\' OR \"CAST\" LIKE ? ESCAPE '\\'"
                 + " ORDER BY MOVIE_ID";
+
         try (Connection con = getConnection();
                 PreparedStatement st = con.prepareStatement(sql)) {
             for (int i = 1; i <= 4; i++) {
@@ -84,7 +81,7 @@ public class MovieDao extends Dao {
         }
     }
 
-    /** 映画IDで1件取得(なければ null) */
+    /** 映画IDで1件取得 */
     public Movie get(int movieId) throws Exception {
         String sql = "SELECT " + COLUMNS + " FROM MOVIES WHERE MOVIE_ID = ?";
         try (Connection con = getConnection();
@@ -96,24 +93,40 @@ public class MovieDao extends Dao {
         }
     }
 
-    /** 新規登録。自動採番された映画IDは、渡された movie にセットされる */
+    /** 新規登録（NPE対策済み） */
     public boolean save(Movie movie) throws Exception {
         String sql = "INSERT INTO MOVIES (TITLE, DURATION, RELEASE_START_DATE, RELEASE_END_DATE,"
                 + " GENRE, AGE_LIMIT, DESCRIPTION, DIRECTOR, \"CAST\", POSTER_URL)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try (Connection con = getConnection();
                 PreparedStatement st = con.prepareStatement(sql, new String[] { "MOVIE_ID" })) {
+
             st.setString(1, movie.getTitle());
             st.setInt(2, movie.getDuration());
-            st.setDate(3, new Date(movie.getReleaseStartDate().getTime()));
-            st.setDate(4, new Date(movie.getReleaseEndDate().getTime()));
+
+            // ★ null を許容する安全な日付セット
+            if (movie.getReleaseStartDate() != null) {
+                st.setDate(3, new Date(movie.getReleaseStartDate().getTime()));
+            } else {
+                st.setNull(3, java.sql.Types.DATE);
+            }
+
+            if (movie.getReleaseEndDate() != null) {
+                st.setDate(4, new Date(movie.getReleaseEndDate().getTime()));
+            } else {
+                st.setNull(4, java.sql.Types.DATE);
+            }
+
             st.setString(5, movie.getGenre());
             st.setString(6, movie.getAgeLimit());
             st.setString(7, movie.getDescription());
             st.setString(8, movie.getDirector());
             st.setString(9, movie.getCast());
             st.setString(10, movie.getPosterUrl());
+
             int count = st.executeUpdate();
+
             if (count > 0) {
                 try (ResultSet keys = st.getGeneratedKeys()) {
                     if (keys.next()) {
@@ -125,17 +138,31 @@ public class MovieDao extends Dao {
         }
     }
 
-    /** 更新(映画IDで特定) */
+    /** 更新（NPE対策済み） */
     public boolean update(Movie movie) throws Exception {
         String sql = "UPDATE MOVIES SET TITLE = ?, DURATION = ?, RELEASE_START_DATE = ?, RELEASE_END_DATE = ?,"
                 + " GENRE = ?, AGE_LIMIT = ?, DESCRIPTION = ?, DIRECTOR = ?, \"CAST\" = ?, POSTER_URL = ?"
                 + " WHERE MOVIE_ID = ?";
+
         try (Connection con = getConnection();
                 PreparedStatement st = con.prepareStatement(sql)) {
+
             st.setString(1, movie.getTitle());
             st.setInt(2, movie.getDuration());
-            st.setDate(3, new Date(movie.getReleaseStartDate().getTime()));
-            st.setDate(4, new Date(movie.getReleaseEndDate().getTime()));
+
+            // ★ null を許容する安全な日付セット
+            if (movie.getReleaseStartDate() != null) {
+                st.setDate(3, new Date(movie.getReleaseStartDate().getTime()));
+            } else {
+                st.setNull(3, java.sql.Types.DATE);
+            }
+
+            if (movie.getReleaseEndDate() != null) {
+                st.setDate(4, new Date(movie.getReleaseEndDate().getTime()));
+            } else {
+                st.setNull(4, java.sql.Types.DATE);
+            }
+
             st.setString(5, movie.getGenre());
             st.setString(6, movie.getAgeLimit());
             st.setString(7, movie.getDescription());
@@ -143,15 +170,12 @@ public class MovieDao extends Dao {
             st.setString(9, movie.getCast());
             st.setString(10, movie.getPosterUrl());
             st.setInt(11, movie.getMovieId());
+
             return st.executeUpdate() > 0;
         }
     }
 
-    /**
-     * 削除(映画IDで特定)。
-     * 上映スケジュールがこの映画を使っている場合は、例外にせず false を返す。
-     * (映画が存在しない場合も false なので、区別したいときは先に get で確認する)
-     */
+    /** 削除 */
     public boolean delete(Movie movie) throws Exception {
         String sql = "DELETE FROM MOVIES WHERE MOVIE_ID = ?";
         try (Connection con = getConnection();
