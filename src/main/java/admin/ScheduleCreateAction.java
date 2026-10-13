@@ -19,6 +19,6 @@ public class ScheduleCreateAction extends Action {
         List<Movie> movieList = movieDao.getAll();
 
         request.setAttribute("movieList", movieList);
-        request.getRequestDispatcher("/admin/schedules/create.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/schedule/create.jsp").forward(request, response);
     }
 }

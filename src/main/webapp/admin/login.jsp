@@ -30,7 +30,11 @@
       <c:if test="${not empty errorMessage}">
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
-
+      
+      <%-- IDもしくはパスワードが一致しない場合に表示するエラーメッセージ --%>
+	  <% if (request.getAttribute("error") != null) 
+	  { %> <p style="color:red;"><%= request.getAttribute("error") %></p><% } %>
+    
       <form action="${pageContext.request.contextPath}/admin/adminLoginExecute.action" method="post">
         <label for="adminId">管理者ID</label>
         <input id="adminId" name="adminId" type="text" inputmode="numeric"

@@ -21,7 +21,7 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 上映スケジュール予約管理
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 上映スケジュール予約管理
     </p>
     <div class="page-title"><div><h1>上映スケジュール予約管理</h1></div></div>
 
@@ -88,7 +88,7 @@
         </table>
       </div>
 
-      <a class="button secondary" href="${pageContext.request.contextPath}/admin/schedule/list.jsp">戻る</a>
+      <a class="button secondary" href="${pageContext.request.contextPath}/admin/scheduleList.action">戻る</a>
     </section>
   </main>
 
