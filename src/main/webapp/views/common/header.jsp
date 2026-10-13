@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
+<link rel="icon"
+      type="image/x-icon"
+      href="${pageContext.request.contextPath}/images/favicon.ico?v=4">
 <!-- 共通ヘッダー -->
 <header class="header">
-    <a class="logo"
-       href="${pageContext.request.contextPath}/user/userMenu.action">
-        <span class="logo-mark">O</span>
-        <span>-HARAFILM</span>
+    <a class="header-logo" href="${pageContext.request.contextPath}/user/userMenu.action">
+        <img src="${pageContext.request.contextPath}/images/logo.png" alt="O-HARAFILM">
     </a>
 
     <nav aria-label="メインメニュー">
