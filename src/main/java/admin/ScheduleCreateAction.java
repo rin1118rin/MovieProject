@@ -10,6 +10,7 @@ import bean.Movie;
 import dao.MovieDao;
 import tool.Action;
 
+
 public class ScheduleCreateAction extends Action {
 
     @Override
