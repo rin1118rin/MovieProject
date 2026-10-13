@@ -3,6 +3,6 @@
 <%-- 共通フッター --%>
 <footer class="footer">
     <div class="container footer-inner">
-        <a class="logo" href="${pageContext.request.contextPath}/">O-HARAFILM</a><p>© 2026 O-HARAFILM</p>
+        <a class="logo" href="${pageContext.request.contextPath}/user/userMenu.action">O-HARAFILM</a><p>© 2026 O-HARAFILM</p>
     </div>
 </footer>

@@ -165,4 +165,42 @@ public class MovieDao extends Dao {
             throw e;
         }
     }
+
+//公開中の作品を予約数の多い順に取得
+public List<Movie> getRanking() throws Exception {
+    String sql =
+        "SELECT M.* "
+        + "FROM MOVIES M "
+        + "LEFT JOIN("
+        + "    SELECT S.MOVIE_ID, COUNT(*) AS RESERVED_SEATS "
+        + "    FROM RESERVATIONS R "
+        + "    JOIN SCREENING_SCHEDULES S "
+        + "      ON R.SCHEDULE_ID = S.SCHEDULE_ID "
+        + "    JOIN RESERVATION_SEATS RS "
+        + "      ON RS.RESERVATION_ID = R.RESERVATION_ID "
+        + "     AND RS.SCHEDULE_ID = R.SCHEDULE_ID "
+        + "    WHERE R.STATUS = ? "
+        + "    GROUP BY S.MOVIE_ID"
+        + ") P ON P.MOVIE_ID = M.MOVIE_ID "
+        + "WHERE M.RELEASE_START_DATE <= CURRENT_DATE "
+        + "  AND (M.RELEASE_END_DATE IS NULL "
+        + "       OR M.RELEASE_END_DATE >= CURRENT_DATE) "
+        + "ORDER BY COALESCE(P.RESERVED_SEATS, 0) DESC, M.MOVIE_ID "
+        + "LIMIT 3";
+    
+    List<Movie> ranking = new ArrayList<>();
+
+    try (Connection con = getConnection();
+         PreparedStatement st = con.prepareStatement(sql)) {
+        st.setString(1, "予約済み");
+
+        try (ResultSet rs = st.executeQuery()) {
+            while (rs.next()) {
+                ranking.add(toBean(rs));
+            }
+        }
+    }
+    return ranking;
+}
+
 }

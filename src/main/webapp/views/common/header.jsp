@@ -4,7 +4,7 @@
 <!-- 共通ヘッダー -->
 <header class="header">
     <a class="logo"
-       href="${pageContext.request.contextPath}/">
+       href="${pageContext.request.contextPath}/user/userMenu.action">
         <span class="logo-mark">O</span>
         <span>-HARAFILM</span>
     </a>
