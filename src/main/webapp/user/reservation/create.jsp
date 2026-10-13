@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -143,7 +144,10 @@
                                         selected
                                     </c:if>>
 
-                                    ${schedule.startDatetime}
+                                    <fmt:formatDate
+                                        value="${schedule.startDatetime}"
+                                        pattern="yyyy-MM-dd HH:mm"
+                                        timeZone="Asia/Tokyo" />
                                     /
                                     SCREEN ${schedule.screenNo}
                                     /
