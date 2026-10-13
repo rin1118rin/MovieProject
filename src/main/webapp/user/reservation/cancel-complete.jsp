@@ -17,6 +17,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
           rel="stylesheet">
+    <link rel="icon"
+      type="image/x-icon"
+      href="${pageContext.request.contextPath}/images/favicon.ico?v=4">
 </head>
 
 <body>

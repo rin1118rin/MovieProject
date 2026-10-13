@@ -84,8 +84,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 30px;
-    padding: 22px 40px;
+    gap: 24px;
+    padding: 12px 30px 12px 0px;
     background-color: #121315;
     border-bottom: 4px solid #c51837;
     color: white;
@@ -100,7 +100,23 @@ header {
     color: #ffafbd;
 }
 
-/* ロゴ */
+/* 画像ロゴ */
+.header .header-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 180px;
+    height: 48px;
+}
+
+.header .header-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 文字ロゴ（管理画面などで使用） */
 .header .logo {
     display: flex;
     align-items: center;
@@ -309,8 +325,8 @@ th {
 @media (max-width: 900px) {
     .header {
         flex-wrap: wrap;
-        gap: 18px;
-        padding: 20px;
+        gap: 12px;
+        padding: 12px 20px;
     }
 
     .header nav {
@@ -327,6 +343,11 @@ th {
         font-size: 20px;
     }
 
+    .header .header-logo {
+        width: 150px;
+        height: 40px;
+    }
+
     .header .logo {
         font-size: 22px;
     }
@@ -338,11 +359,4 @@ th {
     .panel {
         padding: 18px;
     }
-}
-
-.logo,
-.logo:hover,
-.logo span,
-.logo:hover span {
-    color: #fff;
 }
