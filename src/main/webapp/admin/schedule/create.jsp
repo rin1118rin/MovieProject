@@ -32,7 +32,7 @@
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
 
-      <form action="${pageContext.request.contextPath}/admin/schedules/create/execute" method="post">
+      <form action="${pageContext.request.contextPath}/admin/scheduleCreateExecute.action" method="post">
         <label for="movie">上映作品</label>
         <select id="movie" name="movieId" required>
           <c:forEach var="movie" items="${movieList}">

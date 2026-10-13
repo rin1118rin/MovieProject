@@ -25,20 +25,26 @@
     </p>
     <div class="page-title"><div><h1>上映スケジュール予約管理</h1></div></div>
 
-    <%--
-      Actionが request に入れておく値:
-        schedule     : 対象の上映スケジュール1件
-                       (scheduleId / movieTitle / startDateTime(LocalDateTime) / totalSeats / reservedSeats)
-        reservations : そのスケジュールの予約のリスト(1件 = 1つの予約)
-                       (reservationId / customerName / tickets(券種のリスト) / seats(座席番号のリスト) / totalPrice / status)
-                       tickets の1件 = RESERVATION_TICKETS の1行 (ticketType / quantity)
-    --%>
-    <c:set var="start" value="${schedule.startDateTime}" />
+    <%-- Timestamp を LocalDateTime に変換してから日付・曜日・時刻を取得 --%>
+    <c:set var="start" value="${schedule.startDatetime.toLocalDateTime()}" />
     <c:set var="wd" value="${start.dayOfWeek.value}" />
 
     <section class="panel">
       <h2><c:out value="${schedule.movieTitle}" /> / S<fmt:formatNumber value="${schedule.scheduleId}" pattern="000" /></h2>
-      <p>${start.year}年${start.monthValue}月${start.dayOfMonth}日(${fn:substring('月火水木金土日', wd - 1, wd)})<fmt:formatNumber value="${start.hour}" pattern="00" />:<fmt:formatNumber value="${start.minute}" pattern="00" /></p>
+      <p>
+        ${start.year}年${start.monthValue}月${start.dayOfMonth}日(
+        <c:choose>
+          <c:when test="${wd == 1}">月</c:when>
+          <c:when test="${wd == 2}">火</c:when>
+          <c:when test="${wd == 3}">水</c:when>
+          <c:when test="${wd == 4}">木</c:when>
+          <c:when test="${wd == 5}">金</c:when>
+          <c:when test="${wd == 6}">土</c:when>
+          <c:otherwise>日</c:otherwise>
+        </c:choose>
+        )
+        <fmt:formatNumber value="${start.hour}" pattern="00" />:<fmt:formatNumber value="${start.minute}" pattern="00" />
+      </p>
 
       <div class="admin-stats">
         <div><small>総座席数</small><strong>${schedule.totalSeats}席</strong></div>

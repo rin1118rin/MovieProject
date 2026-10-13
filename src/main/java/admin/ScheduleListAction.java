@@ -20,11 +20,9 @@ public class ScheduleListAction extends Action {
         // 管理者ログインチェック
         HttpSession session = request.getSession();
         if (session.getAttribute("loginAdmin") == null) {
-            // 未ログインの場合はログイン画面へ
             response.sendRedirect(request.getContextPath() + "/admin/adminLogin.action");
             return;
         }
-
 
         String dateStr = request.getParameter("date");
         Date targetDate = new Date();
@@ -38,10 +36,13 @@ public class ScheduleListAction extends Action {
             }
         }
 
+     // 全ての期間のスケジュールを取得する
         ScheduleDao dao = new ScheduleDao();
-        List<Schedule> scheduleList = dao.getByDate(targetDate);
+        List<Schedule> scheduleList = dao.getAll();
+        request.setAttribute("schedules", scheduleList);
 
-        request.setAttribute("scheduleList", scheduleList);
+        // JSP側の"schedules" でセット
+        request.setAttribute("schedules", scheduleList);
         request.setAttribute("selectedDate", sdf.format(targetDate));
 
         // 管理者用JSPへ

@@ -22,17 +22,20 @@ public class ScheduleCreateExecuteAction extends Action {
 
         String movieIdStr = request.getParameter("movieId");
         String screenNoStr = request.getParameter("screenNo");
-        String startDatetimeStr = request.getParameter("startDatetime"); // 例: "2026-10-08T10:00" または "2026-10-08 10:00"
-        String endDatetimeStr = request.getParameter("endDatetime");
+        String screeningDate = request.getParameter("screeningDate"); // 例: "2026-10-08"
+        String startTime = request.getParameter("startTime");         // 例: "10:00"
         String screeningFormat = request.getParameter("screeningFormat");
 
         int movieId = Integer.parseInt(movieIdStr);
         int screenNo = Integer.parseInt(screenNoStr);
 
-        // HTML5の datetime-local 形式と標準形式の両方に対応
-        SimpleDateFormat sdf = new SimpleDateFormat(startDatetimeStr.contains("T") ? "yyyy-MM-dd'T'HH:mm" : "yyyy-MM-dd HH:mm");
+        // 日付と時間を結合
+        String startDatetimeStr = screeningDate + " " + startTime;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date startDatetime = sdf.parse(startDatetimeStr);
-        Date endDatetime = sdf.parse(endDatetimeStr);
+
+        long twoHoursLater = startDatetime.getTime() + (2L * 60 * 60 * 1000);
+        Date endDatetime = new Date(twoHoursLater);
 
         ScheduleDao scheduleDao = new ScheduleDao();
 
@@ -41,9 +44,9 @@ public class ScheduleCreateExecuteAction extends Action {
             MovieDao movieDao = new MovieDao();
             List<Movie> movieList = movieDao.getAll();
 
-            request.setAttribute("movieList", movieList);
+            request.setAttribute("movies", movieList);
             request.setAttribute("errorMessage", "指定したスクリーンの時間帯にすでに別の上映スケジュールが存在します。");
-            request.getRequestDispatcher("/admin/schedules/create.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/schedule/create.jsp").forward(request, response);
             return;
         }
 
@@ -57,11 +60,14 @@ public class ScheduleCreateExecuteAction extends Action {
         boolean isSuccess = scheduleDao.save(schedule);
 
         if (isSuccess) {
-            request.setAttribute("message", "スケジュールを登録しました。");
-            request.getRequestDispatcher("/admin/schedules/list.jsp").forward(request, response);
+            // 登録成功時、登録した日付をパラメータにつけて一覧画面へリダイレクト
+            response.sendRedirect(request.getContextPath() + "/admin/scheduleList.action?date=" + screeningDate);
         } else {
+            MovieDao movieDao = new MovieDao();
+            List<Movie> movieList = movieDao.getAll();
+            request.setAttribute("movies", movieList);
             request.setAttribute("errorMessage", "スケジュールの登録に失敗しました。");
-            request.getRequestDispatcher("/admin/schedules/create.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/schedule/create.jsp").forward(request, response);
         }
     }
 }

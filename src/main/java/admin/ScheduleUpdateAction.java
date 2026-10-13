@@ -16,7 +16,7 @@ public class ScheduleUpdateAction extends Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        String scheduleIdStr = request.getParameter("scheduleId");
+        String scheduleIdStr = request.getParameter("id");
 
         if (scheduleIdStr != null && !scheduleIdStr.trim().isEmpty()) {
             int scheduleId = Integer.parseInt(scheduleIdStr.trim());
@@ -30,7 +30,7 @@ public class ScheduleUpdateAction extends Action {
 
                 request.setAttribute("schedule", schedule);
                 request.setAttribute("movieList", movieList);
-                request.getRequestDispatcher("/admin/schedules/edit.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/schedule/edit.jsp").forward(request, response);
                 return;
             }
         }

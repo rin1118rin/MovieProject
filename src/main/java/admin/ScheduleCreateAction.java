@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import bean.Movie;
 import dao.MovieDao;
@@ -14,11 +15,21 @@ public class ScheduleCreateAction extends Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        // 映画選択ボックス用に映画一覧を取得
+        // ログインチェック
+        HttpSession session = request.getSession();
+        if (session.getAttribute("loginAdmin") == null) {
+            response.sendRedirect(request.getContextPath() + "/admin/login.action");
+            return;
+        }
+
+        // MovieDaoを使ってすべての映画を取得する
         MovieDao movieDao = new MovieDao();
         List<Movie> movieList = movieDao.getAll();
 
-        request.setAttribute("movieList", movieList);
-        request.getRequestDispatcher("/admin/schedule/create.jsp").forward(request, response);
+        // JSPがmoviesでリクエストスコープにセットする
+        request.setAttribute("movies", movieList);
+
+        // スケジュール登録画面のJSPへフォワード
+        request.getRequestDispatcher("/admin/schedule/create.jsp").forward(request, response); // パスは実際のJSPの場所に合わせてください
     }
 }
