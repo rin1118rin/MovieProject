@@ -213,7 +213,7 @@
                                     name="seat"
                                     value="${seat.seatNo}"
 
-                                    <c:if test="${seat.reserved}">
+                                    <c:if test="${seat.reserved or not seatSelectionReady}">
                                         disabled
                                     </c:if>>
 

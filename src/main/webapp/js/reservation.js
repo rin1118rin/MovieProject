@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const movie = document.getElementById("movie");
     const showtime = document.getElementById("showtime");
 
-    if (!form || !movie || !showtime) {
+    if (!form || !movie || !showtime || !form.querySelector(".seats")) {
         return;
     }
 
@@ -18,12 +18,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const summaryPayment = document.getElementById("summaryPayment");
     const summaryTotal = document.getElementById("summaryTotal");
 
-    // Actionから渡された上映回の選択肢を保存
     const scheduleOptions = Array.from(showtime.options)
         .filter(option => option.value !== "")
         .map(option => option.cloneNode(true));
 
     const initialScheduleId = showtime.value;
+
+    let loadedScheduleId = "";
+    let loadingSeats = false;
+    let seatController = null;
+    let seatRequestId = 0;
+
+    // 座席取得状況を表示
+    const seatMessage = document.createElement("p");
+    seatMessage.setAttribute("role", "status");
+    seatMessage.hidden = true;
+
+    form.querySelector(".seats").before(seatMessage);
 
     function setText(element, text) {
         if (element) {
@@ -32,11 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function getCount(element) {
-        const count = Number(element?.value ?? 0);
-        return Number.isInteger(count) && count >= 0 ? count : 0;
+        const value = Number(element?.value ?? 0);
+
+        return Number.isInteger(value) && value >= 0
+            ? value
+            : 0;
     }
 
-    // 映画名の表示
+    function disableSeats() {
+        form.querySelectorAll('input[name="seat"]').forEach(seat => {
+            seat.checked = false;
+            seat.disabled = true;
+        });
+
+        updateSeats();
+    }
+
     function updateMovie() {
         const option = movie.selectedOptions[0];
 
@@ -46,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    // 上映日時の表示
     function updateShowtime() {
         const option = showtime.selectedOptions[0];
 
@@ -63,15 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         scheduleOptions.forEach(option => {
-            if (option.dataset.movieId === movie.value) {
-                const copy = option.cloneNode(true);
-
-                // 保存時の選択状態を解除
-                copy.defaultSelected = false;
-                copy.selected = false;
-
-                showtime.add(copy);
+            if (option.dataset.movieId !== movie.value) {
+                return;
             }
+
+            const copy = option.cloneNode(true);
+            copy.defaultSelected = false;
+            copy.selected = false;
+
+            showtime.add(copy);
         });
 
         const exists = Array.from(showtime.options).some(
@@ -84,19 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
         updateShowtime();
     }
 
-    // 座席の選択を解除
-    function clearSelectedSeats() {
-        form.querySelectorAll('input[name="seat"]').forEach(seat => {
-            seat.checked = false;
-        });
-
-        updateSeats();
-    }
-
-    // 選択座席の表示
     function updateSeats() {
         const seats = Array.from(
-            form.querySelectorAll('input[name="seat"]:checked')
+            form.querySelectorAll(
+                'input[name="seat"]:checked:not(:disabled)'
+            )
         ).map(seat => seat.value);
 
         setText(
@@ -105,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    // 券種・合計金額の表示
     function updateTickets() {
         const adultCount = getCount(adult);
         const studentCount = getCount(student);
@@ -130,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
             tickets.length > 0 ? tickets.join(" / ") : "未選択"
         );
 
-        // 現在の料金設定
         const total =
             adultCount * 1900 +
             studentCount * 1500 +
@@ -139,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setText(summaryTotal, total.toLocaleString("ja-JP"));
     }
 
-    // 支払い方法の表示
     function updatePayment() {
         const payment = form.querySelector(
             'input[name="payment"]:checked'
@@ -156,25 +166,148 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    // 映画を変更
-    movie.addEventListener("change", () => {
-        filterShowtimes();
-        clearSelectedSeats();
-        updateMovie();
-    });
+    // 取得中の古い上映回を破棄
+    function cancelSeatRequest() {
+        seatRequestId++;
+        seatController?.abort();
+        seatController = null;
 
-    // 上映回を変更
-    showtime.addEventListener("change", () => {
-        clearSelectedSeats();
+        loadingSeats = false;
+        loadedScheduleId = "";
+
+        form.querySelector(".seats")
+            ?.removeAttribute("aria-busy");
+    }
+
+    // 上映回の座席状況をAjaxで取得
+    async function loadSeats() {
+        cancelSeatRequest();
+
+        const requestId = seatRequestId;
+        const scheduleId = showtime.value;
+        const movieId = movie.value;
+
+        disableSeats();
         updateShowtime();
+
+        seatMessage.hidden = false;
+
+        if (!scheduleId) {
+            seatMessage.textContent = "上映回を選択してください。";
+            return;
+        }
+
+        const controller = new AbortController();
+        seatController = controller;
+        loadingSeats = true;
+
+        seatMessage.textContent = "座席状況を読み込み中…";
+
+        form.querySelector(".seats")
+            .setAttribute("aria-busy", "true");
+
+        // 現在の予約画面Actionへ問い合わせる
+        const url = new URL(window.location.href);
+        url.search = "";
+        url.hash = "";
+        url.searchParams.set("scheduleId", scheduleId);
+
+        try {
+            const response = await fetch(url.href, {
+                headers: {
+                    "Accept": "text/html"
+                },
+                cache: "no-store",
+                signal: controller.signal
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const html = await response.text();
+            const page = new DOMParser().parseFromString(
+                html, "text/html"
+            );
+
+            const returnedMovie = page.querySelector("#movie");
+            const returnedShowtime = page.querySelector("#showtime");
+            const newSeats = page.querySelector(".seats");
+
+            if (!newSeats ||
+                returnedMovie?.value !== movieId ||
+                returnedShowtime?.value !== scheduleId) {
+                throw new Error("座席状況を取得できませんでした。");
+            }
+
+            // 選択変更後の古い応答は反映しない
+            if (requestId !== seatRequestId ||
+                showtime.value !== scheduleId ||
+                movie.value !== movieId) {
+                return;
+            }
+
+            const replacement = document.importNode(newSeats, true);
+
+            replacement.querySelectorAll(
+                'input[name="seat"]'
+            ).forEach(seat => {
+                seat.checked = false;
+                // disabledはサーバーが返した状態を維持
+            });
+
+            replacement.removeAttribute("aria-busy");
+
+            form.querySelector(".seats").replaceWith(replacement);
+
+            loadedScheduleId = scheduleId;
+            updateSeats();
+
+            seatMessage.hidden = true;
+
+        } catch (error) {
+            if (error.name === "AbortError") {
+                return;
+            }
+
+            if (requestId === seatRequestId) {
+                console.error(error);
+
+                seatMessage.textContent =
+                    "座席状況を取得できませんでした。上映回を選び直してください。";
+            }
+
+        } finally {
+            if (requestId === seatRequestId) {
+                loadingSeats = false;
+                seatController = null;
+
+                form.querySelector(".seats")
+                    ?.removeAttribute("aria-busy");
+            }
+        }
+    }
+
+    // 映画変更
+    movie.addEventListener("change", () => {
+        cancelSeatRequest();
+        filterShowtimes();
+        disableSeats();
+        updateMovie();
+
+        seatMessage.textContent = "上映回を選択してください。";
+        seatMessage.hidden = false;
     });
 
-    // 券種の枚数を変更
+    // 上映回変更
+    showtime.addEventListener("change", loadSeats);
+
+    // 券種変更
     [adult, student, senior].forEach(element => {
         element?.addEventListener("change", updateTickets);
     });
 
-    // 座席・支払い方法を変更
+    // 差し替え後の座席にも対応
     form.addEventListener("change", event => {
         if (event.target.matches('input[name="seat"]')) {
             updateSeats();
@@ -192,6 +325,11 @@ document.addEventListener("DOMContentLoaded", () => {
             alert(message);
         }
 
+        if (loadingSeats) {
+            stop("座席状況の読み込みが完了するまでお待ちください。");
+            return;
+        }
+
         if (!movie.value) {
             stop("映画を選択してください。");
             return;
@@ -202,10 +340,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const selectedOption = showtime.selectedOptions[0];
-
-        if (selectedOption.dataset.movieId !== movie.value) {
+        if (showtime.selectedOptions[0]?.dataset.movieId !== movie.value) {
             stop("選択した映画に対応する上映回を選んでください。");
+            return;
+        }
+
+        if (loadedScheduleId !== showtime.value) {
+            stop("上映回を選び直し、座席状況を読み込んでください。");
             return;
         }
 
@@ -238,10 +379,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 初期表示：スケジュールから来た場合の選択を維持
+    // 初期表示
     filterShowtimes(initialScheduleId);
     updateMovie();
     updateSeats();
     updateTickets();
     updatePayment();
+
+    // スケジュールから来た場合も最新の座席状況を取得
+    loadSeats();
+
+    // ブラウザの「戻る」でも座席状況を取得し直す
+    window.addEventListener("pageshow", event => {
+        if (event.persisted) {
+            loadSeats();
+        }
+    });
 });
