@@ -73,7 +73,7 @@
             ※ 取消済みの予約はご利用いただけません。
         </p>
 
-        <a href="${pageContext.request.contextPath}/"
+        <a href="${pageContext.request.contextPath}/user/userMenu.action"
            class="cancel-complete-button">
             トップページに戻る
         </a>

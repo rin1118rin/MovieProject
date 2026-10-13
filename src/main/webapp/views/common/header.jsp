@@ -4,7 +4,7 @@
 <!-- 共通ヘッダー -->
 <header class="header">
     <a class="logo"
-       href="${pageContext.request.contextPath}/">
+       href="${pageContext.request.contextPath}/user/userMenu.action">
         <span class="logo-mark">O</span>
         <span>-HARAFILM</span>
     </a>
@@ -26,7 +26,7 @@
             予約取消
         </a>
 
-        <a href="${pageContext.request.contextPath}/contact">
+        <a href="${pageContext.request.contextPath}/user/inquiryCreate.action">
             お問い合わせ
         </a>
     </nav>

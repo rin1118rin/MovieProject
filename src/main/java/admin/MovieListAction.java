@@ -17,7 +17,7 @@ public class MovieListAction extends Action {
 
         // 管理者ログインチェック
         HttpSession session = request.getSession();
-        if (session.getAttribute("admin") == null) {
+        if (session.getAttribute("loginAdmin") == null) {
             // 未ログインの場合はログイン画面へ
             response.sendRedirect(request.getContextPath() + "/admin/adminLogin.action");
             return;
