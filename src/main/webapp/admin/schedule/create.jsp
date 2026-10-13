@@ -19,7 +19,7 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 上映スケジュール登録
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 上映スケジュール登録
     </p>
     <div class="page-title"><div><h1>上映スケジュール登録</h1></div></div>
 
@@ -65,7 +65,7 @@
 
         <div class="actions">
           <button class="button" type="submit">登録</button>
-          <a class="button secondary" href="${pageContext.request.contextPath}/admin/schedule/list.jsp">戻る</a>
+          <a class="button secondary" href="${pageContext.request.contextPath}/admin/scheduleList.action">戻る</a>
         </div>
       </form>
     </section>
