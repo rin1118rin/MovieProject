@@ -45,7 +45,7 @@
                 </a>
 
                 <a class="promotion-item"
-                   href="${pageContext.request.contextPath}/user/movieList.action?id=1">
+                   href="${pageContext.request.contextPath}/user/movieDetail.action?id=1">
                     <img src="${pageContext.request.contextPath}/images/banners/banner1.jpg"
                         alt="ますお">
 
@@ -57,7 +57,7 @@
                 </a>
 
                 <a class="promotion-item"
-                   href="${pageContext.request.contextPath}/user/movieList.action?id=2">
+                   href="${pageContext.request.contextPath}/user/movieDetail.action?id=2">
                     <img src="${pageContext.request.contextPath}/images/banners/banner2.jpg"
                         alt="エイリアン">
 
@@ -69,7 +69,7 @@
                 </a>
 
                 <a class="promotion-item"
-                   href="${pageContext.request.contextPath}/user/movieList.action?id=3">
+                   href="${pageContext.request.contextPath}/user/movieDetail.action?id=3">
                     <img src="${pageContext.request.contextPath}/images/banners/banner3.jpg"
                         alt="カンガルーマン">
 
