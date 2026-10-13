@@ -58,7 +58,7 @@
                         <c:out value="${movie.duration}" />分
                     </p>
 
-                    <c:url var="detailUrl" value="/movies/detail">
+                    <c:url var="detailUrl" value="/user/movieDetail.action">
                         <c:param name="id" value="${movie.movieId}" />
                     </c:url>
 
