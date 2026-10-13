@@ -27,8 +27,8 @@
       <a href="${pageContext.request.contextPath}/admin/movieList.action"><strong>上映映画管理 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/scheduleList.action"><strong>上映スケジュール管理 →</strong></a>
       <a href="${pageContext.request.contextPath}/admin/analyticsList.action"><strong>分析一覧 →</strong></a>
-      <a href="${pageContext.request.contextPath}/admin/contact/list.jsp"><strong>お問い合わせ管理 →</strong></a>
-      <a href="${pageContext.request.contextPath}/admin/register.jsp"><strong>管理者登録 →</strong></a>
+      <a href="${pageContext.request.contextPath}/admin/inquiryList.action"><strong>お問い合わせ管理 →</strong></a>
+      <a href="${pageContext.request.contextPath}/admin/adminCreate.action"><strong>管理者登録 →</strong></a>
     </div>
   </main>
 
