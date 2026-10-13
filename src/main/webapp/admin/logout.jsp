@@ -25,7 +25,7 @@
     <section class="panel narrow completion">
       <span class="checkmark" aria-hidden="true">✓</span>
       <h2>ログアウトしました</h2>
-      <a class="button" href="${pageContext.request.contextPath}/admin/adminLogin,action">管理者ログインへ</a>
+      <a class="button" href="${pageContext.request.contextPath}/admin/adminLogin.action">管理者ログインへ</a>
       <a class="button secondary" href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニューへ</a>
     </section>
   </main>

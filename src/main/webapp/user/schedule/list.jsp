@@ -14,6 +14,9 @@
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/user.css">
+    <link rel="icon"
+      type="image/x-icon"
+      href="${pageContext.request.contextPath}/images/favicon.ico?v=4">
 </head>
 
 <body>
