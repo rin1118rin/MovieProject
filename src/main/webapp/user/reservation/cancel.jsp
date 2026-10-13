@@ -93,7 +93,7 @@
                     予約を取り消す
                 </button>
 
-                <a href="${pageContext.request.contextPath}/" class="cancel-back">
+                <a href="${pageContext.request.contextPath}/user/userMenu.action" class="cancel-back">
                     トップページに戻る
                 </a>
             </form>

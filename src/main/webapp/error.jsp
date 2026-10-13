@@ -55,7 +55,7 @@
         </p>
 
         <div class="error-actions">
-            <a href="${pageContext.request.contextPath}/"
+            <a href="${pageContext.request.contextPath}/user/userMenu.action"
                class="error-home-button">
                 トップページに戻る
             </a>

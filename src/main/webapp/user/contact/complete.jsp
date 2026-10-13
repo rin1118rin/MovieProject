@@ -45,7 +45,7 @@
             内容を確認のうえ、担当者よりご連絡いたします。
         </p>
 
-        <a href="${pageContext.request.contextPath}/"
+        <a href="${pageContext.request.contextPath}/user/userMenu.action"
            class="contact-complete-button">
             トップページに戻る
         </a>

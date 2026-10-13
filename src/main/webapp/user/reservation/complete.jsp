@@ -216,7 +216,7 @@
         <div class="reservation-complete-actions">
 
             <a
-                href="${pageContext.request.contextPath}/"
+                href="${pageContext.request.contextPath}/user/userMenu.action"
                 class="reservation-complete-button">
 
                 トップページに戻る

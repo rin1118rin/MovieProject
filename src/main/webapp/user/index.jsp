@@ -128,52 +128,36 @@
             <h2>上映中映画ランキング</h2>
 
             <div class="ranking-list">
+                <c:forEach var="movie"
+                        items="${rankingMovies}"
+                        varStatus="rank">
 
-                <article class="ranking-card">
-                    <div class="ranking-number">1</div>
-                    <img src="${pageContext.request.contextPath}/images/movies/ますお.png"
-                        alt="ますお">
-
-                    <div class="ranking-info">
-                        <h3>ますお</h3>
-
-                        <a class="ranking-button"
-                           href="${pageContext.request.contextPath}/user/movieList.action?id=1">
-                            作品詳細
-                        </a>
-                    </div>
-                </article>
-
-                <article class="ranking-card">
-                    <div class="ranking-number">2</div>
-
-                    <img src="${pageContext.request.contextPath}/images/movies/エイリアン.png"
-                        alt="エイリアン">
-                    <div class="ranking-info">
-                        <h3>エイリアン</h3>
-
-                        <a class="ranking-button"
-                           href="${pageContext.request.contextPath}/user/movieList.action?id=2">
-                            作品詳細
-                        </a>
-                    </div>
-                </article>
-
-                <article class="ranking-card">
-                    <div class="ranking-number">3</div>
-
-                    <img src="${pageContext.request.contextPath}/images/movies/カンガルーマン.png"
-                        alt="カンガルーマン">
-
-                    <div class="ranking-info">
-                        <h3>カンガルーマン</h3>
-
-                        <a class="ranking-button"
-                           href="${pageContext.request.contextPath}/user/movieList.action?id=3">
-                            作品詳細
-                        </a>
-                    </div>
-                </article>
+                    <article class="ranking-card">
+                        <div class="ranking-number">
+                            <c:out value="${rank.count}" />
+                        </div>
+                        <c:if test="${not empty movie.posterUrl}">
+                            <c:url var="rankingPoster"
+                                value="/images/movies/${movie.posterUrl}" />
+                            <img src="<c:out value='${rankingPoster}' />"
+                                alt="<c:out value='${movie.title}' />">
+                        </c:if>
+                        <div class="ranking-info">
+                            <h3><c:out value="${movie.title}" /></h3>
+                            <c:url var="rankingDetail"
+                                value="/user/movieDetail.action">
+                                <c:param name="id" value="${movie.movieId}" />
+                            </c:url>
+                            <a class="ranking-button"
+                                href="<c:out value='${rankingDetail}' />">
+                                作品詳細
+                            </a>
+                        </div>
+                    </article>
+                </c:forEach>
+                <c:if test="${empty rankingMovies}">
+                    <p>現在、公開期間中の作品はありません。</p>
+                </c:if>
             </div>
         </section>
     </main>
