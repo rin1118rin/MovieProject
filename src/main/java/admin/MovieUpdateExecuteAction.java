@@ -89,7 +89,7 @@ public class MovieUpdateExecuteAction extends Action {
         if (isSuccess) {
             // 更新成功時：メッセージを保持して一覧画面へ
             request.setAttribute("message", "映画情報を更新しました。");
-            request.getRequestDispatcher("/admin/movies/list.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/movieList.action").forward(request, response);
         } else {
             // 更新失敗時：入力データを保持して元の編集画面へ
             request.setAttribute("errorMessage", "映画情報の更新に失敗しました。");
