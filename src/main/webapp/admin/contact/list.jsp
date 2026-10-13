@@ -45,10 +45,10 @@
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="inquiry" items="${inquiries}">
+            <c:forEach var="inquiry" items="${inquiryList}">
               <tr>
                 <td>C<fmt:formatNumber value="${inquiry.inquiryId}" pattern="000" /></td>
-                <td>${inquiry.sentAt.year}/<fmt:formatNumber value="${inquiry.sentAt.monthValue}" pattern="00" />/<fmt:formatNumber value="${inquiry.sentAt.dayOfMonth}" pattern="00" /></td>
+                <td><fmt:formatDate value="${inquiry.sentAt}" pattern="yyyy/MM/dd" /></td>
                 <td><c:out value="${inquiry.name}" /></td>
                 <td><c:out value="${inquiry.subject}" /></td>
                 <td><c:out value="${inquiry.status}" /></td>
@@ -57,7 +57,7 @@
                   <c:choose>
                     <c:when test="${inquiry.status == '回答済み'}">—</c:when>
                     <c:otherwise>
-                      <a href="${pageContext.request.contextPath}/admin/contacts/reply?id=${inquiry.inquiryId}">回答する →</a>
+                      <a href="${pageContext.request.contextPath}/admin/InquiryReply.action?id=${inquiry.inquiryId}">回答する →</a>
                     </c:otherwise>
                   </c:choose>
                 </td>

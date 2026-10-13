@@ -17,7 +17,7 @@ public class InquiryReplyAction extends Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // inquiryId を取得
-        String idStr = request.getParameter("inquiryId");
+        String idStr = request.getParameter("id");
         if (idStr == null || idStr.isEmpty()) {
             response.sendRedirect("InquiryList.action");
             return;
