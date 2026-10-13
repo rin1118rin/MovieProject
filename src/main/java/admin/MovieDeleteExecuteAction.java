@@ -2,6 +2,7 @@ package admin;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import bean.Movie;
 import dao.MovieDao;
@@ -11,6 +12,17 @@ public class MovieDeleteExecuteAction extends Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String listUrl = request.getContextPath() + "/admin/movieList.action";
+
+        // 削除は、削除確認画面のボタン(POST)からだけ実行する
+        if (!"POST".equals(request.getMethod())) {
+            response.sendRedirect(listUrl);
+            return;
+        }
+
+        HttpSession session = request.getSession();
+        String errorMessage = "削除処理に失敗しました。";
 
         // 削除対象の映画IDを取得
         String movieIdStr = request.getParameter("movieId");
@@ -24,25 +36,23 @@ public class MovieDeleteExecuteAction extends Action {
                 movie.setMovieId(movieId);
 
                 // DBから削除処理を実行
-                MovieDao dao = new MovieDao();
-                boolean isSuccess = dao.delete(movie);
-
-                if (isSuccess) {
-                    // 削除成功時：一覧画面へフォワード
-                    request.setAttribute("message", "映画情報を削除しました。");
-                    request.getRequestDispatcher("/admin/movies/list.jsp").forward(request, response);
+                if (new MovieDao().delete(movie)) {
+                    // 削除成功
+                    session.setAttribute("message", "映画情報を削除しました。");
+                    response.sendRedirect(listUrl);
                     return;
                 }
+                errorMessage = "削除できませんでした。上映スケジュールが登録されている映画は削除できません。";
+
+            } catch (NumberFormatException e) {
+                // IDが数字でない場合は、最初のメッセージのまま
             } catch (Exception e) {
                 // 上映スケジュール等の外部キー制約違反や例外が発生した場合
-                request.setAttribute("errorMessage", "上映スケジュールが登録されているため削除できません。");
-                request.getRequestDispatcher("/admin/movies/list.jsp").forward(request, response);
-                return;
+                errorMessage = "上映スケジュールが登録されているため削除できません。";
             }
         }
 
-        // IDが無効な場合
-        request.setAttribute("errorMessage", "削除処理に失敗しました。");
-        request.getRequestDispatcher("/admin/movies/list.jsp").forward(request, response);
+        session.setAttribute("errorMessage", errorMessage);
+        response.sendRedirect(listUrl);
     }
 }

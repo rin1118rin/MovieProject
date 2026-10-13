@@ -48,11 +48,14 @@
 
         <label for="genre">ジャンル</label>
         <select id="genre" name="genre">
-          <option${param.genre == 'ドラマ' ? ' selected' : ''}>ドラマ</option>
-          <option${param.genre == '青春' ? ' selected' : ''}>青春</option>
-          <option${param.genre == 'SF' ? ' selected' : ''}>SF</option>
-          <option${param.genre == 'アニメ' ? ' selected' : ''}>アニメ</option>
-          <option${param.genre == 'その他' ? ' selected' : ''}>その他</option>
+            <option${param.genre == 'ドラマ' ? ' selected' : ''}>ドラマ</option>
+            <option${param.genre == '青春' ? ' selected' : ''}>青春</option>
+            <option${param.genre == '恋愛' ? ' selected' : ''}>恋愛</option>
+            <option${param.genre == 'アクション' ? ' selected' : ''}>アクション</option>
+            <option${param.genre == 'SF' ? ' selected' : ''}>SF</option>
+            <option${param.genre == 'ホラー' ? ' selected' : ''}>ホラー</option>
+            <option${param.genre == 'アニメ' ? ' selected' : ''}>アニメ</option>
+            <option${param.genre == 'その他' ? ' selected' : ''}>その他</option>
         </select>
 
         <label for="release-start">公開開始日</label>

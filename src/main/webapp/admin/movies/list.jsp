@@ -74,7 +74,22 @@
                   </c:choose>
                 </td>
                 <td>
-                  <a href="${pageContext.request.contextPath}/admin/movieUpdate.action?movieId=${movie.movieId}">編集 →</a>
+                  <div class="row-actions">
+                    <form class="inline-form"
+                          action="${pageContext.request.contextPath}/admin/movieUpdate.action"
+                          method="get">
+                      <input type="hidden" name="movieId" value="${movie.movieId}">
+                      <button class="row-button" type="submit">編集</button>
+                    </form>
+
+                    <form class="inline-form"
+                          action="${pageContext.request.contextPath}/admin/movieDeleteExecute.action"
+                          method="post"
+                          onsubmit="return confirm('この映画を削除します。よろしいですか？');">
+                      <input type="hidden" name="movieId" value="${movie.movieId}">
+                      <button class="row-button" type="submit">削除</button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             </c:forEach>

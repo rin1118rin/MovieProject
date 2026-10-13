@@ -57,11 +57,14 @@
 
         <label for="genre">ジャンル</label>
         <select id="genre" name="genre">
-          <option${movie.genre == 'ドラマ' ? ' selected' : ''}>ドラマ</option>
-          <option${movie.genre == '青春' ? ' selected' : ''}>青春</option>
-          <option${movie.genre == 'SF' ? ' selected' : ''}>SF</option>
-          <option${movie.genre == 'アニメ' ? ' selected' : ''}>アニメ</option>
-          <option${movie.genre == 'その他' ? ' selected' : ''}>その他</option>
+            <option${movie.genre == 'ドラマ' ? ' selected' : ''}>ドラマ</option>
+            <option${movie.genre == '青春' ? ' selected' : ''}>青春</option>
+            <option${movie.genre == '恋愛' ? ' selected' : ''}>恋愛</option>
+            <option${movie.genre == 'アクション' ? ' selected' : ''}>アクション</option>
+            <option${movie.genre == 'SF' ? ' selected' : ''}>SF</option>
+            <option${movie.genre == 'ホラー' ? ' selected' : ''}>ホラー</option>
+            <option${movie.genre == 'アニメ' ? ' selected' : ''}>アニメ</option>
+            <option${movie.genre == 'その他' ? ' selected' : ''}>その他</option>
         </select>
 
         <label for="release-start">公開開始日</label>

@@ -80,7 +80,7 @@ public class MovieCreateExecuteAction extends Action {
         // 実行結果に応じた画面遷移
         if (isSuccess) {
             // 登録成功時：映画一覧表示へフォワード
-            request.getRequestDispatcher("/admin/movies/list.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/MovieList.action").forward(request, response);
         } else {
             // 登録失敗時：エラーメッセージと入力データを保持して入力画面へ
             request.setAttribute("errorMessage", "映画情報の登録に失敗しました。");
