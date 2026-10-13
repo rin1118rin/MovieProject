@@ -162,4 +162,19 @@ public class ScheduleDao extends Dao {
             throw e;
         }
     }
+
+    // すべての上映スケジュールを開始時刻順に取得
+    public List<Schedule> getAll() throws Exception {
+        String sql = "SELECT " + COLUMNS + " FROM SCREENING_SCHEDULES"
+                   + " ORDER BY START_DATETIME, SCREEN_NO";
+        List<Schedule> list = new ArrayList<>();
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(sql);
+             ResultSet rs = st.executeQuery()) {
+            while (rs.next()) {
+                list.add(toBean(rs));
+            }
+        }
+        return list;
+    }
 }

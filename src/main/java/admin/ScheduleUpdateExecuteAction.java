@@ -23,17 +23,30 @@ public class ScheduleUpdateExecuteAction extends Action {
         int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
         int movieId = Integer.parseInt(request.getParameter("movieId"));
         int screenNo = Integer.parseInt(request.getParameter("screenNo"));
-        String startDatetimeStr = request.getParameter("startDatetime");
+        
+        // JSPから送られてくるscreeningDateとstartTimeを受け取る
+        String screeningDate = request.getParameter("screeningDate"); // 例: "2026-10-14"
+        String startTime = request.getParameter("startTime");         // 例: "13:00"
+        
         String endDatetimeStr = request.getParameter("endDatetime");
         String screeningFormat = request.getParameter("screeningFormat");
 
-        SimpleDateFormat sdf = new SimpleDateFormat(startDatetimeStr.contains("T") ? "yyyy-MM-dd'T'HH:mm" : "yyyy-MM-dd HH:mm");
+        // 日付と時刻を結合
+        String startDatetimeStr = screeningDate + " " + startTime;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date startDatetime = sdf.parse(startDatetimeStr);
-        Date endDatetime = sdf.parse(endDatetimeStr);
+        
+        if (endDatetimeStr != null && endDatetimeStr.contains("T")) {
+            endDatetimeStr = endDatetimeStr.replace("T", " ");
+        }
+        Date endDatetime = (endDatetimeStr != null && !endDatetimeStr.isEmpty()) 
+                           ? sdf.parse(endDatetimeStr) 
+                           : new Date(startDatetime.getTime() + (2 * 60 * 60 * 1000)); // デフォルト2後など
 
         ScheduleDao scheduleDao = new ScheduleDao();
 
-        // 自分以外のスケジュールとの時間帯重複チェック
+        // スケジュールとの時間帯重複チェック
         if (scheduleDao.isOverlapped(screenNo, startDatetime, endDatetime, scheduleId)) {
             MovieDao movieDao = new MovieDao();
             List<Movie> movieList = movieDao.getAll();
@@ -49,7 +62,7 @@ public class ScheduleUpdateExecuteAction extends Action {
             request.setAttribute("schedule", schedule);
             request.setAttribute("movieList", movieList);
             request.setAttribute("errorMessage", "指定したスクリーンの時間帯にすでに別の上映スケジュールが存在します。");
-            request.getRequestDispatcher("/admin/schedules/edit.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/schedule/edit.jsp").forward(request, response);
             return;
         }
 
@@ -65,10 +78,15 @@ public class ScheduleUpdateExecuteAction extends Action {
 
         if (isSuccess) {
             request.setAttribute("message", "スケジュールを更新しました。");
-            request.getRequestDispatcher("/admin/schedules/list.jsp").forward(request, response);
+            // 一覧へリダイレクトまたはフォワード
+            response.sendRedirect(request.getContextPath() + "/admin/scheduleList.action");
         } else {
+            MovieDao movieDao = new MovieDao();
+            List<Movie> movieList = movieDao.getAll();
+            request.setAttribute("schedule", schedule);
+            request.setAttribute("movieList", movieList);
             request.setAttribute("errorMessage", "スケジュールの更新に失敗しました。");
-            request.getRequestDispatcher("/admin/schedules/edit.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/schedule/edit.jsp").forward(request, response);
         }
     }
 }

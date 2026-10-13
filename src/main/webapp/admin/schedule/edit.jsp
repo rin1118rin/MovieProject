@@ -24,47 +24,46 @@
     </p>
     <div class="page-title"><div><h1>上映スケジュール変更</h1></div></div>
 
-    <%--
-      Actionが request に入れておく値:
-        schedule : 変更する上映スケジュール1件(scheduleId / movieId / startDateTime(LocalDateTime) / screenNo / screeningFormat)
-        movies   : 選べる上映映画のリスト(movieId と title を持つ)
-    --%>
     <section class="panel narrow">
-      <h2>怪盗グルー<fmt:formatNumber value="${schedule.scheduleId}" pattern="000" /> / 上映情報を変更</h2>
+      <h2>ID: <fmt:formatNumber value="${schedule.scheduleId}" pattern="000" /> / 上映情報を変更</h2>
 
       <%-- 入力に問題があったとき(同じスクリーンの時間が重なるなど)、Actionが "errorMessage" に入れた文章を表示する --%>
       <c:if test="${not empty errorMessage}">
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
 
-      <form action="${pageContext.request.contextPath}/admin/schedules/update/execute" method="post">
+      <form action="${pageContext.request.contextPath}/admin/scheduleUpdateExecute.action" method="post">
         <%-- どの上映スケジュールを変更するか(画面には出ない) --%>
         <input type="hidden" name="scheduleId" value="<c:out value='${schedule.scheduleId}' />">
 
         <label for="movie">上映作品</label>
         <select id="movie" name="movieId" required>
-          <c:forEach var="movie" items="${movies}">
+          <c:forEach var="movie" items="${movieList}">
             <option value="${movie.movieId}"${schedule.movieId == movie.movieId ? ' selected' : ''}><c:out value="${movie.title}" /></option>
           </c:forEach>
         </select>
 
+        <%-- Timestamp を LocalDateTime に変換してから日付・時刻を取り出す --%>
+        <c:set var="dt" value="${schedule.startDatetime.toLocalDateTime()}" />
+
         <label for="date">上映日</label>
         <input id="date" name="screeningDate" type="date" required
-               value="<c:out value='${schedule.startDateTime.toLocalDate()}' />">
+               value="${dt.toLocalDate()}">
 
         <label for="start">上映開始時刻</label>
         <input id="start" name="startTime" type="time" required
-               value="<fmt:formatNumber value='${schedule.startDateTime.hour}' pattern='00' />:<fmt:formatNumber value='${schedule.startDateTime.minute}' pattern='00' />">
+               value="<fmt:formatNumber value='${dt.hour}' pattern='00' />:<fmt:formatNumber value='${dt.minute}' pattern='00' />">
 
         <label for="screen-no">スクリーン番号</label>
         <input id="screen-no" name="screenNo" type="number" required min="1"
                value="<c:out value='${schedule.screenNo}' />">
 
         <label for="format">上映形式</label>
-        <select id="format" name="screeningFormat">
-          <option${schedule.screeningFormat == '2D' ? ' selected' : ''}>2D</option>
-          <option${schedule.screeningFormat == '3D' ? ' selected' : ''}>3D</option>
-          <option${schedule.screeningFormat == 'IMAX' ? ' selected' : ''}>IMAX</option>
+        <select id="format" name="screeningFormat" required>
+          <option value="2D"${schedule.screeningFormat == '2D' ? ' selected' : ''}>2D</option>
+          <option value="3D"${schedule.screeningFormat == '3D' ? ' selected' : ''}>3D</option>
+          <option value="IMAX"${schedule.screeningFormat == 'IMAX' ? ' selected' : ''}>IMAX</option>
+          <option value="4DX"${schedule.screeningFormat == '4DX' ? ' selected' : ''}>4DX</option>
         </select>
 
         <div class="actions">
