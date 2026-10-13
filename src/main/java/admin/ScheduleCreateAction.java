@@ -26,10 +26,9 @@ public class ScheduleCreateAction extends Action {
         MovieDao movieDao = new MovieDao();
         List<Movie> movieList = movieDao.getAll();
 
-        // JSPがmoviesでリクエストスコープにセットする
         request.setAttribute("movies", movieList);
 
         // スケジュール登録画面のJSPへフォワード
-        request.getRequestDispatcher("/admin/schedule/create.jsp").forward(request, response); // パスは実際のJSPの場所に合わせてください
+        request.getRequestDispatcher("/admin/schedule/create.jsp").forward(request, response);
     }
 }
