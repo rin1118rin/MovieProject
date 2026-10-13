@@ -4,7 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class AdminLogoutAction {
+import tool.Action;
+
+public class AdminLogoutAction extends Action{
 
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     	// セッションを取得  存在すれば無効化する
