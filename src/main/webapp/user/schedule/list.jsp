@@ -125,10 +125,10 @@
                             <a href="${pageContext.request.contextPath}/user/reservationCreate.action?scheduleId=${schedule.scheduleId}""
                                 class="schedule-time">
                                 <span class="schedule-start">
-                                    <fmt:formatDate value="${schedule.startDatetime}" pattern="yyyy-MM-dd"/>
+                                    <fmt:formatDate value="${schedule.startDatetime}" pattern="HH:MM" timeZone="Asia/Tokyo"/>
                                 </span>
                                 <span class="schdule-end">
-                                    <fmt:formatDate value="${schedule.endDatetime}" pattern="yyyy-MM-dd"/>
+                                    <fmt:formatDate value="${schedule.endDatetime}" pattern="HH:MM" timeZone="Asia/Tokyo"/>
                                 </span>
                                 <span class="schedule-screen">
                                     ${schedule.screenNo}
