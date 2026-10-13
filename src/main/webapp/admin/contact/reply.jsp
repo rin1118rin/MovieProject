@@ -49,7 +49,7 @@
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
 
-      <form action="${pageContext.request.contextPath}/admin/contacts/reply/execute" method="post">
+      <form action="${pageContext.request.contextPath}/admin/InquiryReplyExecute.action" method="post">
         <%-- どのお問い合わせへの回答か(画面には出ない) --%>
         <input type="hidden" name="inquiryId" value="<c:out value='${inquiry.inquiryId}' />">
 
@@ -59,7 +59,7 @@
 
         <div class="actions">
           <button class="button" type="submit">送信</button>
-          <a class="button secondary" href="${pageContext.request.contextPath}/admin/contact/list.jsp">戻る</a>
+          <a class="button secondary" href="${pageContext.request.contextPath}/admin/InquiryList.action">戻る</a>
         </div>
       </form>
     </section>

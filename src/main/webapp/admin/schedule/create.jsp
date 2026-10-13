@@ -35,7 +35,7 @@
       <form action="${pageContext.request.contextPath}/admin/schedules/create/execute" method="post">
         <label for="movie">上映作品</label>
         <select id="movie" name="movieId" required>
-          <c:forEach var="movie" items="${movies}">
+          <c:forEach var="movie" items="${movieList}">
             <option value="${movie.movieId}"${param.movieId == movie.movieId ? ' selected' : ''}><c:out value="${movie.title}" /></option>
           </c:forEach>
         </select>
