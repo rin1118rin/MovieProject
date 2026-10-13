@@ -22,7 +22,7 @@
 
   <main class="container" id="main">
     <p class="breadcrumb">
-      <a href="${pageContext.request.contextPath}/admin/index.jsp">管理者メインメニュー</a> / 上映スケジュール一覧
+      <a href="${pageContext.request.contextPath}/admin/adminMenu.action">管理者メインメニュー</a> / 上映スケジュール一覧
     </p>
     <div class="page-title"><div><h1>上映スケジュール一覧</h1></div></div>
 
@@ -62,7 +62,7 @@
             <section class="panel">
               <div class="section-heading">
                 <h2>上映スケジュール</h2>
-                <a class="button" href="${pageContext.request.contextPath}/admin/schedule/create.jsp">＋ 上映スケジュール登録</a>
+                <a class="button" href="${pageContext.request.contextPath}/admin/scheduleCreate.action">＋ 上映スケジュール登録</a>
               </div>
 
               <div class="table-scroll">
@@ -89,7 +89,7 @@
                           <td><fmt:formatNumber value="${t.hour}" pattern="00" />:<fmt:formatNumber value="${t.minute}" pattern="00" /></td>
                           <td>${schedule.reservedSeats} / ${schedule.totalSeats}席</td>
                           <td>
-                            <a href="${pageContext.request.contextPath}/admin/schedule/update?id=${schedule.scheduleId}">編集</a>
+                            <a href="${pageContext.request.contextPath}/admin/scheduleUpdate.action?id=${schedule.scheduleId}">編集</a>
                             /
                             <a href="${pageContext.request.contextPath}/admin/schedule/reservations?scheduleId=${schedule.scheduleId}">予約管理</a>
                           </td>
