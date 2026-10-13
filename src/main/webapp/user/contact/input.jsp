@@ -56,7 +56,7 @@
 
 
         <form
-            action="${pageContext.request.contextPath}/contact"
+            action="${pageContext.request.contextPath}/user/inquiryCreateExecute.action"
             method="post"
             class="contact-form">
 
