@@ -1,21 +1,27 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
+<link rel="icon"
+      type="image/x-icon"
+      href="${pageContext.request.contextPath}/images/favicon.ico?v=4">
+
 <!-- 共通ヘッダー(管理者) -->
 <header class="header">
     <div class="header-inner">
-        <a class="logo" href="${pageContext.request.contextPath}/admin/index.jsp">
-            <span class="logo-mark">O</span>
-            <span>-HARAFILM <small>管理</small></span>
-        </a>
+        <div class="header-brand">
+            <a class="header-logo" href="${pageContext.request.contextPath}/admin/adminMenu.action">
+                <img src="${pageContext.request.contextPath}/images/logo.png" alt="O-HARAFILM">
+            </a>
+            <span class="header-badge">管理</span>
+        </div>
 
         <nav aria-label="管理者メニュー">
             <a href="${pageContext.request.contextPath}/admin/movieList.action">
-                上映映画
+                上映映画管理
             </a>
 
             <a href="${pageContext.request.contextPath}/admin/scheduleList.action">
-                上映スケジュール
+                上映スケジュール管理
             </a>
 
             <a href="${pageContext.request.contextPath}/admin/analyticsList.action">
@@ -23,7 +29,7 @@
             </a>
 
             <a href="${pageContext.request.contextPath}/admin/inquiryList.action">
-                お問い合わせ
+                お問い合わせ管理
             </a>
 
             <%-- ログイン済みなら「ログアウト」、未ログインなら「ログイン」 --%>
