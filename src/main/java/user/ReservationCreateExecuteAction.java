@@ -1,7 +1,6 @@
 package user;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -18,6 +17,7 @@ import dao.MovieDao;
 import dao.ReservationDao;
 import dao.ScheduleDao;
 import tool.Action;
+import tool.ReservationMailSender;
 
 public class ReservationCreateExecuteAction extends Action {
 
@@ -140,6 +140,17 @@ public class ReservationCreateExecuteAction extends Action {
             return;
         }
 
+        // 予約保存前に送信先メールの形式を確認
+        try {
+            jakarta.mail.internet.InternetAddress address =
+                new jakarta.mail.internet.InternetAddress(
+                    (String) reservation.get("email"), true);
+            address.validate();
+        } catch (jakarta.mail.internet.AddressException e) {
+            response.sendError(400, "メールアドレスを確認してください。");
+            return;
+        }
+
         // 映画と上映回の組み合わせを確認
         Schedule schedule = new ScheduleDao().get(scheduleId);
 
@@ -201,8 +212,9 @@ public class ReservationCreateExecuteAction extends Action {
         reservation.put("movieTitle", movie.getTitle());
         reservation.put(
             "showtime",
-            new SimpleDateFormat("yyyy-MM-dd HH:mm")
-                .format(schedule.getStartDatetime())
+            schedule.getStartDatetime().toInstant()
+                .atZone(java.time.ZoneId.of("Asia/Tokyo"))
+                .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         );
         reservation.put("seats", String.join("・", seats));
 
@@ -220,6 +232,21 @@ public class ReservationCreateExecuteAction extends Action {
         reservation.put(
             "ticketInfo", String.join(" / ", ticketInfo)
         );
+
+        reservation.put("screenNo", schedule.getScreenNo());
+
+        // DB保存後に送信。メールが失敗しても予約は取り消さない。
+        boolean mailSent = false;
+        try {
+            ReservationMailSender.send(reservation);
+            mailSent = true;
+        } catch (Exception e) {
+            // アドレスや認証情報はログへ書かない
+            request.getServletContext().log(
+                "予約完了メールを送信できませんでした。予約番号="
+                + reservationId + " / 種別=" + e.getClass().getSimpleName());
+        }
+        reservation.put("mailSent", mailSent);
 
         request.getSession().setAttribute(
             "completedReservation", reservation
