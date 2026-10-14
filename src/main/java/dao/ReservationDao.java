@@ -3,9 +3,12 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
 
 import bean.Reservation;
 
@@ -165,6 +168,65 @@ public class ReservationDao extends Dao {
                 return rs.next() ? rs.getString("TITLE") : null;
             }
         }
+    }
+    
+ // 管理者用 指定したスケジュールの全予約情報を取得
+    public List<Reservation> getReservationsByScheduleId(int scheduleId) throws Exception {
+        List<Reservation> reservationList = new ArrayList<>();
+        
+        String sql = "SELECT RESERVATION_ID, SCHEDULE_ID, CUSTOMER_NAME, TOTAL_PRICE, RESERVED_AT, STATUS "
+                   + "FROM RESERVATIONS WHERE SCHEDULE_ID = ?";
+
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(sql)) {
+
+            st.setInt(1, scheduleId);
+
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    Reservation r = new Reservation();
+                    int resId = rs.getInt("RESERVATION_ID");
+                    r.setReservationId(resId);
+                    r.setScheduleId(rs.getInt("SCHEDULE_ID"));
+                    r.setCustomerName(rs.getString("CUSTOMER_NAME"));
+                    r.setTotalPrice(rs.getInt("TOTAL_PRICE"));
+                    r.setReservedAt(rs.getTimestamp("RESERVED_AT"));
+                    r.setStatus(rs.getString("STATUS"));
+
+                    // 予約の座席番号一覧を取得
+                    List<String> seats = new ArrayList<>();
+                    String seatSql = "SELECT SEAT_NO FROM RESERVATION_SEATS WHERE RESERVATION_ID = ?";
+                    try (PreparedStatement seatSt = con.prepareStatement(seatSql)) {
+                        seatSt.setInt(1, resId);
+                        try (ResultSet seatRs = seatSt.executeQuery()) {
+                            while (seatRs.next()) {
+                                seats.add(seatRs.getString("SEAT_NO"));
+                            }
+                        }
+                    }
+                    r.setSeats(seats);
+
+                    // 予約の券種・数量一覧を取得
+                    List<Reservation.TicketInfo> tickets = new ArrayList<>();
+                    String ticketSql = "SELECT TICKET_TYPE, QUANTITY FROM RESERVATION_TICKETS WHERE RESERVATION_ID = ? AND QUANTITY > 0";
+                    try (PreparedStatement ticketSt = con.prepareStatement(ticketSql)) {
+                        ticketSt.setInt(1, resId);
+                        try (ResultSet ticketRs = ticketSt.executeQuery()) {
+                            while (ticketRs.next()) {
+                                tickets.add(new Reservation.TicketInfo(
+                                    ticketRs.getString("TICKET_TYPE"),
+                                    ticketRs.getInt("QUANTITY")
+                                ));
+                            }
+                        }
+                    }
+                    r.setTickets(tickets);
+
+                    reservationList.add(r);
+                }
+            }
+        }
+        return reservationList;
     }
 
     public int register(
