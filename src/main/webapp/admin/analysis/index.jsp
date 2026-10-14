@@ -12,6 +12,119 @@
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+  
+  <style>
+    /* 座席予約マップ（ヒートマップ）用スタイル */
+    .seat-map-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .seat-map-screen {
+      width: 80%;
+      max-width: 400px;
+      background: #4a5568;
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 25px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      font-size: 0.9rem;
+    }
+    .seat-map-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 450px;
+    }
+    .seat-map-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .seat-map-row-label {
+      width: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #4a5568;
+    }
+    .seat-map-seats {
+      display: flex;
+      gap: 8px;
+    }
+    .seat-chip {
+      width: 48px;
+      height: 42px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .seat-chip.available {
+      background-color: #38a169; /* 空席：緑 */
+    }
+    .seat-chip.reserved {
+      background-color: #e53e3e; /* 予約あり：赤基調（インラインで濃淡を制御） */
+    }
+    .seat-count-badge {
+      font-size: 0.65rem;
+      font-weight: normal;
+      opacity: 0.9;
+    }
+    .seat-map-legend {
+      display: flex;
+      gap: 25px;
+      margin-top: 25px;
+      font-size: 0.9rem;
+      color: #4a5568;
+      align-items: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-color {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+    }
+    .legend-color.available { background-color: #38a169; }
+    .legend-color.reserved { background-color: #e53e3e; }
+  </style>
+
+  <script>
+    function toggleFilterMode() {
+      const mode = document.getElementById('analysisMode').value;
+      const dateDiv = document.getElementById('filterDaily');
+      const movieDiv = document.getElementById('filterMovie');
+
+      if (mode === 'daily') {
+        dateDiv.style.display = 'inline-block';
+        movieDiv.style.display = 'none';
+      } else if (mode === 'movie') {
+        dateDiv.style.display = 'none';
+        movieDiv.style.display = 'inline-block';
+      } else if (mode === 'date_movie') {
+        dateDiv.style.display = 'inline-block';
+        movieDiv.style.display = 'inline-block';
+      }
+    }
+    window.onload = function() {
+      toggleFilterMode();
+    };
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">本文へ移動</a>
@@ -25,30 +138,73 @@
     </p>
     <div class="page-title"><div><h1>分析一覧</h1></div></div>
 
-    <%--
-      Actionが request に入れておく値(座席の予約状況を、集計した結果):
-        analysisDate  : 分析する日(LocalDate)
-        scheduleCount : その日の上映回の数
-        totalSeats    : 総座席数(その日の全上映回の合計)
-        reservedSeats : 予約済みの座席数(同じく合計)
-        areaStats     : エリア別の集計のリスト(前方・中央・後方の順)
-                        1件が持つ値: name(前方など) / rowsLabel(A列、B・C列など) / total / reserved
-        rowStats      : 列別の集計のリスト(A列・B列…の順)
-                        1件が持つ値: name(A、B…) / areaName(前方など) / total / reserved
-        topArea       : 予約率がいちばん高いエリア(areaStats の中の1件)
-        topRow        : 予約率がいちばん高い列(rowStats の中の1件)
-    --%>
-    <c:set var="wd" value="${analysisDate.dayOfWeek.value}" />
+    <%-- 分析切り替えフォーム --%>
+    <section class="panel" style="margin-bottom: 20px;">
+      <form method="get" action="${pageContext.request.contextPath}/admin/analyticsList.action" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+        <div>
+          <label for="analysisMode"><strong>分析種別：</strong></label>
+          <select name="mode" id="analysisMode" onchange="toggleFilterMode()" class="form-control">
+            <option value="daily" ${param.mode == 'daily' or empty param.mode ? 'selected' : ''}>日別分析</option>
+            <option value="movie" ${param.mode == 'movie' ? 'selected' : ''}>映画別分析（全期間）</option>
+            <option value="date_movie" ${param.mode == 'date_movie' ? 'selected' : ''}>映画別分析(指定日のみ)</option>
+          </select>
+        </div>
+
+        <%-- 日付選択 --%>
+        <div id="filterDaily" style="display: none;">
+          <label for="date"><strong>対象日付：</strong></label>
+          <input type="date" id="date" name="date" value="${not empty param.date ? param.date : analysisDate}">
+        </div>
+
+        <%-- 映画選択 --%>
+        <div id="filterMovie" style="display: none;">
+          <label for="movieId"><strong>対象映画：</strong></label>
+          <select name="movieId" id="movieId">
+            <option value="">映画を選択してください</option>
+            <c:forEach var="m" items="${movieList}">
+              <option value="${m.movieId}" ${param.movieId == m.movieId ? 'selected' : ''}>
+                <c:out value="${m.title}" />
+              </option>
+            </c:forEach>
+          </select>
+        </div>
+
+        <div>
+          <button class="button" type="submit">更新</button>
+        </div>
+      </form>
+    </section>
 
     <c:choose>
+      <%-- 映画別(全期間)または映画別（指定日のみ）で、映画未選択の場合 --%>
+      <c:when test="${(param.mode == 'movie' or param.mode == 'date_movie') and empty selectedMovie}">
+        <section class="panel">
+          <h2>分析</h2>
+          <p>対象の映画を選択してください。</p>
+        </section>
+      </c:when>
+
+      <%-- データが存在する場合 --%>
       <c:when test="${scheduleCount > 0 and totalSeats > 0}">
         <c:set var="vacantSeats" value="${totalSeats - reservedSeats}" />
         <c:set var="totalRate" value="${reservedSeats * 100 / totalSeats}" />
 
-        <%-- ① 全体の予約割合 --%>
+        <%-- 全体の予約割合 --%>
         <section class="panel">
           <h2>座席の予約割合分析</h2>
-          <p>${analysisDate.year}年${analysisDate.monthValue}月${analysisDate.dayOfMonth}日（${fn:substring('月火水木金土日', wd - 1, wd)}）／全作品・${scheduleCount}上映回の合計</p>
+          <c:choose>
+            <c:when test="${param.mode == 'date_movie'}">
+              <c:set var="wd" value="${analysisDate.dayOfWeek.value}" />
+              <p>${analysisDate.year}年${analysisDate.monthValue}月${analysisDate.dayOfMonth}日（${fn:substring('月火水木金土日', wd - 1, wd)}） ／ 映画：<strong><c:out value="${selectedMovie.title}" /></strong> ／ ${scheduleCount}上映回</p>
+            </c:when>
+            <c:when test="${param.mode == 'movie'}">
+              <p>映画：<strong><c:out value="${selectedMovie.title}" /></strong> ／ 全期間・全${scheduleCount}上映回の合計</p>
+            </c:when>
+            <c:otherwise>
+              <c:set var="wd" value="${analysisDate.dayOfWeek.value}" />
+              <p>${analysisDate.year}年${analysisDate.monthValue}月${analysisDate.dayOfMonth}日（${fn:substring('月火水木金土日', wd - 1, wd)}）／全作品・${scheduleCount}上映回の合計</p>
+            </c:otherwise>
+          </c:choose>
 
           <div class="admin-stats seat-totals">
             <div>
@@ -69,22 +225,20 @@
             </div>
           </div>
 
-          <div class="occupancy-meter" role="img"
-               aria-label="全${totalSeats}席のうち${reservedSeats}席が予約済み。予約率<fmt:formatNumber value='${totalRate}' pattern='0.0' />パーセント。">
+          <div class="occupancy-meter" role="img" aria-label="予約率<fmt:formatNumber value='${totalRate}' pattern='0.0' />パーセント。">
             <span style="width:${totalRate}%"></span>
           </div>
           <p class="muted">予約済み ${reservedSeats}席 ／ 空席 ${vacantSeats}席</p>
         </section>
 
         <div class="analysis-charts">
-          <%-- ② エリア別の空席割合(円グラフ) --%>
+          <%-- エリア別の空席割合(円グラフ) --%>
           <section class="panel">
             <h2>エリア別の空席割合</h2>
             <p class="muted">全空席${vacantSeats}席のうち、各エリアが占める割合</p>
 
             <c:choose>
               <c:when test="${vacantSeats > 0}">
-                <%-- 円グラフの色の境目(%)を、各エリアの空席数から計算する --%>
                 <c:set var="acc" value="0" />
                 <c:set var="gradient" value="" />
                 <c:forEach var="a" items="${areaStats}" varStatus="st">
@@ -94,9 +248,7 @@
                   <c:set var="acc" value="${to}" />
                 </c:forEach>
 
-                <div class="vacancy-pie" style="background:conic-gradient(${gradient})" role="img"
-                     aria-label="空席の内訳。<c:forEach var='a' items='${areaStats}' varStatus='st'><c:out value='${a.name}' />${a.total - a.reserved}席<fmt:formatNumber value='${(a.total - a.reserved) * 100 / vacantSeats}' pattern='0.0' />%<c:if test='${not st.last}'>、</c:if></c:forEach>。">
-                  <%-- 円の中の数字(各エリアの真ん中の角度に置く) --%>
+                <div class="vacancy-pie" style="background:conic-gradient(${gradient})" role="img">
                   <c:set var="acc" value="0" />
                   <c:forEach var="a" items="${areaStats}" varStatus="st">
                     <c:set var="share" value="${(a.total - a.reserved) * 100 / vacantSeats}" />
@@ -122,13 +274,12 @@
             </c:choose>
           </section>
 
-          <%-- ③ 列ごとの予約率(棒グラフ) --%>
+          <%-- 列ごとの予約率(棒グラフ) --%>
           <section class="panel">
             <h2>列ごとの予約率</h2>
             <p class="muted">各列の総座席数に対する予約済み座席の割合</p>
 
-            <div class="row-chart" role="img"
-                 aria-label="<c:forEach var='r' items='${rowStats}' varStatus='st'><c:out value='${r.name}' />列<fmt:formatNumber value='${r.reserved * 100 / r.total}' pattern='0.0' />%<c:if test='${not st.last}'>、</c:if></c:forEach>。">
+            <div class="row-chart" role="img">
               <div class="chart-scale"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div>
               <div class="bar-plot">
                 <c:forEach var="r" items="${rowStats}">
@@ -145,7 +296,7 @@
           </section>
         </div>
 
-        <%-- ④ エリア別の予約状況(表) --%>
+        <%-- エリア別の予約状況(表) --%>
         <section class="panel">
           <h2>エリア別の予約状況</h2>
           <div class="table-scroll">
@@ -182,46 +333,69 @@
               </tbody>
             </table>
           </div>
-          <p class="muted">予約率＝予約済み座席数÷総座席数×100。</p>
         </section>
 
-        <%-- ⑤ 列ごとの座席数(開閉できる表) --%>
-        <details class="panel">
-          <summary>列ごとの座席数を確認</summary>
-          <div class="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">列</th>
-                  <th scope="col">エリア</th>
-                  <th scope="col">総座席数</th>
-                  <th scope="col">予約済み</th>
-                  <th scope="col">空席</th>
-                  <th scope="col">予約率</th>
-                </tr>
-              </thead>
-              <tbody>
-                <c:forEach var="r" items="${rowStats}">
-                  <tr>
-                    <td><c:out value="${r.name}" />列</td>
-                    <td><c:out value="${r.areaName}" /></td>
-                    <td>${r.total}席</td>
-                    <td>${r.reserved}席</td>
-                    <td>${r.total - r.reserved}席</td>
-                    <td><fmt:formatNumber value="${r.reserved * 100 / r.total}" pattern="0.0" />%</td>
-                  </tr>
-                </c:forEach>
-              </tbody>
-            </table>
+        <%-- 座席予約状況マップ（ヒートマップ） --%>
+        <section class="panel">
+          <h2>座席予約状況マップ</h2>
+          <p class="muted">対象期間内における各座席の人気度（赤の濃さと数値：予約された回数）</p>
+          
+          <div class="seat-map-container">
+            <div class="seat-map-screen">
+              SCREEN
+            </div>
+
+            <div class="seat-map-grid">
+              <c:forEach var="rowChar" items="${fn:split('A,B,C,D,E', ',')}">
+                <div class="seat-map-row">
+                  <span class="seat-map-row-label"><c:out value="${rowChar}" /></span>
+                  <div class="seat-map-seats">
+                    <c:forEach begin="1" end="6" var="seatNum">
+                      <c:set var="currentSeatNo" value="${rowChar}${seatNum}" />
+                      
+                      <%-- 座席ごとの予約回数を取得（存在しない場合は0） --%>
+                      <c:set var="resCount" value="${seatReservedCountMap[currentSeatNo] != null ? seatReservedCountMap[currentSeatNo] : 0}" />
+
+                      <c:choose>
+                        <c:when test="${resCount > 0}">
+                          <%-- 予約回数に応じて赤色の透明度を変化させる --%>
+                          <c:set var="opacity" value="${0.3 + (resCount / scheduleCount) * 0.7}" />
+                          <c:if test="${opacity > 1.0}"><c:set var="opacity" value="1.0" /></c:if>
+                          
+                          <div class="seat-chip reserved" style="background-color: rgba(229, 62, 62, ${opacity});" title="${currentSeatNo}: 予約回数 ${resCount}回 / 全 ${scheduleCount}回">
+                            <span>${currentSeatNo}</span>
+                            <span class="seat-count-badge">${resCount}回</span>
+                          </div>
+                        </c:when>
+                        <c:otherwise>
+                          <div class="seat-chip available" title="${currentSeatNo}: 空席（予約0回）">
+                            <span>${currentSeatNo}</span>
+                            <span class="seat-count-badge">0回</span>
+                          </div>
+                        </c:otherwise>
+                      </c:choose>
+                    </c:forEach>
+                  </div>
+                </div>
+              </c:forEach>
+            </div>
+
+            <div class="seat-map-legend">
+              <div class="legend-item">
+                <span class="legend-color reserved"></span> 予約あり（濃いほど人気）
+              </div>
+              <div class="legend-item">
+                <span class="legend-color available"></span> 空席（予約なし）
+              </div>
+            </div>
           </div>
-        </details>
+        </section>
       </c:when>
 
       <c:otherwise>
-        <%-- その日の上映スケジュールがないときは、集計できない --%>
         <section class="panel">
           <h2>座席の予約割合分析</h2>
-          <p>${analysisDate.year}年${analysisDate.monthValue}月${analysisDate.dayOfMonth}日（${fn:substring('月火水木金土日', wd - 1, wd)}）の上映スケジュールがないため、分析できません。</p>
+          <p>該当する条件の上映スケジュールがないため、分析できません。</p>
         </section>
       </c:otherwise>
     </c:choose>
