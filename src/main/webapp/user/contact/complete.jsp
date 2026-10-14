@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -39,7 +40,7 @@
         <p class="contact-complete-number">
             受付番号：
             <strong>
-                <c:out value="${inquiry.inquiryId}" />
+                C<fmt:formatNumber value="${inquiry.inquiryId}" pattern="000" groupingUsed="false" />
             </strong>
         </p>
 
