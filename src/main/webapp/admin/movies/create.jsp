@@ -31,16 +31,16 @@
         <p class="error-message" role="alert"><c:out value="${errorMessage}" /></p>
       </c:if>
 
-      <form action="${pageContext.request.contextPath}/admin/movieCreateExecute.action" method="post">
+      <form action="${pageContext.request.contextPath}/admin/movieCreateExecute.action" method="post" enctype="multipart/form-data">
         <label for="title">作品名</label>
         <input id="title" name="title" type="text" required maxlength="100"
                value="<c:out value='${param.title}' />">
 
-        <label for="poster-url">ポスター画像のURL</label>
-        <input id="poster-url" name="posterUrl" type="text" required maxlength="500"
-               aria-describedby="poster-url-help"
-               value="<c:out value='${param.posterUrl}' />">
-        <p id="poster-url-help" class="muted">ポスター画像のURL(または画像のパス)を入力してください。</p>
+        <label for="poster-file">ポスター画像</label>
+        <input id="poster-file" name="posterFile" type="file" required
+               accept="image/jpeg,image/png,image/gif,image/webp"
+               aria-describedby="poster-file-help">
+        <p id="poster-file-help" class="muted">JPEG / PNG / GIF / WebP、5MBまで。ファイル名はそのまま使われるので、文字・数字・「_ - . ( )」の名前にしてください。同じ名前の画像がすでにあるときは、「名前_1.png」のように連番がつきます。</p>
 
         <label for="duration">上映時間(分)</label>
         <input id="duration" name="duration" type="number" required min="1" max="600"

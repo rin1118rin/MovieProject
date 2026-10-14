@@ -3,12 +3,15 @@ package tool;
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("*.action")
+// 画像アップロード(multipart/form-data)を受け取れるようにする。1ファイル10MBまで(5MBを超える画像は PosterUploader が案内を出す)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10L * 1024 * 1024, maxRequestSize = 12L * 1024 * 1024)
 public class FrontController extends HttpServlet {
 
     @Override
