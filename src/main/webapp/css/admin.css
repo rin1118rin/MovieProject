@@ -725,3 +725,16 @@ details.panel[open] summary {
     }
 }
  
+/* 管理者ヘッダーのロゴ。画像ロゴ(.header-logo)のとなりに「管理」の札を置く */
+.header .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header .header-badge {
+    color: #bbb;
+    font-size: 12px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
