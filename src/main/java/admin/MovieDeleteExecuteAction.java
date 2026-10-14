@@ -1,5 +1,7 @@
 package admin;
 
+import java.io.File;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import bean.Movie;
 import dao.MovieDao;
 import tool.Action;
+import tool.PosterUploader;
 
 public class MovieDeleteExecuteAction extends Action {
 
@@ -31,12 +34,21 @@ public class MovieDeleteExecuteAction extends Action {
             try {
                 int movieId = Integer.parseInt(movieIdStr.trim());
 
+                MovieDao dao = new MovieDao();
+
+                // 削除したあとで画像も消せるように、先にポスター画像の名前を控えておく
+                Movie current = dao.get(movieId);
+                String posterUrl = (current != null) ? current.getPosterUrl() : null;
+
                 // 削除用のMovie Beanを作成（IDを設定）
                 Movie movie = new Movie();
                 movie.setMovieId(movieId);
 
                 // DBから削除処理を実行
-                if (new MovieDao().delete(movie)) {
+                if (dao.delete(movie)) {
+                    // ポスター画像を削除する(ほかの映画が同じ画像を使っていなければ)
+                    File posterDir = new File(request.getServletContext().getRealPath("/images/movies"));
+                    PosterUploader.deleteIfUnused(posterUrl, posterDir, dao.getAll());
                     // 削除成功
                     session.setAttribute("message", "映画情報を削除しました。");
                     response.sendRedirect(listUrl);

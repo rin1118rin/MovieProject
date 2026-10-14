@@ -738,3 +738,15 @@ details.panel[open] summary {
     letter-spacing: 1px;
     white-space: nowrap;
 }
+
+/* 映画変更画面: 現在のポスター画像のプレビュー */
+.poster-preview {
+    margin: 4px 0 8px;
+}
+
+.poster-preview img {
+    display: block;
+    max-width: 160px;
+    height: auto;
+    border: 1px solid #444;
+}

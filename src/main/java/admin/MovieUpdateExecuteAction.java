@@ -1,14 +1,17 @@
 package admin;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 import bean.Movie;
 import dao.MovieDao;
 import tool.Action;
+import tool.PosterUploader;
 
 public class MovieUpdateExecuteAction extends Action {
 
@@ -30,7 +33,6 @@ public class MovieUpdateExecuteAction extends Action {
         String description = request.getParameter("description");
         String director = request.getParameter("director");
         String cast = request.getParameter("cast");
-        String posterUrl = request.getParameter("posterUrl");
 
         // 数値・日付データの変換処理
         int movieId = 0;
@@ -79,19 +81,48 @@ public class MovieUpdateExecuteAction extends Action {
         movie.setDescription(description);
         movie.setDirector(director);
         movie.setCast(cast);
-        movie.setPosterUrl(posterUrl);
+
+        MovieDao dao = new MovieDao();
+
+        // いま登録されているポスター画像(新しい画像が選ばれなければ、そのまま使う)
+        Movie current = dao.get(movieId);
+        String oldPosterUrl = (current != null) ? current.getPosterUrl() : null;
+        movie.setPosterUrl(oldPosterUrl);
+
+        // 新しいポスター画像が選ばれていれば、アップロードされた名前のまま、実行中のアプリ(Tomcat)の images/movies に保存する
+        File posterDir = new File(request.getServletContext().getRealPath("/images/movies"));
+        String newPosterUrl = null;
+        try {
+            Part posterPart = request.getPart("posterFile");
+            newPosterUrl = PosterUploader.save(posterPart, posterDir);
+        } catch (PosterUploader.UploadException e) {
+            request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("movie", movie);
+            request.getRequestDispatcher("/admin/movies/edit.jsp").forward(request, response);
+            return;
+        }
+        if (newPosterUrl != null) {
+            movie.setPosterUrl(newPosterUrl);
+        }
 
         // MovieDao を使用して DB の更新処理を実行
-        MovieDao dao = new MovieDao();
         boolean isSuccess = dao.update(movie);
 
         // 実行結果に応じた画面遷移
         if (isSuccess) {
+            // 画像を差し替えた場合は、古い画像を削除する(ほかの映画が使っていなければ)
+            if (newPosterUrl != null && oldPosterUrl != null && !oldPosterUrl.equals(newPosterUrl)) {
+                PosterUploader.deleteIfUnused(oldPosterUrl, posterDir, dao.getAll());
+            }
             // 更新成功時：メッセージを保持して一覧画面へ
             request.setAttribute("message", "映画情報を更新しました。");
             request.getRequestDispatcher("/admin/movieList.action").forward(request, response);
         } else {
-            // 更新失敗時：入力データを保持して元の編集画面へ
+            // 更新失敗時：今回あたらしく保存した画像を消して、入力データを保持して元の編集画面へ
+            if (newPosterUrl != null) {
+                PosterUploader.delete(newPosterUrl, posterDir);
+            }
+            movie.setPosterUrl(oldPosterUrl);
             request.setAttribute("errorMessage", "映画情報の更新に失敗しました。");
             request.setAttribute("movie", movie);
             request.getRequestDispatcher("/admin/movies/edit.jsp").forward(request, response);
