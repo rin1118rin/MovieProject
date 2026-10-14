@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import bean.Movie;
 import bean.Schedule;
 import dao.MovieDao;
-import dao.ReservationRegisterDao;
+import dao.ReservationDao;
 import dao.ScheduleDao;
 import tool.Action;
 
@@ -178,7 +178,7 @@ public class ReservationCreateExecuteAction extends Action {
         int reservationId;
 
         try {
-            ReservationRegisterDao dao = new ReservationRegisterDao();
+            ReservationDao dao = new ReservationDao();
 
             reservationId = dao.register(
                 reservation, seats, quantities
