@@ -1,14 +1,15 @@
 package admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import bean.Movie;
+import bean.Reservation;
 import bean.Schedule;
 import dao.MovieDao;
+import dao.ReservationDao;
 import dao.ScheduleDao;
 import tool.Action;
 
@@ -35,11 +36,21 @@ public class ScheduleReservationAction extends Action {
                     schedule.setMovieTitle("（不明な作品）");
                 }
 
-                // 総座席数・予約済み数のセット　←必要に応じて変更
-                schedule.setTotalSeats(100);
-                schedule.setReservedSeats(0); // 予約リストの件数等から算出する場合はここで設定
+                // 総座席数（例として30席。必要に応じて変更してください）
+                schedule.setTotalSeats(30);
 
-                List<Object> reservations = new ArrayList<>(); // データがない場合は空のリスト
+                // データベースからこのスケジュールの予約一覧を取得
+                ReservationDao reservationDao = new ReservationDao();
+                List<Reservation> reservations = reservationDao.getReservationsByScheduleId(scheduleId);
+
+                // 予約済み座席数を実際の予約リスト（座席数）から算出
+                int reservedCount = 0;
+                for (Reservation r : reservations) {
+                    if (r.getSeats() != null) {
+                        reservedCount += r.getSeats().size();
+                    }
+                }
+                schedule.setReservedSeats(reservedCount);
 
                 request.setAttribute("schedule", schedule);
                 request.setAttribute("reservations", reservations);
